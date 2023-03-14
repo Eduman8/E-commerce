@@ -57,8 +57,10 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    favorite: {
-      type: DataTypes.BOOLEAN,
+    active: {
+      type: DataTypes.STRING,
+      enum: ["valid", "invalid"],
+      default: "valid",
     }
    },{ timestamps: false });
 };
