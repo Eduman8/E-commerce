@@ -2,9 +2,9 @@ const { Food } = require("../../db");
 
 module.exports = putFood = async (req, res) => {
   try {
-    const { id, favorite} = req.body;
+    const { id, name, image, qualification, amount, available, type, fat, sodium, sugar, price, description, discount, review, active } = req.body;
     if (id) {
-        const food = await Food.update({ favorite: favorite }, {
+        const food = await Food.update({ name, image, qualification, amount, available, type, fat, sodium, sugar, price, description, discount, review, active }, {
             where: {
               id: id
             }
