@@ -1,5 +1,4 @@
 const { User } = require("../../db");
-const joinsFunction = require("../../helpers/joinsFunction");
 
 module.exports = getUsers = async (req, res) => {
   try {
