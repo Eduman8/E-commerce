@@ -6,8 +6,8 @@ module.exports = getUsers = async (req, res) => {
     const { name } = req.query;
     if( name ){
       const users = await User.findAll({where: { name: name }});
-      if(users){
-        return res.status(200).send(users);
+      if(users[0]){
+        return res.status(200).send(users[0]);
       } else {
         return res.status(200).send({ message: "It was not found" });
       }
