@@ -22,8 +22,5 @@ router.use("/foods", foodRouter);
 router.use("/users", userRouter);
 router.use("/bills", billRouter);
 
-router.post("/bill", postBill);
-router.put("/billPut", putBill);
-
 router.post("/payment", postPayment);
 module.exports = router;

@@ -1,13 +1,35 @@
 import axios from 'axios'
 import {reactLocalStorage} from 'reactjs-localstorage';
-import {UPDATE_ROLL, URL_API, POST_USER,ADDSHOPPING, GET_ALL_FOODS, GET_FILTER_FOODS, SEARCH, GET_DETAILS } from './Constantes'
+import {UPDATE_ROLL, POST_USER, ADDSHOPPING, GET_ALL_FOODS, GET_FILTER_FOODS, SEARCH, GET_DETAILS, POST_FOOD, GET_ALL_USERS, FAVORITES } from './Constantes'
 
 export const postUser = (payload) => async (dispatch) => {
     try {
-      const accessoriesCreated = await axios.post(`${URL_API}users`, payload)
+      const accessoriesCreated = await axios.post(`users`, payload)
       return dispatch({
         type: POST_USER,
         payload: accessoriesCreated
+      })
+    } catch (e) {
+      console.log(e)
+    }
+  }
+  export const getAllUsers = () => async (dispatch) => {
+    try {
+        const { data } = await axios.get(`users`)
+        dispatch({
+            type: GET_ALL_USERS,
+            payload: data
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+  export const postFood = (payload) => async (dispatch) => {
+    try {
+      const foodsCreated = await axios.post(`foods`, payload)
+      return dispatch({
+        type: POST_FOOD,
+        payload: foodsCreated
       })
     } catch (e) {
       console.log(e)
@@ -27,7 +49,7 @@ export const postUser = (payload) => async (dispatch) => {
 
 export const getAllFoods = () => async (dispatch) => {
     try {
-        const { data } = await axios.get(`${URL_API}foods`)
+        const { data } = await axios.get(`foods`)
         dispatch({
             type: GET_ALL_FOODS,
             payload: data
@@ -46,7 +68,7 @@ export const getfilterFoods = (payload) => {
 export function getDetail(id) {
     return async function (dispatch) {
         try {
-            const res = await axios.get(`${URL_API}foods/${id}`)
+            const res = await axios.get(`foods/${id}`)
             return dispatch({
                 type: GET_DETAILS,
                 payload: res.data
@@ -89,3 +111,11 @@ export const shopping = (payload) => {
         payload:data
     }
 }
+
+export const favorites = (payload) => {
+    return {
+        type: FAVORITES,
+        payload
+    }
+}
+

@@ -6,10 +6,14 @@ const getUserById = require("../controllers/userControllers/getUserById.js");
 const postUser = require("../controllers/userControllers/postUser.js");
 const deleteUser = require("../controllers/userControllers/deleteUser.js");
 const nodemail  = require("../mail/emailer.js");
+const postFavorite = require("../controllers/userControllers/postFavorite");
+const deleteFavorite = require("../controllers/userControllers/deleteFavorite.js");
 
 userRouter.get("/", getUsers);
 userRouter.get("/:id", getUserById);
 userRouter.post("/", postUser, nodemail);
 userRouter.delete("/:id", deleteUser);
+userRouter.post("/favorites", postFavorite)
+userRouter.put("/favorites", deleteFavorite)
 
 module.exports = userRouter

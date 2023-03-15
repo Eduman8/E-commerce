@@ -23,9 +23,6 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         minLength: 9,
       },
-      favorites: {
-        type: DataTypes.STRING,
-      },
       mail: {
         type: DataTypes.STRING,
         allowNull: false,
