@@ -19,6 +19,7 @@ import Dashboard from "../admin/pages/Dashboard/Dashboard";
 import { FoodForm } from "../admin/Components/Forms/FoodForm";
 import Terms from "../Pages/Footer/Terms";
 import Data from "../Pages/Footer/DataProtection";
+import Register from "../components/login/Register/Register";
 
 function RouteApp() {
   return (
@@ -34,7 +35,8 @@ function RouteApp() {
         <Route exact path="/shopping" element={<Shopping />} />
         <Route exact path="/contact" element={<Contact />} />
         <Route exact path="/review" element={<Review />} />
-
+        <Route exact path="register" element={<Register />} />
+        
         review
         <Route exact path="/termsandconditions" element={<Terms />} />
         <Route exact path="/dataprotection" element={<Data />} />
