@@ -17,7 +17,7 @@ import { getAllFoods } from "../../../Redux/Actions/Actions";
 import { useDispatch, useSelector } from "react-redux";
 import { postFood } from "../../../Redux/Actions/Actions";
 import { useEffect } from "react";
-import { createTheme } from "@mui/system";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Swal from "sweetalert2";
 
 const theme = createTheme({
@@ -168,10 +168,11 @@ const Foods = () => {
               gap: "1rem",
             }}
           >
-            {console.log("box", row)}
+            {/* {console.log("box", row)} */}
             <img
               alt="avatar"
-              height={30}
+              height={40}
+              width={60}
               src={row.original.image}
               loading="lazy"
               style={{ borderRadius: "30%" }}
@@ -186,25 +187,24 @@ const Foods = () => {
           ...getCommonEditTextFieldProps(cell),
           type: "boolean",
         }),
+        enableEditing: false,
         Cell: ({ cell }) => (
           <Box
             component="span"
             sx={(theme) => ({
               backgroundColor:
                 cell.getValue() === true
-                  ? theme.palette.success.dark
+                  ? theme.palette.success.light
                   : theme.palette.error.dark,
-              borderRadius: "0.25rem",
+              borderRadius: "1rem",
               color: "#fff",
-              maxWidth: "9ch",
-              p: "0.55rem",
+              width:"auto",
+              padding: ".35rem",
             })}
           >
             {cell.getValue()?.toLocaleString?.("en-US", {
-              style: "",
-              currency: "USD",
-              minimumFractionDigits: 0,
-              maximumFractionDigits: 0,
+              style: "button",
+              
             })}
           </Box>
         ),
@@ -221,9 +221,9 @@ const Foods = () => {
           <Box
             component="span"
             sx={(theme) => ({
-              backgroundColor: theme.palette.primary.dark,
+              color: theme.palette.primary.dark,
               borderRadius: "0.25rem",
-              color: "#fff",
+              fontWeight: 'bold',
               maxWidth: "9ch",
               p: "0.55rem",
             })}
@@ -231,8 +231,8 @@ const Foods = () => {
             {cell.getValue()?.toLocaleString?.("en-US", {
               style: "currency",
               currency: "USD",
-              minimumFractionDigits: 0,
-              maximumFractionDigits: 0,
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 3,
             })}
           </Box>
         ),
@@ -245,6 +245,25 @@ const Foods = () => {
           ...getCommonEditTextFieldProps(cell),
           type: "number",
         }),
+        Cell: ({ cell }) => (
+          <Box
+            component="span"
+            sx={(theme) => ({
+              color: theme.palette.error.light,
+              borderRadius: "0.25rem",
+              fontWeight: 'bold',
+              maxWidth: "9ch",
+              p: "0.55rem",
+            })
+          }
+          >
+            {(cell.getValue()/100)?.toLocaleString?.("en-US", {
+              style: "percent",
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0,
+            })}
+          </Box>
+        ),
       },
       {
         accessorKey: "type",
@@ -312,54 +331,62 @@ const Foods = () => {
       },
     ],
     [getCommonEditTextFieldProps]
-  );
+    );
+    const darkTheme = createTheme({
+      palette: {
+        mode: 'dark',
+      },
+    });
 
   return (
     <>
-      <MaterialReactTable
-        displayColumnDefOptions={{
-          "mrt-row-actions": {
-            muiTableHeadCellProps: {
-              align: "center",
+      <ThemeProvider theme={darkTheme}>
+        <MaterialReactTable
+          displayColumnDefOptions={{
+            "mrt-row-actions": {
+              muiTableHeadCellProps: {
+                align: "center",
+              },
+              size: 120,
             },
-            size: 120,
-          },
-        }}
-        columns={columns}
-        data={foods}
-        // state={{
-        //   expanded: true,
-        //   isLoading: true,
-        // }}
-        editingMode="modal" //default
-        enableColumnOrdering
-        enableEditing
-        onEditingRowSave={handleSaveRowEdits}
-        onEditingRowCancel={handleCancelRowEdits}
-        renderRowActions={({ row, table }) => (
-          <Box sx={{ display: "flex", gap: "1rem" }}>
-            <Tooltip arrow placement="left" title="Edit">
-              <IconButton onClick={() => table.setEditingRow(row)}>
-                <Edit />
-              </IconButton>
-            </Tooltip>
-            <Tooltip arrow placement="right" title="Delete">
-              <IconButton color="error" onClick={() => handleDeleteRow(row)}>
-                <Delete />
-              </IconButton>
-            </Tooltip>
-          </Box>
-        )}
-        renderTopToolbarCustomActions={() => (
-          <Button
-            color="primary"
-            onClick={() => setCreateModalOpen(true)}
-            variant="contained"
-          >
-            Create New Food
-          </Button>
-        )}
-      />
+          }}
+          columns={columns}
+          data={foods}
+          // state={{
+          //   expanded: true,
+          //   isLoading: true,
+          // }}
+          editingMode="modal" //default
+          enableColumnOrdering
+          enableEditing
+          onEditingRowSave={handleSaveRowEdits}
+          onEditingRowCancel={handleCancelRowEdits}
+          renderRowActions={({ row, table }) => (
+            <Box sx={{ display: "flex", gap: "1rem" }}>
+              <Tooltip arrow placement="left" title="Edit">
+                <IconButton onClick={() => table.setEditingRow(row)}>
+                  <Edit />
+                </IconButton>
+              </Tooltip>
+              <Tooltip arrow placement="right" title="Delete">
+                <IconButton color="error" onClick={() => handleDeleteRow(row)}>
+                  <Delete />
+                </IconButton>
+              </Tooltip>
+            </Box>
+          )}
+          renderTopToolbarCustomActions={() => (
+            <Button
+              color="primary"
+              onClick={() => setCreateModalOpen(true)}
+              variant="contained"
+            >
+              Create New Food
+            </Button>
+          )}
+        />
+      </ThemeProvider>
+
       <CreateNewAccountModal
         columns={columns}
         open={createModalOpen}
