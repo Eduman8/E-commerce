@@ -26,5 +26,5 @@ module.exports = (sequelize) => {
     paid: {
         type: DataTypes.BOOLEAN
     }
-   },{ timestamps: false });
+   });
 };
