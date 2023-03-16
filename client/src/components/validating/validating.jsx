@@ -15,7 +15,7 @@ function Validating() {
       mail:user.email, 
       roll:roll
     }
-    dispatch(postUser(info))
+    dispatch(postUser(info)) 
   }
   return (
         <div className="valida">
@@ -25,7 +25,7 @@ function Validating() {
             <Link to="/">
               <button id="validateBtn" type="button" className="btn btn-success">Back</button>              
             </Link>
-          </>:window.location.href = "https://e-commerce-one-gules.vercel.app/home"
+          </>:window.location.href ="http://localhost:3000/home" //"https://e-commerce-one-gules.vercel.app/home"
         }
         </div>
   );

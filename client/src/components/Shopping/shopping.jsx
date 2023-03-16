@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { reactLocalStorage } from 'reactjs-localstorage';
-import { getAllFoods, shopping } from '../../Redux/Actions/Actions'
+import { getAllFoods, shopping,pay } from '../../Redux/Actions/Actions'
 import "./shopping.css";
 import NavBar from "../Nav/NavBar";
 import Footer from "../Footer/Footer";
@@ -57,7 +57,7 @@ export default function Shopping() {
     dispatch(getAllFoods())
   }, [dispatch]);
   const foods = useSelector((state) => state.allFoods);
-
+  const currentUser = useSelector((state) => state.user);
 
 
   foods.map((food) => {
@@ -70,14 +70,15 @@ export default function Shopping() {
 
   let ttl = 0;
   display.map((food, idx) => ttl += ((food.price * ((100 - food.discount) / 100)) * valNum[idx]))
-  let names = "";
+  let names = "", idProduct =[];
   display.map((val) => {
     names += val.name + ", "
+    idProduct.push(val)
   })
-  console.log(ttl);
   const shoping = {
-    id: "4",
+    id: currentUser.id,
     name: names,
+    idProduct,
     image: "https://i.ibb.co/TqxCZDm/logo.png",
     description: "Order made to Deli-Gou",
     discount: 0,
