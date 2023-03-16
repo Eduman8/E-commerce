@@ -13,7 +13,7 @@ module.exports = putBill = async (req, res, next) => {
         }
       );
       if (bill[0] == 1) {
-        /* to mailer */
+        /* mailer */
         //////////////////////////////////////////////////////////
         let billInfo = await Bill.findByPk(id);
         let userInfo = await User.findByPk(billInfo.userId);
@@ -27,7 +27,7 @@ module.exports = putBill = async (req, res, next) => {
         ////////////////////////////////////////////////////////////
         return res.status(200).json({ message: "Updated information" }), next();
       }
-      return res.status(200).json({ message: "Invoice not found" });
+      return res.status(400).json({ message: "Invoice not found" });
     } else {
       return res.status(400).json({ message: "Requires id" });
     }
