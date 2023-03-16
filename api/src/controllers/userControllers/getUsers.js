@@ -2,9 +2,9 @@ const { User } = require("../../db");
 
 module.exports = getUsers = async (req, res) => {
   try {
-    const { name } = req.query;
-    if( name ){
-      const users = await User.findAll({where: { name: name }});
+    const { mail } = req.query;
+    if( mail ){
+      const users = await User.findAll({where: { mail: mail }});
       if(users[0]){
         return res.status(200).send(users[0]);
       } else {
