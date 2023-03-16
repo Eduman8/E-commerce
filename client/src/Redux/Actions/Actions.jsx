@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {reactLocalStorage} from 'reactjs-localstorage';
-import {UPDATE_ROLL, POST_USER, ADDSHOPPING, GET_ALL_FOODS, GET_FILTER_FOODS, SEARCH, GET_DETAILS, POST_FOOD, GET_ALL_USERS, FAVORITES } from './Constantes'
+import {UPDATE_ROLL, POST_USER, ADDSHOPPING, GET_ALL_FOODS, GET_FILTER_FOODS, SEARCH, GET_DETAILS, POST_FOOD, GET_ALL_USERS, GET_USER, FAVORITES } from './Constantes'
 
 export const postUser = (payload) => async (dispatch) => {
     try {
@@ -13,16 +13,27 @@ export const postUser = (payload) => async (dispatch) => {
       console.log(e)
     }
   }
-  export const getAllUsers = () => async (dispatch) => {
-    try {
-        const { data } = await axios.get(`users`)
+  export const getUser = (mail) => async (dispatch) => {
+    try {       
+        const { data } = await axios.get(`users?mail=${mail}`)
         dispatch({
-            type: GET_ALL_USERS,
+            type: GET_USER,
             payload: data
         })
     } catch (error) {
         console.log(error)
     }
+}
+export const getAllUsers = () => async (dispatch) => {
+  try {
+      const { data } = await axios.get(`users`)        
+      dispatch({
+          type: GET_ALL_USERS,
+          payload: data
+      })
+  } catch (error) {
+      console.log(error)
+  }
 }
   export const postFood = (payload) => async (dispatch) => {
     try {
@@ -55,7 +66,7 @@ export const getAllFoods = () => async (dispatch) => {
             payload: data
         })
     } catch (error) {
-        console.log(error)
+        console.log(error) 
     }
 }
 

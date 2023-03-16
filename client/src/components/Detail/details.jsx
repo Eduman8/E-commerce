@@ -53,18 +53,18 @@ function Details() {
 											</div>
 											<div className="feature">
 												<h6 className="title">Fat: </h6>
-												<p className="description">{details[0].Fat}</p>
+												<p className="description">{details[0].fat}</p>
 											</div>
 										</div>
 
 										<div className="row1colum212">
 											<div className="feature">
 												<h6 className="title">Sodium: </h6>
-												<p className="description">{details[0].Sodium}</p>
+												<p className="description">{details[0].sodium}</p>
 											</div>
 											<div className="feature">
 												<h6 className="title">Sugar: </h6>
-												<p className="description">{details[0].Sugar}</p>
+												<p className="description">{details[0].sugar}</p>
 											</div>
 											<div className="feature">
 												<h6 className="title">Description: </h6>
