@@ -25,7 +25,9 @@ function Validating() {
             <Link to="/">
               <button id="validateBtn" type="button" className="btn btn-success">Back</button>              
             </Link>
-          </>:window.location.href = "https://e-commerce-one-gules.vercel.app/home"
+          </>
+          // :window.location.href = "https://e-commerce-one-gules.vercel.app/home"
+          :window.location.href = "http://localhost:3000/home"
         }
         </div>
   );
