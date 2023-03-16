@@ -11,6 +11,7 @@ import Validating from "../components/validating/validating";
 import Shopping from "../components/Shopping/shopping";
 import Contact from "../components/Contact/contact";
 import Review from "../components/Review/Review";
+import PayApro from "../components/payApro/payApro"
 // import Nav from "../admin/Components/Nav/Nav";
 import Users from "../admin/pages/Users/Users";
 import Foods from "../admin/pages/Foods/Foods";
@@ -34,6 +35,7 @@ function RouteApp() {
         <Route exact path="/shopping" element={<Shopping />} />
         <Route exact path="/contact" element={<Contact />} />
         <Route exact path="/review" element={<Review />} />
+        <Route path="/payApro" element={<PayApro />} />
 
         review
         <Route exact path="/termsandconditions" element={<Terms />} />
