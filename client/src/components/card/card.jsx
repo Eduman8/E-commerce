@@ -59,9 +59,9 @@ function Card({card,arrayInShopping,update}) {
 			</div>
 			<div className="conText">
 			  <div className="text2">type: {card.type} </div>
-			  <div className="text2">Fat: {card.Fat} </div>
-			  <div className="text2">Sodium: {card.Sodium} </div>
-			  <div className="text2">Sugar: {card.Sugar} </div>
+			  <div className="text2">Fat: {card.fat} </div>
+			  <div className="text2">Sodium: {card.sodium} </div>
+			  <div className="text2">Sugar: {card.sugar} </div>
 			</div>
 			<div className="text2">USD {card.price}</div>
 		  <Rating name="read-only" value={card.amount} readOnly />
@@ -70,8 +70,21 @@ function Card({card,arrayInShopping,update}) {
 		  	{arrayInShopping.includes(card.id)?
 		  	<button id= {card.id} className='btnCarritotrue' value={card.id} onClick = {(e)=>addCar(e)}></button>:
 		  	<button id= {card.id} className='btnCarritofalse' value={card.id} onClick = {(e)=>addCar(e)}></button>}
-			<div className="Desc">discount</div>
-			<div className="DescVal">{card.discount}%</div>
+			{/* <div className="Desc">discount</div>
+			<div className="DescVal">{card.discount}%</div> */}
+
+			{card.discount ? (
+            <div className="Desc">discount</div>
+          ) : (
+            <div className="Desc"></div>
+          )}
+          {card.discount ? (
+            <div className="DescVal">{card.discount}%</div>
+          ) : (
+            <div className="DescVal"></div>
+          )}
+
+
 		  </div>
 		  <div></div>
 		</div>
