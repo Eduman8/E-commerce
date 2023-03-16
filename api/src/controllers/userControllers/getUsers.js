@@ -6,7 +6,7 @@ module.exports = getUsers = async (req, res) => {
     if (uses) {
       res.status(200).send(uses);
     } else {
-      res.status(200).send({ message: "No users" });
+      res.status(400).send({ message: "No users" });
     }
   } catch (error) {
     res.status(400).send(error.message);
