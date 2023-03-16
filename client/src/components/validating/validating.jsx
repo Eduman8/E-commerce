@@ -15,7 +15,7 @@ function Validating() {
       mail:user.email, 
       roll:roll
     }
-    dispatch(postUser(info))
+    dispatch(postUser(info)) 
   }
   return (
         <div className="valida">

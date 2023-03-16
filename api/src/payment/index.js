@@ -19,7 +19,7 @@ module.exports = postPayment = async (req, res) => {
              },
            ],
         back_urls: {
-            success: 'localhost:3000',
+            success: 'localhost:3000/payApro',
             failure: '',
             pending: '',
         },

@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import "./home.css"
-import { getAllFoods } from '../../Redux/Actions/Actions'
+import { getAllFoods, getAllUsers, getUser } from '../../Redux/Actions/Actions'
 import Cards from '../cards/cards'
 import Filter from "../filter/filter";
 import Footer from "../Footer/Footer";
+import { useAuth0 } from "@auth0/auth0-react";
 import NavBar from "../Nav/NavBar";
 export default function Home() {
 
 
+  const {user, isAuthenticated} = useAuth0();
   const dispatch = useDispatch();
   const [pag, setPag] = useState(1);  
   const foods = useSelector((state) => state.foods);  
@@ -17,10 +19,14 @@ export default function Home() {
 
   let ordenado = [];
 
-  useEffect(() => {
-    dispatch(getAllFoods())
-  }, [dispatch]);
+  if (isAuthenticated) {
+    dispatch(getAllUsers())
+    dispatch(getUser(user.email)); 
+  }
 
+  useEffect(() => {
+    dispatch(getAllFoods())    
+  }, [dispatch]);
   //-------------------------------------------------
   if (order === "Ascending" && depe === "Type") {
     ordenado = foods.sort(function (a, b) {
