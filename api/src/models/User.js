@@ -30,7 +30,8 @@ module.exports = (sequelize) => {
       },
       roll: {
         type: DataTypes.STRING,
-        allowNull: false,
+        enum: ["client", "admin"],
+        default: "client",
       },
       active: {
         type: DataTypes.STRING,
