@@ -2,16 +2,17 @@
   text-align: center;
   background-color: #2523231f;
   margin: auto;
-  padding:20px;
-  width:500px;
+  padding: 20px;
+  width: 500px;
   height: auto;
   border: 1px solid black;
   margin-top: 30px;
 }
+
 #loginButtonGoToHomepage {
   margin: auto;
   border-radius: 50px;
-  background-color:#ffbd4ad8;
+  background-color: #ffbd4ad8;
   z-index: 1;
   width: 300px;
   border: 3px solid #422b1e;
@@ -23,22 +24,33 @@
   position: relative;
   text-align: center;
 }
+
 #int p {
   text-align: justify;
 }
+
 .background {
   position: absolute;
   right: 0;
   top: 0;
   z-index: -1;
 }
-.txtLogin{
+
+.txtLogin {
   height: 20px;
 }
-.aut{
+
+.aut {
   display: grid;
-  grid-template-columns: 15% 40% 35% 10% ;
+  grid-template-columns: 15% 40% 35% 10%;
 }
+
 .mycheck {
   height: 80%;
+}
+
+.register {
+  font-size: 10px;
+  text-decoration: underline;
+  
 }
