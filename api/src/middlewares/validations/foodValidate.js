@@ -9,6 +9,7 @@ async function foodValidate(req, res, next) {
     return res.status(400).json({ msg: "Food name is too large!" });
   if (!image) return res.status(400).json({ msg: "An image is required!" });
 
+  if (!price) return res.status(400).json({ msg: "Price is required!" });
   if (price && price < 1)
     return res.status(400).json({ msg: "The price is not real!" });
   if (discount && discount < 1)
