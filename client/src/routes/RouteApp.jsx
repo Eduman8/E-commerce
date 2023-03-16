@@ -19,6 +19,10 @@ import Dashboard from "../admin/pages/Dashboard/Dashboard";
 import { FoodForm } from "../admin/Components/Forms/FoodForm";
 import Terms from "../Pages/Footer/Terms";
 import Data from "../Pages/Footer/DataProtection";
+import User from "../userPanel/pages/Panel/Panel.jsx";
+import Profile from "../userPanel/pages/Profile/Profile.jsx"
+import Favorites from "../userPanel/pages/Favorites/Favorites.jsx"
+import Orders from "../userPanel/pages/Orders/Orders.jsx"
 
 function RouteApp() {
   return (
@@ -45,6 +49,12 @@ function RouteApp() {
           <Route path="foods" element={<Foods />} />
           <Route path="sales" element={<Sales />} />
           <Route path="create-food" element={<FoodForm />} />
+        </Route>
+
+        <Route exact path="/user" element={<User />}>
+        <Route path="profile" element={<Profile />} />
+        <Route path="favorites" element={<Favorites />} />
+        <Route path="orders" element={<Orders />} />  
         </Route>
 
         <Route exact path="*" element={<NotFound />} />

@@ -10,7 +10,7 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://localhost:3001'  //Trabajo en repo local
+axios.defaults.baseURL = 'http://localhost:3001/'  //Trabajo en repo local
 // axios.defaults.baseURL = 'https://e-comerse-back-production.up.railway.app/' //Trabajo en el deploy
 
 

@@ -49,7 +49,9 @@ const NavBar = () => {
           </Nav>
           <FavoriteButton></FavoriteButton>
           {isAuthenticated ? (
+            <Link to="/user">
             <img className="navImg" src={user.picture} alt={"No"} />
+            </Link>
           ) : (
             <img
               className="navImg"
@@ -58,7 +60,11 @@ const NavBar = () => {
             />
           )}
           {isAuthenticated ? (
+            <Link to="/user">
+              {/* <> */}
             <h3 id="autentic">Hola {user.name}</h3>
+            {/* </> */}
+            </Link>
           ) : (
             <h3 id="autentic">Invited</h3>
           )}
