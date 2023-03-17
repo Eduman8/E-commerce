@@ -10,7 +10,7 @@ import {
   GET_DETAILS,
   POST_FOOD,
   GET_ALL_USERS,
-  FAVORITES,
+  GET_USER, FAVORITES,
 } from "./Constantes";
 
 export const postUser = (payload) => async (dispatch) => {
@@ -23,27 +23,38 @@ export const postUser = (payload) => async (dispatch) => {
   } catch (e) {
     console.log(e);
   }
-};
+  export const getUser = (mail) => async (dispatch) => {
+    try {       
+        const { data } = await axios.get(`users?mail=${mail}`)
+        dispatch({
+            type: GET_USER,
+            payload: data
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
 export const getAllUsers = () => async (dispatch) => {
   try {
-    const { data } = await axios.get(`users`);
-    dispatch({
-      type: GET_ALL_USERS,
-      payload: data,
-    });
+      const { data } = await axios.get(`users`)        
+      dispatch({
+          type: GET_ALL_USERS,
+          payload: data
+      })
   } catch (error) {
-    console.log(error);
+      console.log(error)
   }
-};
-export const postFood = (payload) => async (dispatch) => {
-  try {
-    const foodsCreated = await axios.post(`foods`, payload);
-    return dispatch({
-      type: POST_FOOD,
-      payload: foodsCreated,
-    });
-  } catch (e) {
-    console.log(e);
+}
+  export const postFood = (payload) => async (dispatch) => {
+    try {
+      const foodsCreated = await axios.post(`foods`, payload)
+      return dispatch({
+        type: POST_FOOD,
+        payload: foodsCreated
+      })
+    } catch (e) {
+      console.log(e)
+    }
   }
 };
 
@@ -66,7 +77,7 @@ export const getAllFoods = () => async (dispatch) => {
       payload: data,
     });
   } catch (error) {
-    console.log(error);
+    console.log(error); 
   }
 };
 

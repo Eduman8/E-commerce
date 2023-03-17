@@ -9,16 +9,20 @@ import {
   FAVORITES,
   POST_FOOD,
   GET_ALL_USERS,
+  GET_USER,
+  PAY,
   PUT_FOOD,
-} from "../Actions/Constantes";
+} from "../Actions/Constantes"; 
 
 const initialState = {
   foods: [],
   allFoods: [],
   shopping: [],
-  users: [],
+  user: [],
+  allUsers:[],
   roll: "client",
   favorites: [],
+  pay: []
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -46,8 +50,12 @@ const rootReducer = (state = initialState, action) => {
     case GET_ALL_USERS:
       return {
         ...state,
-        users: action.payload,
         allUsers: action.payload,
+      };
+    case GET_USER:
+      return {
+        ...state,
+        user: action.payload,
       };
     case GET_ALL_FOODS:
       return {

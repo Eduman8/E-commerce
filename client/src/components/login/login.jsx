@@ -6,7 +6,7 @@ import { LoginButton } from "../Auth/LoginButton";
 import Swal from "sweetalert2";
 import { MDBCarousel, MDBCarouselItem } from "mdb-react-ui-kit";
 import logoLogin from "../../assets/images/logo.png";
-import {reactLocalStorage} from 'reactjs-localstorage';
+import { reactLocalStorage } from 'reactjs-localstorage';
 import "./login.css";
 import { useDispatch } from "react-redux";
 import { updateRoll } from "../../Redux/Actions/Actions";
@@ -14,37 +14,37 @@ import { updateRoll } from "../../Redux/Actions/Actions";
 export default function Login() {
   const dispatch = useDispatch();
   const { isAuthenticated } = useAuth0();
-  let [PWadmin,setPWadmin] = useState (true);
-  let [pw,setpw] = useState ("");
+  let [PWadmin, setPWadmin] = useState(true);
+  let [pw, setpw] = useState("");
   reactLocalStorage.set("Shopping", "0")
   reactLocalStorage.set("ShoppingCant", "0")
-  function adminCheck(e){
-      if (e.target.checked) {
-        document.getElementById ("txtLogin").disabled =false;
-        setPWadmin (false)
-      }
-      else {
-        document.getElementById ("txtLogin").disabled =true;
-        setPWadmin (true)
-      };
+  function adminCheck(e) {
+    if (e.target.checked) {
+      document.getElementById("txtLogin").disabled = false;
+      setPWadmin(false)
+    }
+    else {
+      document.getElementById("txtLogin").disabled = true;
+      setPWadmin(true)
+    };
+    document.getElementById("iconApro").innerText = "❌"
+    setpw("");
+    dispatch(updateRoll("client"))
+  }
+  function adminChange(e) {
+    e.preventDefault();
+    setpw(e.target.value);
+    if (e.target.value === "12345678") {
+      document.getElementById("iconApro").innerText = "✔️"
+      setPWadmin(true)
+      dispatch(updateRoll("admin"))
+    }
+    else {
       document.getElementById("iconApro").innerText = "❌"
-      setpw ("");
+      setPWadmin(false)
       dispatch(updateRoll("client"))
     }
-    function adminChange(e){
-      e.preventDefault();
-      setpw (e.target.value);
-      if (e.target.value ==="12345678") {
-        document.getElementById("iconApro").innerText = "✔️"
-        setPWadmin (true)
-        dispatch(updateRoll("admin"))
-      }
-      else {        
-        document.getElementById("iconApro").innerText = "❌"
-        setPWadmin (false)
-        dispatch(updateRoll("client"))
-      }
-    }
+  }
   function msn(e) {
     e.preventDefault();
     Swal.fire({
@@ -53,13 +53,13 @@ export default function Login() {
       confirmButtonColor: "#e38e15",
     });
   }
-    function msn2(e) {
-      e.preventDefault();
-      Swal.fire({
-        title: "wrong admin password!",
-        icon: "warning",
-        confirmButtonColor: "#e38e15",
-      });
+  function msn2(e) {
+    e.preventDefault();
+    Swal.fire({
+      title: "wrong admin password!",
+      icon: "warning",
+      confirmButtonColor: "#e38e15",
+    });
   }
   return (
     <>
@@ -74,42 +74,43 @@ export default function Login() {
               informed.
             </p>
             <div className="aut">
-              <input type="checkbox" className="mycheck" onClick={(e)=>adminCheck(e)}/>
-              <div>Administrator</div>  
-              <input  type="password" maxlength="8" className="txtLogin" id="txtLogin"  placeholder = "Password" disabled = {true} value ={pw} onChange = {(e)=>adminChange(e)} />
+              <input type="checkbox" className="mycheck" onClick={(e) => adminCheck(e)} />
+              <div>Administrator</div>
+              <input type="password" maxlength="8" className="txtLogin" id="txtLogin" placeholder="Password" disabled={true} value={pw} onChange={(e) => adminChange(e)} />
               <div id="iconApro">❌</div>
             </div> <br />
             {
-            isAuthenticated? (
-              <>
-                <button
-                  onClick={(e) => msn(e)}
-                  className="btn btn-success"
-                >
-                  Login Google 🡆
-                </button>
-              </>
-            ) : (
-              PWadmin?
-              <Link to="/validating">
-                <LoginButton />
-              </Link>:
-              <button
-              onClick={(e) => msn2(e)}
-              className="btn btn-success"
-            >
-              Login Google 🡆
-            </button>
-            )}
+              isAuthenticated ? (
+                <>
+                  <button
+                    onClick={(e) => msn(e)}
+                    className="btn btn-success"
+                  >
+                    Login Google 🡆
+                  </button>
+                </>
+              ) : (
+                PWadmin ?
+                  <Link to="/validating">
+                    <LoginButton />
+                  </Link> :
+                  <button
+                    onClick={(e) => msn2(e)}
+                    className="btn btn-success"
+                  >
+                    Login Google 🡆
+                  </button>
+              )}
             <br /><p><br />
               or you can enter as a guest and know our page and our products
             </p>
             <Link to="/home">
-              <button  className="btn btn-success">
-              Direct income 🡆
+              <button className="btn btn-success">
+                Direct income 🡆
               </button>
             </Link>
           </div>
+          <a className="register" href="/register">Register manually</a>
         </div>
       </div>
       <div className="background">

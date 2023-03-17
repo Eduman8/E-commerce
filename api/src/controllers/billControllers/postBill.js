@@ -2,15 +2,7 @@ const { Bill, User } = require("../../db");
 
 module.exports = postBill = async (req, res) => {
   try {
-    const {
-      id,
-      products,
-      value,
-      discount,
-      status,
-      paid,
-      idUsuario,
-    } = req.body;
+    const { id, products, value, discount, status, paid, idUsuario } = req.body;
     if (id && idUsuario) {
       const user = await User.findByPk(idUsuario);
       if (user) {
