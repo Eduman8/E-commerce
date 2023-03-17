@@ -13,10 +13,8 @@ import { useSelector } from "react-redux";
 
 const NavBar = () => {
   const { isAuthenticated, user } = useAuth0();
-  const idUser = (useSelector((state) => state.user)).id;
-  const allBilling = useSelector((state) => state.allbilling);
-  let pending = [];
-  allBilling.map((billing)=>{if (billing.userId === idUser && billing.paid) pending.push (billing);});
+  const allBilling = useSelector((state) => state.user);
+  console.log(allBilling);
 
 
   return (
@@ -46,7 +44,7 @@ const NavBar = () => {
 
 
           </Nav>
-            {pending.length>0?
+            {allBilling?
             <LinkContainer to="/review">
               <div id="btnReview">Review</div>
             </LinkContainer>:null}

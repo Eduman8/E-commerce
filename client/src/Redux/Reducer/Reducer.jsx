@@ -30,7 +30,7 @@ const rootReducer = (state = initialState, action) => {
     case UPDATE_ROLL:
       return {
         ...state,
-        roll: [...state.roll, action.payload],
+        roll: action.payload,
       };
     case POST_USER:
       return {
