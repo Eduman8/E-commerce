@@ -9,6 +9,7 @@ import {
   FAVORITES,
   POST_FOOD,
   GET_ALL_USERS,
+  PUT_FOOD,
 } from "../Actions/Constantes";
 
 const initialState = {
@@ -92,8 +93,13 @@ const rootReducer = (state = initialState, action) => {
           favorites: [...state.favorites, action.payload],
         };
       }
+    case PUT_FOOD:
+      return {
+        ...state,
+        foods: [...state.foods, action.payload],
+      };
     default:
       return state;
   }
 };
-export default rootReducer
+export default rootReducer;
