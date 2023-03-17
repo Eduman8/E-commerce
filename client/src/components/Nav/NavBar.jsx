@@ -9,9 +9,15 @@ import { LogoutButton } from "../Auth/LogoutButton";
 import "./NavBar.css";
 import Logo from "../../assets/images/navLogo.png"
 import FavoriteButton from "../FavoriteButton/FavoriteButton";
+import { useSelector } from "react-redux";
 
 const NavBar = () => {
   const { isAuthenticated, user } = useAuth0();
+  const idUser = (useSelector((state) => state.user)).id;
+  const allBilling = useSelector((state) => state.allbilling);
+  let pending = [];
+  allBilling.map((billing)=>{if (billing.userId === idUser && billing.paid) pending.push (billing);});
+
 
   return (
     <>
@@ -34,19 +40,16 @@ const NavBar = () => {
               <Nav.Link>Contact</Nav.Link>
             </LinkContainer>
 
-            {/* <LinkContainer to="/pricing">
-            <Nav.Link>Pricing</Nav.Link>
-            </LinkContainer> */}
-
             <LinkContainer to="/shopping">
               <Nav.Link>Shopping</Nav.Link>
             </LinkContainer>
 
-            <LinkContainer to="/review">
-              <Nav.Link>Review Pending</Nav.Link>
-            </LinkContainer>
 
           </Nav>
+            {pending.length>0?
+            <LinkContainer to="/review">
+              <div id="btnReview">Review</div>
+            </LinkContainer>:null}
           <FavoriteButton></FavoriteButton>
           {isAuthenticated ? (
             <Link to="/user">

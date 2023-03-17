@@ -24,7 +24,8 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING
     },   
     paid: {
-        type: DataTypes.BOOLEAN
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
     }
    });
 };

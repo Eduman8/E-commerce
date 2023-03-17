@@ -17,3 +17,24 @@
   left: 7%;
   width: 60px;
 }
+#btnReview{
+  font-size: 150%;
+  border-radius: 3px;
+  padding: 0px 6px 0px 6px ;
+  cursor: pointer;
+  background-color: transparent;
+
+  animation-name: parpadeo;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+
+  -webkit-animation-name:parpadeo;
+  -webkit-animation-duration: 3s;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+}
+
+@keyframes parpadeo {  
+  0% { background-color: rgba(255, 255, 255, 0.281); }
+}
