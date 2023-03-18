@@ -132,84 +132,84 @@ export default function Filter ({paginate}) {
             null}
           </div>
           <div className="filteSubTitle"onClick={(e)=>openFilter(e,2)}>By amount of fat</div> 
-          <div className="filterGrops2">
+          <div className="filterGrops">
           {act === 2?(
               itemsFilter[1].map((obj, ind) => (
                 xclude[1].includes(obj)?
-              <div  onClick={(e)=>filter (e,obj,1 )}id = "gr" className="imgtaFalse" key={ind}>
+              <div  onClick={(e)=>filter (e,obj,1 )} className="imgtaFalse" key={ind}>
                 <div>
-                  {obj ==="High"?<img id="filterimg2" src="https://i.ibb.co/H7wsdqx/3.png" alt={"No"} />:
-                  obj ==="Low"?<img id="filterimg2" src="https://i.ibb.co/n3wyR8g/1.png" alt={"No"} />:
-                  <img id="filterimg2" src="https://i.ibb.co/cgjkNJZ/2.png" alt={"No"} />}
+                  {obj ==="High"?<img id="filterimg" src="https://i.ibb.co/vBqYzqH/high-fat.jpg" alt={"No"} />:
+                  obj ==="Low"?<img id="filterimg" src="https://i.ibb.co/tqscKYg/low-fat.jpg" alt={"No"} />:
+                  <img id="filterimg" src="https://i.ibb.co/JqPmNC0/medium-fat.jpg" alt={"No"} />}
                 </div>
                 <div className="filtername">
-                  {obj} in fat ({cantFilter[1][ind]})
+                  {obj}({cantFilter[1][ind]})
                 </div>
               </div>:
-              <div onClick={(e)=>filter (e,obj,1 )}id = "gr" className="imgtTrue" key={ind}>
+              <div onClick={(e)=>filter (e,obj,1 )} className="imgtTrue" key={ind}>
               <div>
-                {obj ==="High"?<img id="filterimg2" src="https://i.ibb.co/H7wsdqx/3.png" alt={"No"} />:
-                obj ==="Low"?<img id="filterimg2" src="https://i.ibb.co/n3wyR8g/1.png" alt={"No"} />:
-                <img id="filterimg2" src="https://i.ibb.co/cgjkNJZ/2.png" alt={"No"} />}
+                {obj ==="High"?<img id="filterimg" src="https://i.ibb.co/vBqYzqH/high-fat.jpg" alt={"No"} />:
+                obj ==="Low"?<img id="filterimg" src="https://i.ibb.co/tqscKYg/low-fat.jpg" alt={"No"} />:
+                <img id="filterimg" src="https://i.ibb.co/JqPmNC0/medium-fat.jpg" alt={"No"} />}
               </div>
               <div className="filtername">
-                {obj} in fat ({cantFilter[1][ind]})
+                {obj} ({cantFilter[1][ind]})
               </div>
             </div>
             ))):
             null}
             </div>
           <div className="filteSubTitle"onClick={(e)=>openFilter(e,3)}>By amount of sodium </div> 
-          <div className="filterGrops2">
+          <div className="filterGrops">
           {act === 3?(
               itemsFilter[2].map((obj, ind) => (
               xclude[2].includes(obj)?
-              <div onClick={(e)=>filter (e,obj,2 )}id = "gr" className="imgtaFalse" key={ind}>
+              <div onClick={(e)=>filter (e,obj,2 )} className="imgtaFalse" key={ind}>
                 <div>
-                  {obj ==="High"?<img id="filterimg2" src="https://i.ibb.co/H7wsdqx/3.png" alt={"No"} />:
-                  obj ==="Low"?<img id="filterimg2" src="https://i.ibb.co/n3wyR8g/1.png" alt={"No"} />:
-                  <img id="filterimg2" src="https://i.ibb.co/cgjkNJZ/2.png" alt={"No"} />}
+                  {obj ==="High"?<img id="filterimg" src="https://i.ibb.co/sCHdR04/high-sodium.jpg" alt={"No"} />:
+                  obj ==="Low"?<img id="filterimg" src="https://i.ibb.co/5Mf2L28/low-sodium.jpg" alt={"No"} />:
+                  <img id="filterimg" src="https://i.ibb.co/kyNbpLH/medium-sodium.jpg" alt={"No"} />}
                 </div>
                 <div className="filtername">
-                  {obj} in sodium ({cantFilter[2][ind]})
+                  {obj} ({cantFilter[2][ind]})
                 </div>
               </div>:
-              <div onClick={(e)=>filter (e,obj,2 )}id = "gr" className="imgtTrue" key={ind}>
+              <div onClick={(e)=>filter (e,obj,2 )} className="imgtTrue" key={ind}>
               <div>
-                {obj ==="High"?<img id="filterimg2" src="https://i.ibb.co/H7wsdqx/3.png" alt={"No"} />:
-                obj ==="Low"?<img id="filterimg2" src="https://i.ibb.co/n3wyR8g/1.png" alt={"No"} />:
-                <img id="filterimg2" src="https://i.ibb.co/cgjkNJZ/2.png" alt={"No"} />}
+                {obj ==="High"?<img id="filterimg" src="https://i.ibb.co/sCHdR04/high-sodium.jpg" alt={"No"} />:
+                obj ==="Low"?<img id="filterimg" src="https://i.ibb.co/5Mf2L28/low-sodium.jpg" alt={"No"} />:
+                <img id="filterimg" src="https://i.ibb.co/kyNbpLH/medium-sodium.jpg" alt={"No"} />}
               </div>
               <div className="filtername">
-                {obj} in sodium ({cantFilter[2][ind]})
+                {obj} ({cantFilter[2][ind]})
               </div>
             </div>
             ))):
             null}
             </div>
           <div className="filteSubTitle"onClick={(e)=>openFilter(e,4)}>By amount of sugar </div> 
-          <div className="filterGrops2">
+          <div className="filterGrops">
           {act === 4?(
               itemsFilter[3].map((obj, ind) => (              
               xclude[3].includes(obj)?
-              <div onClick={(e)=>filter (e,obj,3 )} id = "gr" className="imgtaFalse" key={ind}>
+              <div onClick={(e)=>filter (e,obj,3 )}  className="imgtaFalse" key={ind}>
                 <div>
-                  {obj ==="High"?<img id="filterimg2" src="https://i.ibb.co/H7wsdqx/3.png" alt={"No"} />:
-                  obj ==="Low"?<img id="filterimg2" src="https://i.ibb.co/n3wyR8g/1.png" alt={"No"} />:
-                  <img id="filterimg2" src="https://i.ibb.co/cgjkNJZ/2.png" alt={"No"} />}
+                  {obj ==="High"?<img id="filterimg" src="https://i.ibb.co/9r0TMjB/high-sugar.jpg" alt={"No"} />:
+                  obj ==="Low"?<img id="filterimg" src="https://i.ibb.co/nmFD1pT/low-sugar.jpg" alt={"No"} />:
+                  <img id="filterimg" src="https://i.ibb.co/YPCswvh/medium-sugar.jpg" alt={"No"} />}
                 </div>
                 <div className="filtername">
-                  {obj} in sugar ({cantFilter[3][ind]})
+                  {obj}({cantFilter[3][ind]})
                 </div>
               </div>:
-              <div onClick={(e)=>filter (e,obj,3 )} id = "gr" className="imgtTrue" key={ind}>
+              <div onClick={(e)=>filter (e,obj,3 )}  className="imgtTrue" key={ind}>
               <div>
-                {obj ==="High"?<img id="filterimg2" src="https://i.ibb.co/H7wsdqx/3.png" alt={"No"} />:
-                obj ==="Low"?<img id="filterimg2" src="https://i.ibb.co/n3wyR8g/1.png" alt={"No"} />:
-                <img id="filterimg2" src="https://i.ibb.co/cgjkNJZ/2.png" alt={"No"} />}
+                {obj ==="High"?<img id="filterimg" src="https://i.ibb.co/9r0TMjB/high-sugar.jpg" alt={"No"} />:
+                obj ==="Low"?<img id="filterimg" src="https://i.ibb.co/nmFD1pT/low-sugar.jpg" alt={"No"} />:
+                <img id="filterimg" src="https://i.ibb.co/YPCswvh/medium-sugar.jpg" alt={"No"} />}
               </div>
               <div className="filtername">
-                {obj} in sugar ({cantFilter[3][ind]})
+                {obj}({cantFilter[3][ind]})
               </div>
             </div>
             ))):
