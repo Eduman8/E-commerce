@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import "./home.css"
-import { getAllFoods, getAllUsers, getUser } from '../../Redux/Actions/Actions'
+import { getAllFoods, getAllUsers, getUser, getAllBilling } from '../../Redux/Actions/Actions'
 import Cards from '../cards/cards'
 import Filter from "../filter/filter";
 import Footer from "../Footer/Footer";
@@ -21,7 +21,9 @@ export default function Home() {
 
   if (isAuthenticated) {
     dispatch(getAllUsers())
-    dispatch(getUser(user.email)); 
+    dispatch(getUser(user.email));     
+    dispatch(getAllBilling())
+
   }
 
   useEffect(() => {

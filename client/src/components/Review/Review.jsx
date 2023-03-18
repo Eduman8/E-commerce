@@ -3,7 +3,77 @@ import "./Review.css";
 import NavBar from "../Nav/NavBar";
 
 export default function Review() {
-  const allBilling = [{ user: { eMail: "el mail" }, car: { id: "23id32", name: "hamburgess" } }] //= (useSelector((state) => state.allbilling)); //facturas 
+  
+  const allBilling = [  
+    {
+      id: "e780f4e9-e913-40b5-b112-7af84fcce7d4",
+      name: null,
+      telephone: null,
+      direction: null,
+      mail: "9191.julian@gmail.com",
+      roll: "client",
+      active: null,
+      food: [],
+      bills: [
+          {
+              id: "123",
+              billId: "7fa1daff-fac8-4b6a-b910-14d0e5c0f22d",
+              products: [{
+                id: "2",
+                name: "ASIA EXPRESS CHINESE",
+                image: "https://www.visitconcordca.com/imager/s3-us-west-1_amazonaws_com/concord-2018/craft/Asia-Express-Chinese-Food_78c77f7e90fd3bfb1d9860e623e7e9a0.jpg",
+                available: true,
+                price: 4,
+                discount: 1,
+                reviews: [],
+                type: "Salad",
+                fat: "High",
+                sodium: "High",
+                sugar: "Medium",
+                description: "Asia Express Chinese Food offers delicious dining and takeout to Concord, CA",
+                qualification: 0,
+                amount: 5,
+                active: "valid"
+            },
+            {
+                id: "3",
+                name: "BAMBINO’S ITALIAN",
+                image: "https://media.istockphoto.com/id/1142391463/photo/pasta-carbonara.jpg?s=612x612&w=0&k=20&c=7gO9mReNFzY10qsmu_X4_LZ45-UcVPtzpHF-DOFp6Cc=",
+                available: true,
+                price: 4,
+                discount: 2,
+                reviews: [],
+                type: "Main dish",
+                fat: "Low",
+                sodium: "Low",
+                sugar: "Medium",
+                description: "Bambino’s is an Italian favorite here in Concord. Take a trip to Italy when you visit and try authentic",
+                qualification: 0,
+                amount: 1,
+                active: "valid"
+            }],
+              value: null,
+              discount: null,
+              status: null,
+              paid: true,
+              createdAt: "2023-03-17T04:03:31.789Z",
+              updatedAt: "2023-03-17T04:03:31.798Z",
+              userId: "e780f4e9-e913-40b5-b112-7af84fcce7d4"
+          },
+          {
+              id: "234",
+              billId: "a9283d38-d875-487c-b093-851ce94f1863",
+              products: [],
+              value: null,
+              discount: null,
+              status: null,
+              paid: false,
+              createdAt: "2023-03-17T04:42:00.924Z",
+              updatedAt: "2023-03-17T04:42:00.930Z",
+              userId: "e780f4e9-e913-40b5-b112-7af84fcce7d4"
+          }
+      ]
+  }]
   const [current, setcurrent] = useState(0)
   //----------
   let detail = ""

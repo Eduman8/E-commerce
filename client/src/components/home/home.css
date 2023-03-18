@@ -1,11 +1,11 @@
 .ordenado {
   position: absolute;
   border-radius: 5PX;
-  top: 80px;
-  left: 77%;
+  top: 170px;
+  left: 78%;
   width: 20%;
   display: grid;
-  grid-template-columns: 22% 24% 24% 30%;
+  grid-template-columns: 40% 40%;
 }
 
 .DeaZ2 {
@@ -13,21 +13,15 @@
   cursor: pointer;
   font-weight: bold;
   font-size: 15px;
-  background-color: rgba(0, 128, 0, 0.199);
   border: none;
   outline: none;
   border-style: none;
 }
 
 #inorder {
-  text-align: right;
   cursor: pointer;
 }
 
-#inorder,
-#inorder2 {
-  font-size: 85%;
-}
 
 .orderTittle {
   color: rgb(1, 104, 1);

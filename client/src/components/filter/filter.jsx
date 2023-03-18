@@ -91,16 +91,31 @@ export default function Filter ({paginate}) {
 
   return (
     <div className="contFilter">
-      <br /><div id="filtercontenido">
+      <div id="filtercontenido">
+      <div className="filteTittle">Ordenate</div><br /><br /><br />
         <Search offilter= {offilter} />
-        <br /><div className="filteTittle">Filter</div>
-        <div className="filteSubTitle" onClick={(e)=>openFilter(e,1)}>By type of food</div> 
-        <div className="filterGrops">
-          {
-          act === 1?(
-            itemsFilter[0].map((obj, ind) => (              
-            xclude[0].includes(obj)?
-            <div className="imgtaFalse" onClick={(e)=>filter (e,obj,0 )} key={ind}>
+        <br /><div className="filteTittle">Filter</div>        
+        <div id="GroupFilter">
+          <div className="filteSubTitle" onClick={(e)=>openFilter(e,1)}>By type of food</div> 
+          <div className="filterGrops">
+            {
+            act === 1?(
+              itemsFilter[0].map((obj, ind) => (              
+              xclude[0].includes(obj)?
+              <div className="imgtaFalse" onClick={(e)=>filter (e,obj,0 )} key={ind}>
+                <div>
+                  {
+                  obj ==="Salad"?<img  id="filterimg" src="https://previews.123rf.com/images/artcasta/artcasta1605/artcasta160500015/58729322-la-porci%C3%B3n-de-ensalada-verde-fresca-con-queso-mozzarella-sobre-un-fondo-blanco.jpg" alt={"No"} />:
+                  obj ==="Dessert"?<img  id="filterimg" src="https://album.mediaset.es/eimg/2020/06/16/6hHUb5NRUCam8q1fwmYPu5.jpg?w=480" alt={"No"} />:
+                  obj ==="Appetizer"?<img  id="filterimg" src="https://static.vecteezy.com/system/resources/thumbnails/001/740/787/small/round-ring-snacks-in-a-basket-free-photo.jpg" alt={"No"} />:
+                  obj ==="Drink"?<img  id="filterimg" src="https://thumbs.dreamstime.com/b/bebida-roja-8623697.jpg" alt={"No"} />:
+                  <img  id="filterimg" src="https://s1.1zoom.me/big0/648/The_second_dishes_Potato_Meat_products_Vegetables_563131_1280x853.jpg" alt={"No"} />}
+                </div>
+                <div className="filtername">
+                  {obj} ({cantFilter[0][ind]})
+                </div>
+              </div>:
+              <div className="imgtTrue" onClick={(e)=>filter (e,obj,0 )} key={ind}>
               <div>
                 {
                 obj ==="Salad"?<img  id="filterimg" src="https://previews.123rf.com/images/artcasta/artcasta1605/artcasta160500015/58729322-la-porci%C3%B3n-de-ensalada-verde-fresca-con-queso-mozzarella-sobre-un-fondo-blanco.jpg" alt={"No"} />:
@@ -112,30 +127,26 @@ export default function Filter ({paginate}) {
               <div className="filtername">
                 {obj} ({cantFilter[0][ind]})
               </div>
-            </div>:
-            <div className="imgtTrue" onClick={(e)=>filter (e,obj,0 )} key={ind}>
-            <div>
-              {
-              obj ==="Salad"?<img  id="filterimg" src="https://previews.123rf.com/images/artcasta/artcasta1605/artcasta160500015/58729322-la-porci%C3%B3n-de-ensalada-verde-fresca-con-queso-mozzarella-sobre-un-fondo-blanco.jpg" alt={"No"} />:
-              obj ==="Dessert"?<img  id="filterimg" src="https://album.mediaset.es/eimg/2020/06/16/6hHUb5NRUCam8q1fwmYPu5.jpg?w=480" alt={"No"} />:
-              obj ==="Appetizer"?<img  id="filterimg" src="https://static.vecteezy.com/system/resources/thumbnails/001/740/787/small/round-ring-snacks-in-a-basket-free-photo.jpg" alt={"No"} />:
-              obj ==="Drink"?<img  id="filterimg" src="https://thumbs.dreamstime.com/b/bebida-roja-8623697.jpg" alt={"No"} />:
-              <img  id="filterimg" src="https://s1.1zoom.me/big0/648/The_second_dishes_Potato_Meat_products_Vegetables_563131_1280x853.jpg" alt={"No"} />}
             </div>
-            <div className="filtername">
-              {obj} ({cantFilter[0][ind]})
-            </div>
+            ))):
+            null}
           </div>
-          ))):
-          null}
-        </div>
-
-        <div className="filteSubTitle"onClick={(e)=>openFilter(e,2)}>By amount of fat</div> 
-        <div className="filterGrops2">
-        {act === 2?(
-            itemsFilter[1].map((obj, ind) => (
-              xclude[1].includes(obj)?
-            <div  onClick={(e)=>filter (e,obj,1 )}id = "gr" className="imgtaFalse" key={ind}>
+          <div className="filteSubTitle"onClick={(e)=>openFilter(e,2)}>By amount of fat</div> 
+          <div className="filterGrops2">
+          {act === 2?(
+              itemsFilter[1].map((obj, ind) => (
+                xclude[1].includes(obj)?
+              <div  onClick={(e)=>filter (e,obj,1 )}id = "gr" className="imgtaFalse" key={ind}>
+                <div>
+                  {obj ==="High"?<img id="filterimg2" src="https://i.ibb.co/H7wsdqx/3.png" alt={"No"} />:
+                  obj ==="Low"?<img id="filterimg2" src="https://i.ibb.co/n3wyR8g/1.png" alt={"No"} />:
+                  <img id="filterimg2" src="https://i.ibb.co/cgjkNJZ/2.png" alt={"No"} />}
+                </div>
+                <div className="filtername">
+                  {obj} in fat ({cantFilter[1][ind]})
+                </div>
+              </div>:
+              <div onClick={(e)=>filter (e,obj,1 )}id = "gr" className="imgtTrue" key={ind}>
               <div>
                 {obj ==="High"?<img id="filterimg2" src="https://i.ibb.co/H7wsdqx/3.png" alt={"No"} />:
                 obj ==="Low"?<img id="filterimg2" src="https://i.ibb.co/n3wyR8g/1.png" alt={"No"} />:
@@ -144,26 +155,26 @@ export default function Filter ({paginate}) {
               <div className="filtername">
                 {obj} in fat ({cantFilter[1][ind]})
               </div>
-            </div>:
-            <div onClick={(e)=>filter (e,obj,1 )}id = "gr" className="imgtTrue" key={ind}>
-            <div>
-              {obj ==="High"?<img id="filterimg2" src="https://i.ibb.co/H7wsdqx/3.png" alt={"No"} />:
-              obj ==="Low"?<img id="filterimg2" src="https://i.ibb.co/n3wyR8g/1.png" alt={"No"} />:
-              <img id="filterimg2" src="https://i.ibb.co/cgjkNJZ/2.png" alt={"No"} />}
             </div>
-            <div className="filtername">
-              {obj} in fat ({cantFilter[1][ind]})
+            ))):
+            null}
             </div>
-          </div>
-          ))):
-          null}
-          </div>
-        <div className="filteSubTitle"onClick={(e)=>openFilter(e,3)}>By amount of sodium </div> 
-        <div className="filterGrops2">
-        {act === 3?(
-            itemsFilter[2].map((obj, ind) => (
-            xclude[2].includes(obj)?
-            <div onClick={(e)=>filter (e,obj,2 )}id = "gr" className="imgtaFalse" key={ind}>
+          <div className="filteSubTitle"onClick={(e)=>openFilter(e,3)}>By amount of sodium </div> 
+          <div className="filterGrops2">
+          {act === 3?(
+              itemsFilter[2].map((obj, ind) => (
+              xclude[2].includes(obj)?
+              <div onClick={(e)=>filter (e,obj,2 )}id = "gr" className="imgtaFalse" key={ind}>
+                <div>
+                  {obj ==="High"?<img id="filterimg2" src="https://i.ibb.co/H7wsdqx/3.png" alt={"No"} />:
+                  obj ==="Low"?<img id="filterimg2" src="https://i.ibb.co/n3wyR8g/1.png" alt={"No"} />:
+                  <img id="filterimg2" src="https://i.ibb.co/cgjkNJZ/2.png" alt={"No"} />}
+                </div>
+                <div className="filtername">
+                  {obj} in sodium ({cantFilter[2][ind]})
+                </div>
+              </div>:
+              <div onClick={(e)=>filter (e,obj,2 )}id = "gr" className="imgtTrue" key={ind}>
               <div>
                 {obj ==="High"?<img id="filterimg2" src="https://i.ibb.co/H7wsdqx/3.png" alt={"No"} />:
                 obj ==="Low"?<img id="filterimg2" src="https://i.ibb.co/n3wyR8g/1.png" alt={"No"} />:
@@ -172,26 +183,26 @@ export default function Filter ({paginate}) {
               <div className="filtername">
                 {obj} in sodium ({cantFilter[2][ind]})
               </div>
-            </div>:
-            <div onClick={(e)=>filter (e,obj,2 )}id = "gr" className="imgtTrue" key={ind}>
-            <div>
-              {obj ==="High"?<img id="filterimg2" src="https://i.ibb.co/H7wsdqx/3.png" alt={"No"} />:
-              obj ==="Low"?<img id="filterimg2" src="https://i.ibb.co/n3wyR8g/1.png" alt={"No"} />:
-              <img id="filterimg2" src="https://i.ibb.co/cgjkNJZ/2.png" alt={"No"} />}
             </div>
-            <div className="filtername">
-              {obj} in sodium ({cantFilter[2][ind]})
+            ))):
+            null}
             </div>
-          </div>
-          ))):
-          null}
-          </div>
-        <div className="filteSubTitle"onClick={(e)=>openFilter(e,4)}>By amount of sugar </div> 
-        <div className="filterGrops2">
-        {act === 4?(
-            itemsFilter[3].map((obj, ind) => (              
-            xclude[3].includes(obj)?
-            <div onClick={(e)=>filter (e,obj,3 )} id = "gr" className="imgtaFalse" key={ind}>
+          <div className="filteSubTitle"onClick={(e)=>openFilter(e,4)}>By amount of sugar </div> 
+          <div className="filterGrops2">
+          {act === 4?(
+              itemsFilter[3].map((obj, ind) => (              
+              xclude[3].includes(obj)?
+              <div onClick={(e)=>filter (e,obj,3 )} id = "gr" className="imgtaFalse" key={ind}>
+                <div>
+                  {obj ==="High"?<img id="filterimg2" src="https://i.ibb.co/H7wsdqx/3.png" alt={"No"} />:
+                  obj ==="Low"?<img id="filterimg2" src="https://i.ibb.co/n3wyR8g/1.png" alt={"No"} />:
+                  <img id="filterimg2" src="https://i.ibb.co/cgjkNJZ/2.png" alt={"No"} />}
+                </div>
+                <div className="filtername">
+                  {obj} in sugar ({cantFilter[3][ind]})
+                </div>
+              </div>:
+              <div onClick={(e)=>filter (e,obj,3 )} id = "gr" className="imgtTrue" key={ind}>
               <div>
                 {obj ==="High"?<img id="filterimg2" src="https://i.ibb.co/H7wsdqx/3.png" alt={"No"} />:
                 obj ==="Low"?<img id="filterimg2" src="https://i.ibb.co/n3wyR8g/1.png" alt={"No"} />:
@@ -200,19 +211,10 @@ export default function Filter ({paginate}) {
               <div className="filtername">
                 {obj} in sugar ({cantFilter[3][ind]})
               </div>
-            </div>:
-            <div onClick={(e)=>filter (e,obj,3 )} id = "gr" className="imgtTrue" key={ind}>
-            <div>
-              {obj ==="High"?<img id="filterimg2" src="https://i.ibb.co/H7wsdqx/3.png" alt={"No"} />:
-              obj ==="Low"?<img id="filterimg2" src="https://i.ibb.co/n3wyR8g/1.png" alt={"No"} />:
-              <img id="filterimg2" src="https://i.ibb.co/cgjkNJZ/2.png" alt={"No"} />}
             </div>
-            <div className="filtername">
-              {obj} in sugar ({cantFilter[3][ind]})
+            ))):
+            null}
             </div>
-          </div>
-          ))):
-          null}
           </div>
       </div>
     </div>

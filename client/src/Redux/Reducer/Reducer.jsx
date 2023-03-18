@@ -10,7 +10,7 @@ import {
   POST_FOOD,
   GET_ALL_USERS,
   GET_USER,
-  PAY
+  GET_ALL_BILLING
 } from "../Actions/Constantes"; 
 
 const initialState = {
@@ -21,7 +21,8 @@ const initialState = {
   allUsers:[],
   roll: "client",
   favorites: [],
-  pay: []
+  pay: [],
+  allbilling: []
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -29,7 +30,7 @@ const rootReducer = (state = initialState, action) => {
     case UPDATE_ROLL:
       return {
         ...state,
-        roll: [...state.roll, action.payload],
+        roll: action.payload,
       };
     case POST_USER:
       return {
@@ -50,6 +51,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         allUsers: action.payload,
+      };
+    case GET_ALL_BILLING:
+      return {
+        ...state,
+        allbilling: action.payload,
       };
     case GET_USER:
       return {
