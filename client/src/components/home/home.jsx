@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import "./home.css"
-import { getAllFoods, getAllUsers, getUser } from '../../Redux/Actions/Actions'
+import { getAllFoods, getAllUsers, getUser, getAllBilling } from '../../Redux/Actions/Actions'
 import Cards from '../cards/cards'
 import Filter from "../filter/filter";
 import Footer from "../Footer/Footer";
@@ -21,7 +21,9 @@ export default function Home() {
 
   if (isAuthenticated) {
     dispatch(getAllUsers())
-    dispatch(getUser(user.email)); 
+    dispatch(getUser(user.email));     
+    dispatch(getAllBilling())
+
   }
 
   useEffect(() => {
@@ -106,18 +108,17 @@ export default function Home() {
         <Filter paginate={paginate} />
         <div className="ordenado">
           <div id="inorder" className="DeaZ2">
-            Order for_
+            Order for:
+          </div>          
+          <div></div>
+          <div id="inorder" className="DeaZ2">
+            In order:
           </div>
-
           <select id="inorder2" className="DeaZ2" onChange={(e) => fnDepe(e)}>
             <option value={"Name"}>Name</option>
             <option value={"Type"}>Type</option>
-          </select>
-
-          <div id="inorder" className="DeaZ2">
-            In order_
-          </div>
-
+          </select>    
+          <div></div>
           <select id="inorder2" className="DeaZ2" onChange={(e) => fnOrder(e)}>
             <option value={"Ascending"}>Ascending</option>
             <option value={"Descending"}>Descending</option>

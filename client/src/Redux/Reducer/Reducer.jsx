@@ -13,6 +13,7 @@ import {
   GET_USER,
   PAY,
   PUT_BILL
+  GET_ALL_BILLING
 } from "../Actions/Constantes"; 
 
 const initialState = {
@@ -26,6 +27,7 @@ const initialState = {
   pay: [],
   bill: [],
   billput: []
+  allbilling: []
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -33,7 +35,7 @@ const rootReducer = (state = initialState, action) => {
     case UPDATE_ROLL:
       return {
         ...state,
-        roll: [...state.roll, action.payload],
+        roll: action.payload,
       };
       case PUT_BILL:
       return {
@@ -64,6 +66,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         allUsers: action.payload,
+      };
+    case GET_ALL_BILLING:
+      return {
+        ...state,
+        allbilling: action.payload,
       };
     case GET_USER:
       return {
