@@ -5,12 +5,11 @@
   left: 78%;
   width: 20%;
   display: grid;
-  grid-template-columns: 40% 40%;
+  grid-template-columns: 40% 5% 40%;
 }
 
 .DeaZ2 {
   color: green;
-  cursor: pointer;
   font-weight: bold;
   font-size: 15px;
   border: none;
@@ -18,8 +17,12 @@
   border-style: none;
 }
 
-#inorder {
+#inorder2 {
   cursor: pointer;
+  border: 1px solid rgba(0, 128, 0, 0.565);
+  border-radius: 5px;
+  margin-top: 4px;
+  padding-left: 5px;
 }
 
 

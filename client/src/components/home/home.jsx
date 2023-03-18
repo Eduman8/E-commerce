@@ -108,18 +108,17 @@ export default function Home() {
         <Filter paginate={paginate} />
         <div className="ordenado">
           <div id="inorder" className="DeaZ2">
-            Order for_
+            Order for:
+          </div>          
+          <div></div>
+          <div id="inorder" className="DeaZ2">
+            In order:
           </div>
-
           <select id="inorder2" className="DeaZ2" onChange={(e) => fnDepe(e)}>
             <option value={"Name"}>Name</option>
             <option value={"Type"}>Type</option>
-          </select>
-
-          <div id="inorder" className="DeaZ2">
-            In order_
-          </div>
-
+          </select>    
+          <div></div>
           <select id="inorder2" className="DeaZ2" onChange={(e) => fnOrder(e)}>
             <option value={"Ascending"}>Ascending</option>
             <option value={"Descending"}>Descending</option>
