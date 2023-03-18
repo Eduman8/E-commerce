@@ -39,9 +39,9 @@ export default function Filter ({paginate}) {
       filt4 = [];
     
     allfoods.forEach((obj) => { if (!xclude[0].includes(obj.type)) filt1.push(obj);});
-    filt1.forEach((obj) => { if (!xclude[1].includes(obj.Fat)) filt2.push(obj);});
-    filt2.forEach((obj) => { if (!xclude[2].includes(obj.Sodium)) filt3.push(obj);});
-    filt3.forEach((obj) => { if (!xclude[3].includes(obj.Sugar)) filt4.push(obj);
+    filt1.forEach((obj) => { if (!xclude[1].includes(obj.fat)) filt2.push(obj);});
+    filt2.forEach((obj) => { if (!xclude[2].includes(obj.sodium)) filt3.push(obj);});
+    filt3.forEach((obj) => { if (!xclude[3].includes(obj.sugar)) filt4.push(obj);
     });
     dispatch(getfilterFoods(filt4))
   }
@@ -63,27 +63,27 @@ export default function Filter ({paginate}) {
     else{
       cantFilter[0][itemsFilter[0].indexOf(element.type)] +=1
     }
-    if (!itemsFilter[1].includes(element.Fat)) {
-      itemsFilter[1].push(element.Fat);
+    if (!itemsFilter[1].includes(element.fat)) {
+      itemsFilter[1].push(element.fat);
       cantFilter[1].push(1);
     }
     else{
-      cantFilter[1][itemsFilter[1].indexOf(element.Fat)] +=1
+      cantFilter[1][itemsFilter[1].indexOf(element.fat)] +=1
     }
-    if (!itemsFilter[2].includes(element.Sodium)) {
-      itemsFilter[2].push(element.Sodium);
+    if (!itemsFilter[2].includes(element.sodium)) {
+      itemsFilter[2].push(element.sodium);
       cantFilter[2].push(1);
     }
     else{
-      cantFilter[2][itemsFilter[2].indexOf(element.Sodium)] +=1
+      cantFilter[2][itemsFilter[2].indexOf(element.sodium)] +=1
     }
     
-    if (!itemsFilter[3].includes(element.Sugar)) {
-      itemsFilter[3].push(element.Sugar);
+    if (!itemsFilter[3].includes(element.sugar)) {
+      itemsFilter[3].push(element.sugar);
       cantFilter[3].push(1);
     }
     else{
-      cantFilter[3][itemsFilter[3].indexOf(element.Sugar)] +=1
+      cantFilter[3][itemsFilter[3].indexOf(element.sugar)] +=1
     }
 
   })
@@ -130,7 +130,7 @@ export default function Filter ({paginate}) {
           null}
         </div>
 
-        <div className="filteSubTitle"onClick={(e)=>openFilter(e,2)}>By amount of Fat</div> 
+        <div className="filteSubTitle"onClick={(e)=>openFilter(e,2)}>By amount of fat</div> 
         <div className="filterGrops2">
         {act === 2?(
             itemsFilter[1].map((obj, ind) => (
@@ -142,7 +142,7 @@ export default function Filter ({paginate}) {
                 <img id="filterimg2" src="https://i.ibb.co/cgjkNJZ/2.png" alt={"No"} />}
               </div>
               <div className="filtername">
-                {obj} in Fat ({cantFilter[1][ind]})
+                {obj} in fat ({cantFilter[1][ind]})
               </div>
             </div>:
             <div onClick={(e)=>filter (e,obj,1 )}id = "gr" className="imgtTrue" key={ind}>
@@ -152,13 +152,13 @@ export default function Filter ({paginate}) {
               <img id="filterimg2" src="https://i.ibb.co/cgjkNJZ/2.png" alt={"No"} />}
             </div>
             <div className="filtername">
-              {obj} in Fat ({cantFilter[1][ind]})
+              {obj} in fat ({cantFilter[1][ind]})
             </div>
           </div>
           ))):
           null}
           </div>
-        <div className="filteSubTitle"onClick={(e)=>openFilter(e,3)}>By amount of Sodium </div> 
+        <div className="filteSubTitle"onClick={(e)=>openFilter(e,3)}>By amount of sodium </div> 
         <div className="filterGrops2">
         {act === 3?(
             itemsFilter[2].map((obj, ind) => (
@@ -170,7 +170,7 @@ export default function Filter ({paginate}) {
                 <img id="filterimg2" src="https://i.ibb.co/cgjkNJZ/2.png" alt={"No"} />}
               </div>
               <div className="filtername">
-                {obj} in Sodium ({cantFilter[2][ind]})
+                {obj} in sodium ({cantFilter[2][ind]})
               </div>
             </div>:
             <div onClick={(e)=>filter (e,obj,2 )}id = "gr" className="imgtTrue" key={ind}>
@@ -180,13 +180,13 @@ export default function Filter ({paginate}) {
               <img id="filterimg2" src="https://i.ibb.co/cgjkNJZ/2.png" alt={"No"} />}
             </div>
             <div className="filtername">
-              {obj} in Sodium ({cantFilter[2][ind]})
+              {obj} in sodium ({cantFilter[2][ind]})
             </div>
           </div>
           ))):
           null}
           </div>
-        <div className="filteSubTitle"onClick={(e)=>openFilter(e,4)}>By amount of Sugar </div> 
+        <div className="filteSubTitle"onClick={(e)=>openFilter(e,4)}>By amount of sugar </div> 
         <div className="filterGrops2">
         {act === 4?(
             itemsFilter[3].map((obj, ind) => (              
@@ -198,7 +198,7 @@ export default function Filter ({paginate}) {
                 <img id="filterimg2" src="https://i.ibb.co/cgjkNJZ/2.png" alt={"No"} />}
               </div>
               <div className="filtername">
-                {obj} in Sugar ({cantFilter[3][ind]})
+                {obj} in sugar ({cantFilter[3][ind]})
               </div>
             </div>:
             <div onClick={(e)=>filter (e,obj,3 )} id = "gr" className="imgtTrue" key={ind}>
@@ -208,7 +208,7 @@ export default function Filter ({paginate}) {
               <img id="filterimg2" src="https://i.ibb.co/cgjkNJZ/2.png" alt={"No"} />}
             </div>
             <div className="filtername">
-              {obj} in Sugar ({cantFilter[3][ind]})
+              {obj} in sugar ({cantFilter[3][ind]})
             </div>
           </div>
           ))):
