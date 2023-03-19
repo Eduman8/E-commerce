@@ -12,7 +12,11 @@ function Validating() {
 
   if (isAuthenticated) {
     const info = {
+      name: user.name,
+      telephone: user.phone_number,
+      direction:user.address,
       mail: user.email,
+      image:user.picture,
       roll: roll
     }
     dispatch(postUser(info)) 

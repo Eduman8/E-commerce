@@ -481,7 +481,7 @@ const payTemplate = (data) => {
                         <td class="content-cell">
                           <div class="f-fallback">
                             <h1>Hey ${
-                              data.roll
+                              data.name
                             }! Thank you for your purchase</h1>
                             <h2>Here is your bill information:</h2>
     
