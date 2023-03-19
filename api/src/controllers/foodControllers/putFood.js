@@ -43,10 +43,10 @@ module.exports = putFood = async (req, res) => {
           },
         }
       );
-      if (food[0] == 1) {
+      // if (food[0] == 1) {
         return res.status(200).json({ message: "Updated information" });
-      }
-      return res.status(400).json({ message: "food not found" });
+      // }
+      // return res.status(400).json({ message: "food not found" });
     } else {
       return res.status(400).json({ message: "Requires id" });
     }

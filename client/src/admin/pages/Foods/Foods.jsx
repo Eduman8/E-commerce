@@ -21,6 +21,7 @@ import { useEffect } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Swal from "sweetalert2";
 import { putFood } from "../../../Redux/Actions/Actions";
+import { FoodForm } from "../../Components/Forms/FoodForm";
 
 const theme = createTheme({
   palette: {
@@ -90,7 +91,6 @@ const Foods = () => {
   };
 
   const handleDeleteRow = (row) => {
-    console.log("delete",row.original.active === "valid");
     if (row.original.active === "valid") {
       Swal.fire({
         title: "Are you sure?",
@@ -102,8 +102,8 @@ const Foods = () => {
         confirmButtonText: "Yes, desactived it!",
       }).then((result) => {
         if (result.isConfirmed) {
-          console.log("delete1", row.original);
-          dispatch(putFood({ id: row.id, active: "invalid" }));
+          dispatch(putFood({ id: row.original.id, active: "invalid" }));
+          console.log("disactiving", row.original);
           Swal.fire("Disactived!", "Your file has been desactived.", "success");
         }
       });
@@ -118,8 +118,8 @@ const Foods = () => {
         confirmButtonText: "Yes, active it!",
       }).then((result) => {
         if (result.isConfirmed) {
-          console.log("delete2", row.original);
-          dispatch(putFood({ id: row.id, active: "valid" }));
+          dispatch(putFood({ id: row.original.id, active: "valid" }));
+          console.log("activating", row.original);
           Swal.fire("Actived!", "Your file has been actived.", "success");
         }
       });
@@ -320,7 +320,7 @@ const Foods = () => {
         }),
       },
       {
-        accessorKey: "Fat",
+        accessorKey: "fat",
         header: "Fat",
         size: 140,
         muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
@@ -330,7 +330,7 @@ const Foods = () => {
         editSelectOptions: ["High", "Medium", "Low"],
       },
       {
-        accessorKey: "Sodium",
+        accessorKey: "sodium",
         header: "Sodium",
         size: 140,
         muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
@@ -340,7 +340,7 @@ const Foods = () => {
         editSelectOptions: ["High", "Medium", "Low"],
       },
       {
-        accessorKey: "Sugar",
+        accessorKey: "sugar",
         header: "Sugar",
         size: 140,
         muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
@@ -481,38 +481,17 @@ export const CreateNewAccountModal = ({ open, columns, onClose, onSubmit }) => {
   };
 
   return (
-    <Dialog open={open}>
+    <Dialog open={open} onClose={onClose}>
       <DialogTitle textAlign="center">Create New Food</DialogTitle>
       <DialogContent>
-        <form onSubmit={(e) => e.preventDefault()}>
-          <Stack
-            sx={{
-              width: "100%",
-              minWidth: { xs: "300px", sm: "360px", md: "400px" },
-              gap: "1.5rem",
-            }}
-          >
-            {/* {console.log("column", columns)} */}
-            {columns.map((column) => (
-              <TextField
-                key={column.accessorKey}
-                label={column.header}
-                name={column.accessorKey}
-                type={column.editVariant}
-                onChange={(e) =>
-                  setValues({ ...values, [e.target.name]: e.target.value })
-                }
-              />
-            ))}
-          </Stack>
-        </form>
+        <FoodForm open={() => onClose()} />
+        {/* <DialogActions sx={{ p: "1.25rem" }}>
+          <Button onClick={onClose}>Cancel</Button>
+          <Button color="secondary" onClick={handleSubmit} variant="contained">
+            Create New Food
+          </Button>
+        </DialogActions> */}
       </DialogContent>
-      <DialogActions sx={{ p: "1.25rem" }}>
-        <Button onClick={onClose}>Cancel</Button>
-        <Button color="secondary" onClick={handleSubmit} variant="contained">
-          Create New Food
-        </Button>
-      </DialogActions>
     </Dialog>
   );
 };
