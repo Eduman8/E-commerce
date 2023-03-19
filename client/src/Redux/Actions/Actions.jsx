@@ -154,7 +154,7 @@ export const shopping = (payload) => {
     
     return {
         type: ADDSHOPPING,
-        payload:data
+        payload:dataupdate
     }
 }
 
