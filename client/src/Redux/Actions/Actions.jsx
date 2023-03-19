@@ -148,29 +148,30 @@ export const setSearch = (payload) => {
 };
 
 export const shopping = (payload) => {
-  const data = reactLocalStorage.get("Shopping").split(",");
-  const dataCant = reactLocalStorage.get("ShoppingCant").split(",");
-  let dataupdate = [];
-  let dataCantupdate = [];
-  if (data.includes(payload)) {
-    const pos = data.indexOf(payload);
-    dataCant[pos] = "delete";
-    dataupdate = data.filter((id) => id !== payload);
-    dataCantupdate = dataCant.filter((val) => val !== "delete");
-  } else {
-    data.push(payload);
-    dataCant.push("1");
-    dataupdate = data;
-    dataCantupdate = dataCant;
-  }
-  reactLocalStorage.set("Shopping", dataupdate);
-  reactLocalStorage.set("ShoppingCant", dataCantupdate);
-
-  return {
-    type: ADDSHOPPING,
-    payload: data,
-  };
-};
+    const data = (reactLocalStorage.get('Shopping')).split(",")
+    const dataCant = (reactLocalStorage.get('ShoppingCant')).split(",")
+    let dataupdate =[];
+    let dataCantupdate =[];
+    if (data.includes(payload)){
+        const pos = data.indexOf(payload);
+        dataCant[pos] = "delete";
+        dataupdate = data.filter(id => id !== payload);
+        dataCantupdate = dataCant.filter(val => val !== "delete");
+    }
+    else {
+        data.push (payload);
+        dataCant.push ("1");
+        dataupdate = data;
+        dataCantupdate =dataCant;
+    }
+    reactLocalStorage.set("Shopping", dataupdate)
+    reactLocalStorage.set("ShoppingCant", dataCantupdate)
+    
+    return {
+        type: ADDSHOPPING,
+        payload:dataupdate
+    }
+}
 
 export const favorites = (payload) => {
   return {
