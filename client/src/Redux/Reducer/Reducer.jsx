@@ -13,7 +13,7 @@ import {
   GET_USER,
   PAY,
   PUT_FOOD,
-  PUT_BILL,
+  PUT_BILL,,
   GET_ALL_BILLING
 } from "../Actions/Constantes"; 
 
