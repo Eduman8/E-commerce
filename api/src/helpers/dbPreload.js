@@ -1,6 +1,5 @@
 const data = [
   {
-    id: "1",
     name: "BANANA SPLIT",
     amount: 2,
     image:
@@ -17,7 +16,6 @@ const data = [
     reviews: [],
   },
   {
-    id: "2",
     name: "ASIA EXPRESS CHINESE",
     amount: 5,
     image:
@@ -34,7 +32,6 @@ const data = [
     reviews: [],
   },
   {
-    id: "3",
     name: "BAMBINO’S ITALIAN",
     amount: 1,
     image:
@@ -51,7 +48,6 @@ const data = [
     reviews: [],
   },
   {
-    id: "4",
     name: "MOZZARELLA STICKS",
     amount: 3,
     image:
@@ -68,7 +64,6 @@ const data = [
     reviews: [],
   },
   {
-    id: "5",
     name: "BEEF STEW",
     amount: 5,
     image:
@@ -85,7 +80,6 @@ const data = [
     reviews: [],
   },
   {
-    id: "6",
     name: "OLIVE CHEESE SKEWERS",
     amount: 4,
     image:
@@ -101,7 +95,6 @@ const data = [
     reviews: [],
   },
   {
-    id: "7",
     name: "SEPTIMA MALBEC WINE",
     amount: 2,
     image: "https://laverdadonline.com/wp-content/uploads/2022/05/copa-2.jpg",
@@ -116,7 +109,6 @@ const data = [
     reviews: [],
   },
   {
-    id: "8",
     name: "IMPERIAL BEER",
     amount: 1,
     image:
@@ -133,7 +125,6 @@ const data = [
     reviews: [],
   },
   {
-    id: "9",
     name: "BEST BURGER",
     amount: 3,
     image: "https://www.likeburger.com.ar/images/fotos/8.jpg",
@@ -149,7 +140,6 @@ const data = [
     reviews: [],
   },
   {
-    id: "10",
     name: "AREPAS",
     amount: 5,
     image:
@@ -166,7 +156,6 @@ const data = [
     reviews: [],
   },
   {
-    id: "11",
     name: "SODA WITH ICE",
     amount: 3,
     image:
@@ -183,7 +172,6 @@ const data = [
     reviews: [],
   },
   {
-    id: "12",
     name: "CAESAR SALAD",
     amount: 5,
     image:
@@ -200,7 +188,6 @@ const data = [
     reviews: [],
   },
   {
-    id: "13",
     name: "ISRAELI FALAFEL",
     amount: 1,
     image:
@@ -217,7 +204,6 @@ const data = [
     reviews: [],
   },
   {
-    id: "14",
     name: "WALDORF SALAD",
     amount: 5,
     image:
@@ -234,7 +220,6 @@ const data = [
     reviews: [],
   },
   {
-    id: "15",
     name: "CUSTARD PUDDING",
     amount: 4,
     image:
@@ -251,7 +236,6 @@ const data = [
     reviews: [],
   },
   {
-    id: "16",
     name: "BATTERED FRIED SQUIDS",
     image: "https://vinomanos.com/wp-content/uploads/2021/01/Rabas.jpg",
     available: true,
@@ -267,7 +251,6 @@ const data = [
     reviews: [],
   },
   {
-    id: "17",
     name: "CHOCOLATE VOLCANO",
     amount: 1,
     image:
@@ -284,7 +267,6 @@ const data = [
     reviews: [],
   },
   {
-    id: "18",
     name: "FRUIT JUICE",
     amount: 2,
     image:

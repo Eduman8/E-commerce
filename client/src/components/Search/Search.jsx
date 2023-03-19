@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getfilterFoods } from "../../Redux/Actions/Actions";
+import "./Search.css"
 
 export default function Search({offilter}) {
     let [search,setsearch] = useState("")
@@ -30,7 +31,7 @@ export default function Search({offilter}) {
     return (
         <div>            
             <div className="filteTittle">Search</div>
-            <input type="text" className="filteSubTitletxt" value={search} onBlur ={(e)=>close(e)} onChange={(e)=>searchch(e)}/> <br />
+            <input type="text" placeholder="Name of food" id="searchS" className="filteSubTitletxt" value={search} onBlur ={(e)=>close(e)} onChange={(e)=>searchch(e)}/> <br />
         </div>
     )
 }
