@@ -12,6 +12,7 @@ import {
   GET_ALL_USERS,
   GET_USER,
   PAY,
+  PUT_FOOD,
   PUT_BILL,
   GET_ALL_BILLING
 } from "../Actions/Constantes"; 
@@ -121,8 +122,13 @@ const rootReducer = (state = initialState, action) => {
           favorites: [...state.favorites, action.payload],
         };
       }
+    case PUT_FOOD:
+      return {
+        ...state,
+        foods: [...state.foods, action.payload],
+      };
     default:
       return state;
   }
 };
-export default rootReducer
+export default rootReducer;
