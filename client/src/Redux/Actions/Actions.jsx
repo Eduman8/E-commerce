@@ -2,6 +2,7 @@ import axios from "axios";
 import { reactLocalStorage } from "reactjs-localstorage";
 import {
   UPDATE_ROLL,
+  POST_BILL,
   POST_USER,
   ADDSHOPPING,
   GET_ALL_FOODS,
@@ -12,6 +13,8 @@ import {
   GET_ALL_USERS,
   GET_USER,
   FAVORITES,
+  PUT_BILL,
+  GET_ALL_BILLING,
 } from "./Constantes";
 
 export const postUser = (payload) => async (dispatch) => {
@@ -23,6 +26,29 @@ export const postUser = (payload) => async (dispatch) => {
     });
   } catch (e) {
     console.log(e);
+  }
+};
+export const postBill = (payload) => async (dispatch) => {
+  try {
+    const accessoriesCreated = await axios.post(`bills`, payload);
+    return dispatch({
+      type: POST_BILL,
+      payload: accessoriesCreated,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const getAllBilling = () => async (dispatch) => {
+  try {
+    const { data } = await axios.get(`bills`);
+    dispatch({
+      type: GET_ALL_BILLING,
+      payload: data,
+    });
+  } catch (error) {
+    console.log(error);
   }
 };
 export const getUser = (mail) => async (dispatch) => {
@@ -64,6 +90,18 @@ export const updateRoll = (payload) => async (dispatch) => {
     return dispatch({
       type: UPDATE_ROLL,
       payload: payload,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const putBill = (payload) => async (dispatch) => {
+  try {
+    const foodsCreated = await axios.put(`bills`, payload);
+    return dispatch({
+      type: PUT_BILL,
+      payload: foodsCreated,
     });
   } catch (e) {
     console.log(e);

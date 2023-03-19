@@ -2,32 +2,27 @@ const { Bill, User } = require("../../db");
 
 module.exports = putBill = async (req, res, next) => {
   try {
-    const { id, paid } = req.body;
-    if (id) {
-      const bill = await Bill.update(
-        { paid: paid },
-        {
-          where: {
-            id: id,
-          },
-        }
-      );
-      if (bill[0] == 1) {
+    const { paid, idUsario } = req.body;
+    if(idUsario && paid) {
+      const user = await User.findAll({
+        where: { id: idUsario },
+        include: Bill ,
+      });
+      const bill = user[0].bills[user[0].bills.length - 1]
+      bill.update({ paid: paid })
         /* mailer */
         //////////////////////////////////////////////////////////
-        let billInfo = await Bill.findByPk(id);
-        let userInfo = await User.findByPk(billInfo.userId);
-        req.body.mail = userInfo.mail;
-        req.body.roll = userInfo.roll;
-        req.body.billId = billInfo.billId;
-        req.body.products = billInfo.products;
-        req.body.value = billInfo.value;
-        req.body.discount = billInfo.discount;
-        req.body.mailType = "pay";
+        // let billInfo = await Bill.findByPk(id);
+        // let userInfo = await User.findByPk(billInfo.userId);
+        // req.body.mail = userInfo.mail;
+        // req.body.roll = userInfo.roll;
+        // req.body.billId = billInfo.billId;
+        // req.body.products = billInfo.products;
+        // req.body.value = billInfo.value;
+        // req.body.discount = billInfo.discount;
+        // req.body.mailType = "pay";
         ////////////////////////////////////////////////////////////
         return res.status(200).json({ message: "Updated information" }), next();
-      }
-      return res.status(400).json({ message: "Invoice not found" });
     } else {
       return res.status(400).json({ message: "Requires id" });
     }

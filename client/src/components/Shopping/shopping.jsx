@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { reactLocalStorage } from 'reactjs-localstorage';
-import { getAllFoods, shopping,pay } from '../../Redux/Actions/Actions'
+import { getAllFoods, shopping,pay, getUser, postBill } from '../../Redux/Actions/Actions'
 import "./shopping.css";
 import NavBar from "../Nav/NavBar";
 import Footer from "../Footer/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
+import Swal from "sweetalert2";
 
 export default function Shopping() {
+
+  const { user } = useAuth0();
+  const [ state, setState ] = useState(false)
+  
   function fnValNum(e) {
     e.preventDefault();
     valNum[e.target.id] = e.target.value;
@@ -38,6 +44,18 @@ export default function Shopping() {
       reactLocalStorage.set("ShoppingCant", save)
     }
   }
+
+  function msn(e) {
+    e.preventDefault();
+    Swal.fire({
+      title: "estas seguro que no quieres algo mas",
+      icon: "question",
+      cancelButtonText: "#e38e15",
+    });
+    dispatch(getUser(user?.email));
+    setState(true)
+  }
+
   function ShopDelete(e) {
     e.preventDefault();
     dispatch(shopping(e.target.id))
@@ -54,11 +72,10 @@ export default function Shopping() {
   const [tt, settt] = useState(dataCant.length)
 
   useEffect(() => {
-    dispatch(getAllFoods())
+    dispatch(getAllFoods()) 
   }, [dispatch]);
   const foods = useSelector((state) => state.allFoods);
   const currentUser = useSelector((state) => state.user);
-
 
   foods.map((food) => {
     if (info.includes(food.id)) {
@@ -84,6 +101,34 @@ export default function Shopping() {
     discount: 0,
     price: ttl
   }
+
+  function quit(info){
+    info.shift()
+    return info
+  }
+
+  const resp = quit(info)
+  const resp2 = ttl.toFixed(2)
+
+  const cuure = {
+      idUsuario: currentUser?.id,
+      paid: false,
+      value: resp2,
+      products: resp
+  }
+
+  function hind(e){
+    e.preventDefault();
+    dispatch(postBill(cuure))
+    axios
+      .post("http://localhost:3001/payment", shoping)
+      .then(
+        (res) =>
+          (window.location.href = res.data.response.body.init_point)
+      )
+    setState(false)
+  }
+  
   return (
     <>
 
@@ -134,19 +179,19 @@ export default function Shopping() {
             <button className="btn btn-success"> Go back </button>
           </Link>
           <div id="Separate"></div>
+          {(state === true) ?
           <button
-            className="btn btn-success"
-            onClick={() => {
-              axios
-                .post("http://localhost:3001/payment", shoping)
-                .then(
-                  (res) =>
-                    (window.location.href = res.data.response.body.init_point)
-                );
-            }}
+            className="btn btn-success" 
+            onClick={(e) => { hind(e)}}
+          >
+            Start pay
+          </button> : <button
+            className="btn btn-success" 
+            onClick={(e) => { msn(e)}}
           >
             Start pay
           </button>
+          }
         </div><br />
       </div>
       <Footer></Footer>
