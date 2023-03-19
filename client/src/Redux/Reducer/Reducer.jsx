@@ -12,7 +12,7 @@ import {
   GET_ALL_USERS,
   GET_USER,
   PAY,
-  PUT_BILL
+  PUT_BILL,
   GET_ALL_BILLING
 } from "../Actions/Constantes"; 
 
@@ -26,7 +26,7 @@ const initialState = {
   favorites: [],
   pay: [],
   bill: [],
-  billput: []
+  billput: [],
   allbilling: []
 };
 
