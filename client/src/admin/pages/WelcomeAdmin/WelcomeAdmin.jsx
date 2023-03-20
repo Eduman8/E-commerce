@@ -9,7 +9,7 @@ export const WelcomeAdmin = () => {
     <div className="welcomeAdmin">
       <div className="welcome-center">
       <div className="welcome-header">
-        <h2>Welcome <span>{isAuthenticated? user.name:""}</span></h2>
+        <h2> Welcome <span>{isAuthenticated? user.name:""}</span></h2>
         <img style={{marginBottom:"-75px",border:"3px solid black"}} width={"150px"} src={isAuthenticated? user.picture:""} alt="dashboard logo" />
       </div>
         <div className="how-text">
