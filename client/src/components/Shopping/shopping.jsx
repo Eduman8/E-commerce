@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { reactLocalStorage } from 'reactjs-localstorage';
-import { getAllFoods, shopping,pay } from '../../Redux/Actions/Actions'
+import { getAllFoods, shopping, pay } from '../../Redux/Actions/Actions'
 import "./shopping.css";
 import NavBar from "../Nav/NavBar";
 import Footer from "../Footer/Footer";
@@ -70,7 +70,7 @@ export default function Shopping() {
 
   let ttl = 0;
   display.map((food, idx) => ttl += ((food.price * ((100 - food.discount) / 100)) * valNum[idx]))
-  let names = "", idProduct =[];
+  let names = "", idProduct = [];
   display.map((val) => {
     names += val.name + ", "
     idProduct.push(val)
@@ -127,7 +127,7 @@ export default function Shopping() {
 
         <div id="shopTotal">
           <div></div>
-          <div>TOTAL: {ttl.toFixed(2)} UDS</div>
+          <div>TOTAL: {ttl.toFixed(2)} USD</div>
         </div><br /><br />
         <div className="cbutondetail">
           <Link to={`/home`} >

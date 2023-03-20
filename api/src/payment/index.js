@@ -20,8 +20,8 @@ module.exports = postPayment = async (req, res) => {
            ],
         back_urls: {
             success: 'localhost:3000/payApro',
-            failure: '',
-            pending: '',
+            failure: 'localhost:3000/payFail',
+            pending: 'localhost:3000/payPend',
         },
         auto_return: 'approved',
         binary_mode: true,
