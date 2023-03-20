@@ -20,6 +20,7 @@ module.exports = putFood = async (req, res) => {
       active,
     } = req.body;
     if (id) {
+      console.log(id)
       const food = await Food.update(
         {
           name,
@@ -43,10 +44,10 @@ module.exports = putFood = async (req, res) => {
           },
         }
       );
-      // if (food[0] == 1) {
+      if (food[0] == 1) {
         return res.status(200).json({ message: "Updated information" });
-      // }
-      // return res.status(400).json({ message: "food not found" });
+      }
+      return res.status(400).json({ message: "food not found" });
     } else {
       return res.status(400).json({ message: "Requires id" });
     }
