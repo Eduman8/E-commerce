@@ -9,9 +9,13 @@ import { LogoutButton } from "../Auth/LogoutButton";
 import "./NavBar.css";
 import Logo from "../../assets/images/navLogo.png"
 import FavoriteButton from "../FavoriteButton/FavoriteButton";
+import { useSelector } from "react-redux";
 
 const NavBar = () => {
   const { isAuthenticated, user } = useAuth0();
+  const allBilling = useSelector((state) => state.user);
+  console.log(allBilling);
+
 
   return (
     <>
@@ -44,6 +48,10 @@ const NavBar = () => {
             </LinkContainer>
 
           </Nav>
+            {allBilling?
+            <LinkContainer to="/review">
+              <div id="btnReview">Review</div>
+            </LinkContainer>:null}
           <FavoriteButton></FavoriteButton>
           {isAuthenticated ? (
             <Link to="/user">

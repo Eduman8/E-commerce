@@ -67,11 +67,9 @@ function Card({card,arrayInShopping,update}) {
 		  <Rating name="read-only" value={card.amount} readOnly />
 		  </div>	
 		  <div className="cardPart3">	
-		  	{arrayInShopping.includes(card.id)?
+		  	{arrayInShopping.includes(card.id.toString())?
 		  	<button id= {card.id} className='btnCarritotrue' value={card.id} onClick = {(e)=>addCar(e)}></button>:
 		  	<button id= {card.id} className='btnCarritofalse' value={card.id} onClick = {(e)=>addCar(e)}></button>}
-			{/* <div className="Desc">discount</div>
-			<div className="DescVal">{card.discount}%</div> */}
 
 			{card.discount ? (
             <div className="Desc">discount</div>

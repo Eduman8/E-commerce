@@ -1,4 +1,5 @@
 import {
+  POST_BILL,
   UPDATE_ROLL,
   POST_USER,
   ADDSHOPPING,
@@ -10,7 +11,10 @@ import {
   POST_FOOD,
   GET_ALL_USERS,
   GET_USER,
-  PAY
+  PAY,
+  PUT_FOOD,
+  PUT_BILL,
+  GET_ALL_BILLING
 } from "../Actions/Constantes"; 
 
 const initialState = {
@@ -21,7 +25,10 @@ const initialState = {
   allUsers:[],
   roll: "client",
   favorites: [],
-  pay: []
+  pay: [],
+  bill: [],
+  billput: [],
+  allbilling: []
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -29,12 +36,22 @@ const rootReducer = (state = initialState, action) => {
     case UPDATE_ROLL:
       return {
         ...state,
-        roll: [...state.roll, action.payload],
+        roll: action.payload,
+      };
+      case PUT_BILL:
+      return {
+        ...state,
+        billput: [...state.billput, action.payload],
       };
     case POST_USER:
       return {
         ...state,
         users: [...state.users, action.payload],
+      };
+      case POST_BILL:
+      return {
+        ...state,
+        bill: [...state.bill, action.payload],
       };
     case POST_FOOD:
       return {
@@ -50,6 +67,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         allUsers: action.payload,
+      };
+    case GET_ALL_BILLING:
+      return {
+        ...state,
+        allbilling: action.payload,
       };
     case GET_USER:
       return {
@@ -100,8 +122,13 @@ const rootReducer = (state = initialState, action) => {
           favorites: [...state.favorites, action.payload],
         };
       }
+    case PUT_FOOD:
+      return {
+        ...state,
+        foods: [...state.foods, action.payload],
+      };
     default:
       return state;
   }
 };
-export default rootReducer
+export default rootReducer;

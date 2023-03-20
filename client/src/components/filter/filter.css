@@ -1,18 +1,24 @@
 .contFilter {
     position: absolute;
     border-radius: 5PX;
-    top: 80px;
+    top: 115px;
     left: 77%;
     width: 20%;
-    height: 72%;
+    height: 668px;
     border: 1px solid #acacaccc;
+}
+#GroupFilter{
+    margin-top: 10px;
 }
 
 .filteTittle {
+    border-radius: 5px;
+    background-color: rgba(0, 128, 0, 0.199);
     color: rgb(1, 104, 1);
     font-weight: bold;
     font-size: 130%;
     margin-top: 10px;
+    padding-left: 10px;
 }
 
 #filtercontenido {
@@ -36,12 +42,8 @@
     height: 1.875em;
 }
 
-.filteSubTitle {
-    background-color: rgba(0, 128, 0, 0.199);
-}
 
 .filteSubTitletxt {
-    background-color: rgba(0, 128, 0, 0.199);
     border: none;
     width: 100%;
     color: green;
@@ -70,6 +72,7 @@
     width: 90%;
     border: 1px solid rgba(0, 128, 0, 0.384);
     border-radius: 4px;
+    margin-top: 10px;
 }
 
 .imgtaFalse {
