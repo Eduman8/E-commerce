@@ -55,8 +55,8 @@ function Register() {
 
     return (
         <div>
-            <NavBar />
             <h1>Create account</h1>
+            {/* <NavBar /> */}
             <form className="format" onSubmit={(e) => handleRegister(e)}>
                 <div className="boxes">
                     <RiUserLine className="absolute top-1/2 -translate-y-1/2 left-2 focus:border text-primary" />
@@ -153,7 +153,7 @@ function Register() {
                         onChange={(e) => handleChange(e)}
                         onBlur={(e) => handleOnBlur(e)}
                     />
-                    {showPassword ? (
+                    {/* {showPassword ? (
                         <RiEyeLine
                             onClick={() => setShowPassword(!showPassword)}
                             className="absolute top-1/2 -translate-y-1/2 right-2 hover:cursor-pointer  text-primary"
@@ -164,6 +164,7 @@ function Register() {
                             className="absolute top-1/2 -translate-y-1/2 right-2 hover:cursor-pointer  text-primary"
                         />
                     )}
+                    */}
                     {errors.password && (
                         <p className="error-text">{errors.password}</p>
                     )}
@@ -183,6 +184,7 @@ function Register() {
                     className='button-box'
                 > Sign Up
                 </button>
+           
             </form>
         </div>
     )

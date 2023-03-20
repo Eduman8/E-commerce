@@ -20,28 +20,32 @@ const NavBar = () => {
   return (
     <>
       <Navbar bg="success" fixed="top" variant="dark">
-        <Container>
-          <LinkContainer to="/home">
-            <Navbar.Brand ><img src={Logo} alt="" className="navLogo" /></Navbar.Brand>
-          </LinkContainer>
+        <Container >
+          <Navbar.Brand ><img src={Logo} alt="" className="navLogo" /></Navbar.Brand>
           <Nav className="me-auto">
-
-            <LinkContainer to="/home">
+            <LinkContainer activeClassName="" to="/home">
               <Nav.Link>Home</Nav.Link>
             </LinkContainer>
 
-            <LinkContainer to="/about">
+            <LinkContainer activeClassName="" to="/about">
               <Nav.Link>About</Nav.Link>
             </LinkContainer>
 
-            <LinkContainer to="/contact">
+            <LinkContainer activeClassName="" to="/contact">
               <Nav.Link>Contact</Nav.Link>
             </LinkContainer>
 
-            <LinkContainer to="/shopping">
+            {/* <LinkContainer to="/pricing">
+            <Nav.Link>Pricing</Nav.Link>
+            </LinkContainer> */}
+
+            <LinkContainer activeClassName="" to="/shopping">
               <Nav.Link>Shopping</Nav.Link>
             </LinkContainer>
 
+            <LinkContainer activeClassName="" to="/review">
+              <Nav.Link>Review Pending</Nav.Link>
+            </LinkContainer>
 
           </Nav>
             {allBilling?
@@ -51,7 +55,7 @@ const NavBar = () => {
           <FavoriteButton></FavoriteButton>
           {isAuthenticated ? (
             <Link to="/user">
-            <img className="navImg" src={user.picture} alt={"No"} />
+              <img className="navImg" src={user.picture} alt={"No"} />
             </Link>
           ) : (
             <img
@@ -63,8 +67,8 @@ const NavBar = () => {
           {isAuthenticated ? (
             <Link to="/user">
               {/* <> */}
-            <h3 id="autentic">Hola {user.name}</h3>
-            {/* </> */}
+              <h3 id="autentic">Hola {user.name}</h3>
+              {/* </> */}
             </Link>
           ) : (
             <h3 id="autentic">Invited</h3>
