@@ -2,16 +2,24 @@ import React, { useState } from "react";
 import "./WelcomeAdmin.css";
 import { useAuth0 } from "@auth0/auth0-react";
 export const WelcomeAdmin = () => {
-    const [adminName, setAdminName] = useState("");
-    const { user, isAuthenticated, isLoading } = useAuth0();
-    console.log(isLoading)
+  // const [adminName, setAdminName] = useState("");
+  const { user, isAuthenticated, isLoading } = useAuth0();
+  console.log(isLoading);
   return (
     <div className="welcomeAdmin">
       <div className="welcome-center">
-      <div className="welcome-header">
-        <h2> Welcome <span>{isAuthenticated? user.name:""}</span></h2>
-        <img style={{marginBottom:"-75px",border:"3px solid black"}} width={"150px"} src={isAuthenticated? user.picture:""} alt="dashboard logo" />
-      </div>
+        <div className="welcome-header">
+          <h2>
+            {" "}
+            Welcome <span>{isAuthenticated ? user.name : ""}</span>
+          </h2>
+          <img
+            style={{ marginBottom: "-75px", border: "3px solid black" }}
+            width={"150px"}
+            src={isAuthenticated ? user.picture : ""}
+            alt="dashboard logo"
+          />
+        </div>
         <div className="how-text">
           <h2>Here you can manage the functions of your page</h2>
           <p> Easy and fast functionality </p>
