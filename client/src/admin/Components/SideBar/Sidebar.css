@@ -18,7 +18,7 @@ main {
   background: #2a9461;
   height: 100vw;
   width: 50px;
-  transition: width 1s;
+  transition: width .3s;
   overflow: hidden;
   z-index: 99;
   box-shadow: inset -8px 0px 16px -6px rgba(245, 245, 245, 0.2);
@@ -39,15 +39,15 @@ main {
   font-size: medium;
   color: rgb(255, 255, 255, 1);
 }
-.dash-link {
+.dashboard-link {
   display: flex;
   height: 10%;
-  line-height: 100px;
+  line-height: 50px;
   position: relative;
-  padding: 10px;
+  padding: 15px;
   transition: border 0.5s, background 0.5s;
 }
-.dash-link:hover {
+.dashboard-link:hover {
   background: rgba(211, 208, 208, 0.5);
   cursor: pointer;
 }
@@ -55,7 +55,7 @@ main {
   background: rgba(146, 155, 152, 0.685);
   color: rgb(233, 228, 228);
 }
-.icon {
+.icon-dash {
   color: white;
-  font-size: 15px;
+  font-size: 20px;
 }

@@ -11,15 +11,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
 const Bills = () => {
-  const users = useSelector((state) => state.users);
-  const [tableData, setTableData] = useState(() => users);
+  const bills = useSelector((state) => state.allbilling);
+  const [tableData, setTableData] = useState(() => bills);
   const [validationErrors, setValidationErrors] = useState({});
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllUsers());
   }, [dispatch]);
-  console.log("a", users);
+  console.log("a", bills);
 
   const handleSaveRowEdits = async ({ exitEditingMode, row, values }) => {
     if (!Object.keys(validationErrors).length) {
@@ -147,7 +147,7 @@ const Bills = () => {
           },
         }}
         columns={columns}
-        data={tableData}
+        data={bills}
         editingMode="modal" //default
         enableColumnOrdering
         enableEditing
