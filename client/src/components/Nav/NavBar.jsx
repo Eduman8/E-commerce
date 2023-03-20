@@ -21,9 +21,9 @@ const NavBar = () => {
     <>
       <Navbar bg="success" fixed="top" variant="dark">
         <Container>
-          <LinkContainer to="/home">
+          <Link to="/home">
             <Navbar.Brand ><img src={Logo} alt="" className="navLogo" /></Navbar.Brand>
-          </LinkContainer>
+          </Link>
           <Nav className="me-auto">
 
             <LinkContainer to="/home">
@@ -62,9 +62,7 @@ const NavBar = () => {
           )}
           {isAuthenticated ? (
             <Link to="/user">
-              {/* <> */}
             <h3 id="autentic">Hola {user.name}</h3>
-            {/* </> */}
             </Link>
           ) : (
             <h3 id="autentic">Invited</h3>
