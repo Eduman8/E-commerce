@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
 import "./Form.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   FormControlLabel,
   Radio,
@@ -13,14 +13,17 @@ import {
   TextField,
   MenuItem,
   Button,
+  DialogActions,
+  FormControl,
+  FormLabel,
 } from "@mui/material";
-import { FormGroup } from "reactstrap";
 import { useState } from "react";
 import { postFood } from "../../../Redux/Actions/Actions";
 
-export const FoodForm = () => {
+export const FoodForm = ({ open }) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [ loding, setLonding] = useState(false)
+  const [loding, setLonding] = useState(false);
 
   const {
     errors,
@@ -37,12 +40,13 @@ export const FoodForm = () => {
       name: "",
       image: "",
       available: true,
+      active: "valid",
       price: 0,
       discount: 0,
       type: "",
-      Fat: "",
-      Sodium: "",
-      Sugar: "",
+      fat: "",
+      sodium: "",
+      sugar: "",
       description: "",
       qualification: 0,
       amount: 0,
@@ -54,23 +58,23 @@ export const FoodForm = () => {
         .required("Name is required"),
       // image: Yup.string().required("Image is required"),
       available: Yup.boolean().required("Available is required"),
+      active: Yup.string().required("Active is required"),
       price: Yup.number()
         .positive("Price must be greater than zero")
         .required("Price is required"),
-      discount: Yup.number().moreThan(
-        -1,
-        "Discount must be greater or equal to zero"
-      ).lessThan(101, "Discount top is 100"),
+      discount: Yup.number()
+        .moreThan(-1, "Discount must be greater or equal to zero")
+        .lessThan(101, "Discount top is 100"),
       type: Yup.string("Enter the type")
         .min(3, "Min. 3 characters")
         .max(50, "Max. 50 characters"),
-      Fat: Yup.string("Enter the fat")
+      fat: Yup.string("Enter the fat")
         .min(3, "Min. 3 characters")
         .max(50, "Max. 50 characters"),
-      Sodium: Yup.string("Enter the sodium")
+      sodium: Yup.string("Enter the sodium")
         .min(3, "Min. 3 characters")
         .max(50, "Max. 50 characters"),
-      Sugar: Yup.string("Enter the sugar")
+      sugar: Yup.string("Enter the sugar")
         .min(3, "Min. 3 characters")
         .max(50, "Max. 50 characters"),
       description: Yup.string()
@@ -79,7 +83,7 @@ export const FoodForm = () => {
         .required("Description is required"),
       qualification: Yup.number()
         .moreThan(0, "Qualification must be greater than zero")
-        .lessThan(6,'Qualification limit is 5')
+        .lessThan(6, "Qualification limit is 5")
         .required("Qualification is required"),
       amount: Yup.number()
         .moreThan(0, "Amount must be greater than zero")
@@ -87,47 +91,43 @@ export const FoodForm = () => {
     }),
     onSubmit: (values) => {
       console.log(values);
-        dispatch(postFood(values));
+      dispatch(postFood(values));
+      resetForm({ values: "" });
+      open();
       Swal.fire({
         position: "center",
         icon: "success",
-        title: "New accessesory has been created successfully",
+        title: "New food has been created successfully",
         showConfirmButton: true,
       });
-      resetForm({ values: "" });
     },
   });
 
-  const uqdat = async (e)=> {
-    const files = e.target.files
-    const data2 = new FormData()
-    data2.append("file", files[0])
-    data2.append("upload_preset", "images")
-    setLonding(true)
+  const uqdat = async (e) => {
+    const files = e.target.files;
+    const data2 = new FormData();
+    data2.append("file", files[0]);
+    data2.append("upload_preset", "images");
+    setLonding(true);
     const res = await fetch(
       "https://api.cloudinary.com/v1_1/bl3ychz/image/upload",
       {
         method: "POST",
-        body: data2
+        body: data2,
       }
-    )
-    const file = await res.json()
-    setLonding(false)
+    );
+    const file = await res.json();
+    setLonding(false);
     return setValues({
       ...values,
-       image : file.secure_url })
-  }
+      image: file.secure_url,
+    });
+  };
 
   return (
     <>
-      <Link to="/dashboard/foods">
-        <button type="button" className="form-buttom">
-          Back
-        </button>
-      </Link>
       {console.log(values)}
-      <div className="form_accessory">
-        <label className="form_title">CREATE NEW FOOD</label>
+      <div className="form_food">
         <form onSubmit={handleSubmit}>
           <TextField
             fullWidth
@@ -144,27 +144,55 @@ export const FoodForm = () => {
             }
             {...getFieldProps("name")}
           />
-          <fieldset>
-            <legend>Available </legend>
+          <FormControl
+            sx={{
+              border: " 1px solid  rgb(179, 179, 185)",
+              borderRadius: "3px",
+            }}
+            margin="normal"
+            fullWidth
+            component="fieldset"
+            variant="outlined"
+          >
+            <FormLabel component="legend">Available</FormLabel>
             <RadioGroup
               row
               name="status"
-              value={values.status}
-              style={{ marginLeft: "200px" }}
+              value={values.available}
+              style={{ marginLeft: "100px" }}
               onChange={handleChange}
             >
               <FormControlLabel
                 value={true}
                 control={<Radio size="small" />}
-                label="Valid"
+                label="True"
               />
               <FormControlLabel
                 value={false}
                 control={<Radio size="small" />}
+                label="False"
+              />
+            </RadioGroup>
+            <FormLabel component="legend">Active</FormLabel>
+            <RadioGroup
+              row
+              name="active"
+              value={values.active}
+              style={{ marginLeft: "100px" }}
+              onChange={handleChange}
+            >
+              <FormControlLabel
+                value={"valid"}
+                control={<Radio size="small" />}
+                label="Valid"
+              />
+              <FormControlLabel
+                value={"invalid"}
+                control={<Radio size="small" />}
                 label="Invalid"
               />
             </RadioGroup>
-          </fieldset>
+          </FormControl>
           <TextField
             fullWidth
             name="price"
@@ -231,15 +259,15 @@ export const FoodForm = () => {
             fullWidth
             select
             label="Fat"
-            value={values.Fat}
+            value={values.fat}
             name="Fat"
             margin="normal"
             onChange={handleChange}
-            error={touched.Fat && errors.Fat ? true : false}
+            error={touched.fat && errors.fat ? true : false}
             helperText={
-              touched.Fat && errors.Fat ? <span>{errors.Fat} </span> : false
+              touched.fat && errors.fat ? <span>{errors.fat} </span> : false
             }
-            {...getFieldProps("Fat")}
+            {...getFieldProps("fat")}
           >
             <MenuItem value="High">High</MenuItem>
             <MenuItem value="Medium">Medium</MenuItem>
@@ -249,19 +277,19 @@ export const FoodForm = () => {
             fullWidth
             select
             label="Sodium"
-            value={values.Sodium}
-            name="Sodium"
+            value={values.sodium}
+            name="sodium"
             margin="normal"
             onChange={handleChange}
-            error={touched.Sodium && errors.Sodium ? true : false}
+            error={touched.sodium && errors.sodium ? true : false}
             helperText={
-              touched.Sodium && errors.Sodium ? (
-                <span>{errors.Sodium} </span>
+              touched.sodium && errors.sodium ? (
+                <span>{errors.sodium} </span>
               ) : (
                 false
               )
             }
-            {...getFieldProps("Sodium")}
+            {...getFieldProps("sodium")}
           >
             <MenuItem value="High">High</MenuItem>
             <MenuItem value="Medium">Medium</MenuItem>
@@ -271,19 +299,19 @@ export const FoodForm = () => {
             fullWidth
             select
             label="Sugar"
-            value={values.Sugar}
-            name="Sugar"
+            value={values.sugar}
+            name="sugar"
             margin="normal"
             onChange={handleChange}
-            error={touched.Sugar && errors.Sugar ? true : false}
+            error={touched.sugar && errors.sugar ? true : false}
             helperText={
-              touched.Sugar && errors.Sugar ? (
-                <span>{errors.Sugar} </span>
+              touched.sugar && errors.sugar ? (
+                <span>{errors.sugar} </span>
               ) : (
                 false
               )
             }
-            {...getFieldProps("Sugar")}
+            {...getFieldProps("sugar")}
           >
             <MenuItem value="High">High</MenuItem>
             <MenuItem value="Medium">Medium</MenuItem>
@@ -310,7 +338,7 @@ export const FoodForm = () => {
           />
           <TextField
             fullWidth
-            name="quanlification"
+            name="qualification"
             value={values.qualification}
             type="number"
             min="0"
@@ -348,22 +376,31 @@ export const FoodForm = () => {
             }
             {...getFieldProps("amount")}
           />
-          <FormGroup>
-          <fieldset>
-            <p>image</p>
-                <input type="file" name="file" onChange={uqdat}/>
-          </fieldset>
-          </FormGroup>
-          <Button
-            onClick={() => console.log("image", values.image)}
-            color="primary"
-            sx={{ backgroundColor: "#2F3E46" }}
-            variant="contained"
+          <FormControl
+            sx={{
+              p: "1.25rem",
+              border: "1px solid  rgb(179, 179, 185)",
+              borderRadius: "3px",
+            }}
+            margin="normal"
             fullWidth
-            type="submit"
+            component="fieldset"
+            variant="outlined"
           >
-            Submit
-          </Button>
+            <FormLabel component="legend">Image</FormLabel>
+            <input  type="file" name="image" onChange={uqdat} />
+            {/* onChange={uqdat} */}
+          </FormControl>
+          <DialogActions sx={{ p: "1.25rem" }}>
+            <Button onClick={open}>Cancel</Button>
+            <Button
+              color="secondary"
+              onClick={handleSubmit}
+              variant="contained"
+            >
+              Create New Food
+            </Button>
+          </DialogActions>
         </form>
       </div>
     </>

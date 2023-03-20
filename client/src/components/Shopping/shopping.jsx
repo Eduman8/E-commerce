@@ -78,7 +78,7 @@ export default function Shopping() {
   const currentUser = useSelector((state) => state.user);
 
   foods.map((food) => {
-    if (info.includes(food.id)) {
+    if (info.includes(food.id.toString())) {
       display.push(food)
     }
   })
@@ -120,12 +120,12 @@ export default function Shopping() {
   function hind(e){
     e.preventDefault();
     dispatch(postBill(cuure))
-    axios
-      .post("http://localhost:3001/payment", shoping)
-      .then(
-        (res) =>
-          (window.location.href = res.data.response.body.init_point)
-      )
+      axios
+        .post("http://localhost:3001/payment", shoping)
+        .then(
+          (res) =>
+            (window.location.href = res.data.response.body.init_point)
+        );
     setState(false)
   }
   
@@ -184,12 +184,12 @@ export default function Shopping() {
             className="btn btn-success" 
             onClick={(e) => { hind(e)}}
           >
-            Start pay
+            Start pay2
           </button> : <button
             className="btn btn-success" 
             onClick={(e) => { msn(e)}}
           >
-            Start pay
+            Start pay1
           </button>
           }
         </div><br />

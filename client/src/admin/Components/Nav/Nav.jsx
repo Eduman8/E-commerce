@@ -14,6 +14,8 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import logo from "../../../assets/images/navLogo.png";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { useAuth0 } from "@auth0/auth0-react";
+import { Divider } from "@mui/material";
 
 const theme = createTheme({
   palette: {
@@ -36,6 +38,8 @@ const pages = ["Home"];
 const settings = ["Profile", "Home", "Logout"];
 
 function Nav() {
+  const { user, isAuthenticated, isLoading } = useAuth0();
+  console.log("user", isLoading);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -107,7 +111,11 @@ function Nav() {
                 }}
               >
                 {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
+                  <MenuItem
+                    href="/home"
+                    key={page}
+                    onClick={handleCloseNavMenu}
+                  >
                     <Typography textAlign="center">{page}</Typography>
                   </MenuItem>
                 ))}
@@ -125,7 +133,7 @@ function Nav() {
                 flexGrow: 1,
                 fontFamily: "monospace",
                 fontWeight: 700,
-                letterSpacing: ".3rem",
+                letterSpacing: ".5rem",
                 color: "inherit",
                 textDecoration: "none",
               }}
@@ -135,6 +143,7 @@ function Nav() {
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages.map((page) => (
                 <Button
+                  href="/home"
                   key={page}
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: "white", display: "block" }}
@@ -144,14 +153,30 @@ function Nav() {
               ))}
             </Box>
 
+            <Typography
+              fontSize={15}
+              fontWeight={10}
+              align="center"
+              paddingRight={20}
+            >
+              {isAuthenticated ? `${user.name} `.toUpperCase() : ""}
+            </Typography>
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  {console.log("is ", isAuthenticated)}
+                  <Avatar
+                    alt="Remy Sharp"
+                    src={isAuthenticated ? user.picture : "none"}
+                  />
                 </IconButton>
               </Tooltip>
               <Menu
-                sx={{ mt: "45px" }}
+                sx={{
+                  mt: "45px",
+                  width: "100%",
+                  maxWidth: 360,
+                }}
                 id="menu-appbar"
                 anchorEl={anchorElUser}
                 anchorOrigin={{
@@ -166,6 +191,8 @@ function Nav() {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
+                <Typography>Hola</Typography>
+                <Divider />
                 {settings.map((setting) => (
                   <MenuItem key={setting} onClick={handleCloseUserMenu}>
                     <Typography textAlign="center">{setting}</Typography>

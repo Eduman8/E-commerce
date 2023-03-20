@@ -8,6 +8,7 @@ import {
   DialogContent,
   DialogTitle,
   IconButton,
+  Rating,
   Stack,
   TextField,
   Tooltip,
@@ -17,8 +18,10 @@ import { getAllFoods } from "../../../Redux/Actions/Actions";
 import { useDispatch, useSelector } from "react-redux";
 import { postFood } from "../../../Redux/Actions/Actions";
 import { useEffect } from "react";
-import { createTheme } from "@mui/system";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Swal from "sweetalert2";
+import { putFood } from "../../../Redux/Actions/Actions";
+import { FoodForm } from "../../Components/Forms/FoodForm";
 
 const theme = createTheme({
   palette: {
@@ -41,6 +44,7 @@ const Foods = () => {
   const [createModalOpen, setCreateModalOpen] = useState(false);
   const foods = useSelector((state) => state.foods);
   //Solo para arreglar los tres atributos en mayusculas
+  const [isSaving, setIsSaving] = useState(false);
   const [tableData, setTableData] = useState(foods);
   const [validationErrors, setValidationErrors] = useState({});
 
@@ -48,10 +52,10 @@ const Foods = () => {
   useEffect(() => {
     dispatch(getAllFoods());
   }, [dispatch]);
-  console.log("a", foods);
+  //console.log("a", foods);
 
   const handleCreateNewRow = (values) => {
-    console.log(values);
+    console.log("handle create values", values);
     dispatch(postFood(values));
     Swal.fire({
       position: "center",
@@ -64,46 +68,63 @@ const Foods = () => {
   };
 
   const handleSaveRowEdits = async ({ exitEditingMode, row, values }) => {
-    if (!Object.keys(validationErrors).length) {
-      tableData[row.index] = values;
-      //send/receive api updates here, then refetch or update local table data for re-render
-      setTableData([...tableData]);
-      exitEditingMode(); //required to exit editing mode and close modal
-    }
+    setIsSaving(true);
+    console.log("put foods", values);
+    dispatch(putFood(values));
+    // setTimeout(() => {
+    //   tableData[row.index] = values;
+    //   setTableData([...tableData]);
+    //   setIsSaving(false);
+    // }, 1500);
+    // if (!Object.keys(validationErrors).length) {
+    //   tableData[row.index] = values;
+    //     c
+    //   //send/receive api updates here, then refetch or update local table data for re-render
+    //   setTableData([...tableData]);
+    //   dispatch(putFood(values))
+    //   exitEditingMode(true); //required to exit editing mode and close modal
+    // }
   };
 
   const handleCancelRowEdits = () => {
     setValidationErrors({});
   };
 
-  const handleDeleteRow = useCallback(
-    (row) => {
-      if (
-        Swal.fire({
-          title: "Are you sure?",
-          text: "You will be able to revert this!",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Yes, delete it!",
-        }).then((result) => {
-          if (result.isConfirmed) {
-            Swal.fire("Deleted!", "Your file has been deleted.", "success");
-          }
-        })
-        // !window.confirm(
-        //   `Are you sure you want to delete ${row.getValue("firstName")}`
-        // )
-      ) {
-        return;
-      }
-      //send api delete request here, then refetch or update local table data for re-render
-      tableData.splice(row.index, 1);
-      setTableData([...tableData]);
-    },
-    [tableData]
-  );
+  const handleDeleteRow = (row) => {
+    if (row.original.active === "valid") {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You will disactive this food!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, desactived it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          dispatch(putFood({ id: row.original.id, active: "invalid" }));
+          console.log("disactiving", row.original);
+          Swal.fire("Disactived!", "Your file has been desactived.", "success");
+        }
+      });
+    } else if (row.original.active === "invalid") {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You will active this food!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, active it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          dispatch(putFood({ id: row.original.id, active: "valid" }));
+          console.log("activating", row.original);
+          Swal.fire("Actived!", "Your file has been actived.", "success");
+        }
+      });
+    }
+  };
 
   const getCommonEditTextFieldProps = useCallback(
     (cell) => {
@@ -111,12 +132,11 @@ const Foods = () => {
         error: !!validationErrors[cell.id],
         helperText: validationErrors[cell.id],
         onBlur: (event) => {
-          const isValid =
-            cell.column.id === "email"
-              ? validateEmail(event.target.value)
-              : cell.column.id === "age"
-              ? validateAge(+event.target.value)
-              : validateRequired(event.target.value);
+          const isValid = cell.column.id === "id";
+          // ? validateEmail(event.target.value)
+          // : cell.column.id === "name"
+          // ? validateAge(+event.target.value)
+          // : validateRequired(event.target.value);
           if (!isValid) {
             //set validation error for cell if invalid
             setValidationErrors({
@@ -168,15 +188,44 @@ const Foods = () => {
               gap: "1rem",
             }}
           >
-            {console.log("box", row)}
+            {/* {console.log("box", row)} */}
             <img
               alt="avatar"
-              height={30}
+              height={40}
+              width={60}
               src={row.original.image}
               loading="lazy"
               style={{ borderRadius: "30%" }}
             />
           </Box>
+        ),
+        size: 140,
+      },
+      {
+        accessorKey: "active",
+        header: "Active",
+        size: 50,
+        enableEditing: false,
+        muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
+          ...getCommonEditTextFieldProps(cell),
+          type: "string",
+        }),
+        Cell: ({ cell }) => (
+          <Box
+            component="span"
+            sx={(theme) => ({
+              display: "inherit",
+              maxWidth: "15px",
+              height: "15px",
+              backgroundColor:
+                cell.getValue() === "invalid"
+                  ? theme.palette.error.dark
+                  : theme.palette.success.dark,
+              borderRadius: "50%",
+              color: "#fff",
+              padding: "1rem",
+            })}
+          ></Box>
         ),
       },
       {
@@ -192,22 +241,20 @@ const Foods = () => {
             sx={(theme) => ({
               backgroundColor:
                 cell.getValue() === true
-                  ? theme.palette.success.dark
+                  ? theme.palette.success.light
                   : theme.palette.error.dark,
-              borderRadius: "0.25rem",
+              borderRadius: "1rem",
               color: "#fff",
-              maxWidth: "9ch",
-              p: "0.55rem",
+              width: "auto",
+              padding: ".35rem",
             })}
           >
             {cell.getValue()?.toLocaleString?.("en-US", {
-              style: "",
-              currency: "USD",
-              minimumFractionDigits: 0,
-              maximumFractionDigits: 0,
+              style: "button",
             })}
           </Box>
         ),
+        size: 80,
       },
       {
         accessorKey: "price",
@@ -221,9 +268,9 @@ const Foods = () => {
           <Box
             component="span"
             sx={(theme) => ({
-              backgroundColor: theme.palette.primary.dark,
+              color: theme.palette.primary.dark,
               borderRadius: "0.25rem",
-              color: "#fff",
+              fontWeight: "bold",
               maxWidth: "9ch",
               p: "0.55rem",
             })}
@@ -231,8 +278,8 @@ const Foods = () => {
             {cell.getValue()?.toLocaleString?.("en-US", {
               style: "currency",
               currency: "USD",
-              minimumFractionDigits: 0,
-              maximumFractionDigits: 0,
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 3,
             })}
           </Box>
         ),
@@ -245,6 +292,24 @@ const Foods = () => {
           ...getCommonEditTextFieldProps(cell),
           type: "number",
         }),
+        Cell: ({ cell }) => (
+          <Box
+            component="span"
+            sx={(theme) => ({
+              color: theme.palette.error.light,
+              borderRadius: "0.25rem",
+              fontWeight: "bold",
+              maxWidth: "9ch",
+              p: "0.55rem",
+            })}
+          >
+            {(cell.getValue() / 100)?.toLocaleString?.("en-US", {
+              style: "percent",
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0,
+            })}
+          </Box>
+        ),
       },
       {
         accessorKey: "type",
@@ -255,7 +320,7 @@ const Foods = () => {
         }),
       },
       {
-        accessorKey: "Fat",
+        accessorKey: "fat",
         header: "Fat",
         size: 140,
         muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
@@ -265,7 +330,7 @@ const Foods = () => {
         editSelectOptions: ["High", "Medium", "Low"],
       },
       {
-        accessorKey: "Sodium",
+        accessorKey: "sodium",
         header: "Sodium",
         size: 140,
         muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
@@ -275,7 +340,7 @@ const Foods = () => {
         editSelectOptions: ["High", "Medium", "Low"],
       },
       {
-        accessorKey: "Sugar",
+        accessorKey: "sugar",
         header: "Sugar",
         size: 140,
         muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
@@ -296,10 +361,30 @@ const Foods = () => {
         accessorKey: "qualification",
         header: "Qualification",
         size: 80,
+        enableEditing: false,
         muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
           ...getCommonEditTextFieldProps(cell),
           type: "number",
         }),
+        Cell: ({ row }) => (
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: "1rem",
+            }}
+          >
+            <Rating
+              name="read-only"
+              value={
+                typeof row.original.qualification === "undefined"
+                  ? row.original.qualification
+                  : 0
+              }
+              readOnly
+            />
+          </Box>
+        ),
       },
       {
         accessorKey: "amount",
@@ -313,53 +398,62 @@ const Foods = () => {
     ],
     [getCommonEditTextFieldProps]
   );
+  const darkTheme = createTheme({
+    palette: {
+      mode: "dark",
+    },
+  });
 
   return (
     <>
-      <MaterialReactTable
-        displayColumnDefOptions={{
-          "mrt-row-actions": {
-            muiTableHeadCellProps: {
-              align: "center",
+      <ThemeProvider theme={theme}>
+        <MaterialReactTable
+          enableStickyHeader
+          displayColumnDefOptions={{
+            "mrt-row-actions": {
+              muiTableHeadCellProps: {
+                align: "center",
+              },
+              size: 120,
             },
-            size: 120,
-          },
-        }}
-        columns={columns}
-        data={foods}
-        // state={{
-        //   expanded: true,
-        //   isLoading: true,
-        // }}
-        editingMode="modal" //default
-        enableColumnOrdering
-        enableEditing
-        onEditingRowSave={handleSaveRowEdits}
-        onEditingRowCancel={handleCancelRowEdits}
-        renderRowActions={({ row, table }) => (
-          <Box sx={{ display: "flex", gap: "1rem" }}>
-            <Tooltip arrow placement="left" title="Edit">
-              <IconButton onClick={() => table.setEditingRow(row)}>
-                <Edit />
-              </IconButton>
-            </Tooltip>
-            <Tooltip arrow placement="right" title="Delete">
-              <IconButton color="error" onClick={() => handleDeleteRow(row)}>
-                <Delete />
-              </IconButton>
-            </Tooltip>
-          </Box>
-        )}
-        renderTopToolbarCustomActions={() => (
-          <Button
-            color="primary"
-            onClick={() => setCreateModalOpen(true)}
-            variant="contained"
-          >
-            Create New Food
-          </Button>
-        )}
-      />
+          }}
+          columns={columns}
+          data={foods}
+          // state={{
+          //   expanded: true,
+          //   isLoading: true,
+          // }}
+          editingMode="modal" //default
+          enableColumnOrdering
+          enableEditing
+          onEditingRowSave={handleSaveRowEdits}
+          onEditingRowCancel={handleCancelRowEdits}
+          renderRowActions={({ row, table }) => (
+            <Box sx={{ display: "flex", gap: "1rem" }}>
+              <Tooltip arrow placement="left" title="Edit">
+                <IconButton onClick={() => table.setEditingRow(row)}>
+                  <Edit />
+                </IconButton>
+              </Tooltip>
+              <Tooltip arrow placement="right" title="Delete">
+                <IconButton color="error" onClick={() => handleDeleteRow(row)}>
+                  <Delete />
+                </IconButton>
+              </Tooltip>
+            </Box>
+          )}
+          renderTopToolbarCustomActions={() => (
+            <Button
+              color="primary"
+              onClick={() => setCreateModalOpen(true)}
+              variant="contained"
+            >
+              Create New Food
+            </Button>
+          )}
+        />
+      </ThemeProvider>
+
       <CreateNewAccountModal
         columns={columns}
         open={createModalOpen}
@@ -378,7 +472,7 @@ export const CreateNewAccountModal = ({ open, columns, onClose, onSubmit }) => {
       return acc;
     }, {})
   );
-  console.log(values);
+  //console.log(values);
 
   const handleSubmit = () => {
     //put your validation logic here
@@ -387,50 +481,20 @@ export const CreateNewAccountModal = ({ open, columns, onClose, onSubmit }) => {
   };
 
   return (
-    <Dialog open={open}>
+    <Dialog open={open} onClose={onClose}>
       <DialogTitle textAlign="center">Create New Food</DialogTitle>
       <DialogContent>
-        <form onSubmit={(e) => e.preventDefault()}>
-          <Stack
-            sx={{
-              width: "100%",
-              minWidth: { xs: "300px", sm: "360px", md: "400px" },
-              gap: "1.5rem",
-            }}
-          >
-            {console.log("column", columns)}
-            {columns.map((column) => (
-              <TextField
-                key={column.accessorKey}
-                label={column.header}
-                name={column.accessorKey}
-                type={column.editVariant}
-                onChange={(e) =>
-                  setValues({ ...values, [e.target.name]: e.target.value })
-                }
-              />
-            ))}
-          </Stack>
-        </form>
+        <FoodForm open={() => onClose()} />
+        {/* <DialogActions sx={{ p: "1.25rem" }}>
+          <Button onClick={onClose}>Cancel</Button>
+          <Button color="secondary" onClick={handleSubmit} variant="contained">
+            Create New Food
+          </Button>
+        </DialogActions> */}
       </DialogContent>
-      <DialogActions sx={{ p: "1.25rem" }}>
-        <Button onClick={onClose}>Cancel</Button>
-        <Button color="secondary" onClick={handleSubmit} variant="contained">
-          Create New Food
-        </Button>
-      </DialogActions>
     </Dialog>
   );
 };
 
 const validateRequired = (value) => !!value.length;
-const validateEmail = (email) =>
-  !!email.length &&
-  email
-    .toLowerCase()
-    .match(
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    );
-const validateAge = (age) => age >= 18 && age <= 50;
-
 export default Foods;

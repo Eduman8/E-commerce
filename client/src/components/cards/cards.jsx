@@ -10,6 +10,7 @@ export default function Cards ({foods,total,paginate, favorites, setFavorites}) 
   
   const inShopping = reactLocalStorage.get('Shopping');
   const arrayInShopping =inShopping?.split(',')
+  console.log(arrayInShopping);
   function update(){
     setup(up+1)
   }
