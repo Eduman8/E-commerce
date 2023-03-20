@@ -17,7 +17,6 @@ import Users from "../admin/pages/Users/Users";
 import Foods from "../admin/pages/Foods/Foods";
 import Sales from "../admin/pages/Sales/Sales";
 import Dashboard from "../admin/pages/Dashboard/Dashboard";
-import { FoodForm } from "../admin/Components/Forms/FoodForm";
 import Terms from "../Pages/Footer/Terms";
 import Data from "../Pages/Footer/DataProtection";
 
@@ -27,8 +26,12 @@ import User from "../userPanel/pages/Panel/Panel.jsx";
 import Profile from "../userPanel/pages/Profile/Profile.jsx"
 import Favorites from "../userPanel/pages/Favorites/Favorites.jsx"
 import Orders from "../userPanel/pages/Orders/Orders.jsx"
+
 import PayRejected from "../components/Payments/payRejected/payRejected";
 import PayPending from "../components/Payments/payPending/payPending";
+
+import { WelcomeAdmin } from "../admin/pages/WelcomeAdmin/WelcomeAdmin";
+
 
 
 function RouteApp() {
@@ -58,11 +61,10 @@ function RouteApp() {
         <Route exact path="/dataprotection" element={<Data />} />
 
         <Route exact path="/dashboard" element={<Dashboard />}>
-          {/* <Route index element={<Nav />} /> */}
+          <Route index element={<WelcomeAdmin />} />
           <Route path="users" element={<Users />} />
           <Route path="foods" element={<Foods />} />
           <Route path="sales" element={<Sales />} />
-          <Route path="create-food" element={<FoodForm />} />
         </Route>
 
         <Route exact path="/user" element={<User />}>

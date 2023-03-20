@@ -16,6 +16,7 @@ import {
   DialogActions,
   FormControl,
   FormLabel,
+  InputAdornment,
 } from "@mui/material";
 import { useState } from "react";
 import { postFood } from "../../../Redux/Actions/Actions";
@@ -205,6 +206,9 @@ export const FoodForm = ({ open }) => {
             label="Price"
             margin="normal"
             onChange={handleChange}
+            InputProps={{
+              startAdornment: <InputAdornment position="start">$</InputAdornment>,
+            }}
             error={errors.price && touched.price ? true : false}
             helperText={
               errors.price && touched.price ? (

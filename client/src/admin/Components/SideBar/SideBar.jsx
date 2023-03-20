@@ -4,23 +4,29 @@ import {
   FaUserAlt,
 } from "react-icons/fa";
 import { IoFastFoodSharp } from "react-icons/io5";
+import {MdAdminPanelSettings} from "react-icons/md"
 import { NavLink } from "react-router-dom";
 import "./Sidebar.css";
 
 const SideBar = ({ children }) => {
   const menuItem = [
     {
-      path: "foods",
+      path: "/dashboard/",
+      name: "Welcome",
+      icon: <MdAdminPanelSettings />,
+    },
+    {
+      path: "foods/",
       name: "Foods",
       icon: <IoFastFoodSharp />,
     },
     {
-      path: "users",
+      path: "users/",
       name: "Users",
       icon: <FaUserAlt />,
     },
     {
-      path: "sales",
+      path: "sales/",
       name: "Sales",
       icon: <FaShoppingCart />,
     },
@@ -33,10 +39,10 @@ const SideBar = ({ children }) => {
             <NavLink
               to={item.path}
               key={index}
-              className="dash-link"
+              className="dashboard-link"
               activeclassname="active"
             >
-              <div className="icon">{item.icon}</div>
+              <div className="icon-dash">{item.icon}</div>
               <div
                 className="link_text"
               >
