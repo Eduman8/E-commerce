@@ -1,54 +1,75 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import NavBar from '../../Nav/NavBar';
 import Footer from '../../Footer/Footer';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import './payApro.css';
-import { getAllFoods } from '../../../Redux/Actions/Actions'
+import { getAllFoods, getUser, putBill } from '../../../Redux/Actions/Actions'
+import Swal from "sweetalert2"
+import { useAuth0 } from "@auth0/auth0-react";
 
 function PayApro() {
 	const dispatch = useDispatch();
-	const foods = useSelector((state) => state.foods);
+	const foods = useSelector((state) => state.foods);  
 	const display = []
-
+	const { user } = useAuth0();
+	let [ resp, setResp ] = useState(false)
+	const userr = user?.email
 	const info = (reactLocalStorage.get('Shopping')).split(",");
 	const dataCant = (reactLocalStorage.get('ShoppingCant')).split(",")
-
+	
 	useEffect(() => {
+		dispatch(getUser(userr))
 		dispatch(getAllFoods())
-	}, [dispatch]);
+	  }, [dispatch, user]);
+	  const currentUser = useSelector((state) => state.user);
 
-	if (foods) {
-		foods.map((food) => {
-			if (info.includes(food.id)) {
-				display.push(food)
-			}
+	  const inf = {
+			paid: true,
+			idUsario: currentUser?.id
+		}
+	  function msn(e) {
+		e.preventDefault();
+		dispatch(putBill(inf))
+		Swal.fire({
+		  title: "listo",
+		  icon: "success",
+		  showConfirmButton: "#e38e15",
 		})
-	}
-	console.log(display);
+		setResp(true)
+	   }
+
+	  if (foods){
+			foods.map((food) => {
+				if (info.includes(food.id)) {
+				display.push(food)
+				}
+			})
+		}
 	return (
 		<>
-			<NavBar />
-
-			<div className="container1">
-				{
-					<div className="details">
-						<div className='text1'>Your payment was successfully received:</div>
-						<div className='text1'>Your order:</div>
-						{display.map((card, index) => <div key={index} > {dataCant[index + 1]}  {card.name} </div>)
-						}
+		{(resp === true) ?
+			(<><NavBar /><div className="container1">
+					{<div className="details">
+						<div>Your payment was successfully received</div>
+						<div>Your order:</div>
+						{display.map((card, index) => <div key={index}> {dataCant[index + 1]}  {card.name} </div>)}
 
 						<div className='details-button'>
 							<Link to={`/home`} className="link">
 								<button className='btn btn-success details-button'> Go back </button>
 							</Link>
 						</div>
-					</div>
-				}
+					</div>}
+				</div><Footer /></>):
+            <>
+			<h1></h1>
+			<div className='details-button'>
+					<button className='btn btn-success details-button' onClick={(e) => { msn(e)}}>listo</button>
 			</div>
-			<Footer />
-
+			</>
+		}	
 		</>
 	);
 }
