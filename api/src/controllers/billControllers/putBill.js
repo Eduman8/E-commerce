@@ -2,14 +2,16 @@ const { Bill, User } = require("../../db");
 
 module.exports = putBill = async (req, res, next) => {
   try {
-    const { paid, idUsario } = req.body;
+    const { status, paid, idUsario } = req.body;
     if(idUsario && paid) {
       const user = await User.findAll({
         where: { id: idUsario },
         include: Bill ,
       });
       const bill = user[0].bills[user[0].bills.length - 1]
-      bill.update({ paid: paid })
+      bill.update({
+        status,
+        paid })
         /* mailer */
         //////////////////////////////////////////////////////////
         // let billInfo = await Bill.findByPk(id);

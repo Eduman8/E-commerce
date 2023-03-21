@@ -11,6 +11,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Swal from "sweetalert2";
 
 export default function Shopping() {
+  var recar =true;
 
   const { user } = useAuth0();
   const [ state, setState ] = useState(false)
@@ -46,14 +47,16 @@ export default function Shopping() {
   }
 
   function msn(e) {
-    e.preventDefault();
-    Swal.fire({
-      title: "estas seguro que no quieres algo mas",
-      icon: "question",
-      cancelButtonText: "#e38e15",
-    });
-    dispatch(getUser(user?.email));
-    setState(true)
+    if (recar) {
+      e.preventDefault();
+      Swal.fire({
+        title: "Your invoice was generated please make the payment!",
+        icon: "warning",
+        confirmButtonColor: "#e38e15",
+      });
+      dispatch(getUser(user?.email));
+      setState(true)
+    }
   }
 
   function ShopDelete(e) {
@@ -127,6 +130,7 @@ export default function Shopping() {
             (window.location.href = res.data.response.body.init_point)
         );
     setState(false)
+    recar =false;
   }
   
   return (
@@ -184,12 +188,12 @@ export default function Shopping() {
             className="btn btn-success" 
             onClick={(e) => { hind(e)}}
           >
-            Start pay2
+            Start payment
           </button> : <button
             className="btn btn-success" 
             onClick={(e) => { msn(e)}}
           >
-            Start pay1
+            Generate invoice
           </button>
           }
         </div><br />

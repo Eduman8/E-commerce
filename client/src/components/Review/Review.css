@@ -59,7 +59,8 @@
   color:#000000;
 }
 .barra{
-  height: 64px;
+  height: 80px;
   display: grid;
   grid-template-rows: 35% 50%;
+  margin: 10px;
 }

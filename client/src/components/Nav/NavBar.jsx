@@ -13,8 +13,12 @@ import { useSelector } from "react-redux";
 
 const NavBar = () => {
   const { isAuthenticated, user } = useAuth0();
-  const allBilling = useSelector((state) => state.user);
-  console.log(allBilling);
+  const allBilling = useSelector((state) => state.allbilling);
+  const theUser = useSelector((state) => state.user);
+  const misFra = []
+  allBilling.map((bill)=>{
+    if ( bill.userId === theUser.id && bill.paid && bill.status !==false ) misFra.push(bill)
+  })
 
 
   return (
@@ -43,12 +47,8 @@ const NavBar = () => {
               <Nav.Link>Shopping</Nav.Link>
             </LinkContainer>
 
-            <LinkContainer activeClassName="" to="/review">
-              <Nav.Link>Review Pending</Nav.Link>
-            </LinkContainer>
-
           </Nav>
-            {allBilling?
+            {misFra.length>0?
             <LinkContainer to="/review">
               <div id="btnReview">Review</div>
             </LinkContainer>:null}
