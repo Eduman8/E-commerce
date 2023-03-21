@@ -17,7 +17,7 @@ const NavBar = () => {
   const theUser = useSelector((state) => state.user);
   const misFra = []
   allBilling.map((bill)=>{
-    if ( bill.userId === theUser.id && bill.paid && bill.status !==false ) misFra.push(bill)
+    if ( bill.userId === theUser.id && bill.paid && bill.qualify === false ) misFra.push(bill)
   })
 
 

@@ -3,14 +3,14 @@ const { Op } = require("sequelize");
 
 module.exports = putBill = async (req, res, next) => {
   try {
-    const { status, paid, idUsario } = req.body;
-    if(idUsario && paid) {
+    const { qualify, paid, idUsario } = req.body;
+    if(idUsario) {
       const user = await User.findAll({
         where: { id: idUsario },
         include: Bill,
       });
       const bill = user[0].bills[user[0].bills.length - 1];
-      bill.update({ paid: paid });
+      bill.update({ paid: paid, qualify:qualify });
       /* mailer */
       //////////////////////////////////////////////////////////
       let billInfo = bill;
