@@ -13,38 +13,42 @@ import { useSelector } from "react-redux";
 
 const NavBar = () => {
   const { isAuthenticated, user } = useAuth0();
-  const allBilling = useSelector((state) => state.user);
-  console.log(allBilling);
+  const allBilling = useSelector((state) => state.allbilling);
+  const theUser = useSelector((state) => state.user);
+  const misFra = []
+  allBilling.map((bill)=>{
+    if ( bill.userId === theUser.id && bill.paid && bill.status !==false ) misFra.push(bill)
+  })
 
 
   return (
     <>
       <Navbar bg="success" fixed="top" variant="dark">
-        <Container>
-          <Link to="/home">
-            <Navbar.Brand ><img src={Logo} alt="" className="navLogo" /></Navbar.Brand>
-          </Link>
+        <Container >
+          <Navbar.Brand ><img src={Logo} alt="" className="navLogo" /></Navbar.Brand>
           <Nav className="me-auto">
-
-            <LinkContainer to="/home">
+            <LinkContainer activeClassName="" to="/home">
               <Nav.Link>Home</Nav.Link>
             </LinkContainer>
 
-            <LinkContainer to="/about">
+            <LinkContainer activeClassName="" to="/about">
               <Nav.Link>About</Nav.Link>
             </LinkContainer>
 
-            <LinkContainer to="/contact">
+            <LinkContainer activeClassName="" to="/contact">
               <Nav.Link>Contact</Nav.Link>
             </LinkContainer>
 
-            <LinkContainer to="/shopping">
+            {/* <LinkContainer to="/pricing">
+            <Nav.Link>Pricing</Nav.Link>
+            </LinkContainer> */}
+
+            <LinkContainer activeClassName="" to="/shopping">
               <Nav.Link>Shopping</Nav.Link>
             </LinkContainer>
 
-
           </Nav>
-            {allBilling?
+            {misFra.length>0?
             <LinkContainer to="/review">
               <div id="btnReview">Review</div>
             </LinkContainer>:null}

@@ -3,8 +3,8 @@ const { Op } = require("sequelize");
 
 module.exports = putBill = async (req, res, next) => {
   try {
-    const { paid, idUsario } = req.body;
-    if (idUsario && paid) {
+    const { status, paid, idUsario } = req.body;
+    if(idUsario && paid) {
       const user = await User.findAll({
         where: { id: idUsario },
         include: Bill,

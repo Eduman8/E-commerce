@@ -11,13 +11,12 @@ import Validating from "../components/validating/validating";
 import Shopping from "../components/Shopping/shopping";
 import Contact from "../components/Contact/contact";
 import Review from "../components/Review/Review";
-import PayApro from "../components/payApro/payApro"
+import PayApro from "../components/Payments/payApro/payApro";
 // import Nav from "../admin/Components/Nav/Nav";
 import Users from "../admin/pages/Users/Users";
 import Foods from "../admin/pages/Foods/Foods";
 import Sales from "../admin/pages/Sales/Sales";
 import Dashboard from "../admin/pages/Dashboard/Dashboard";
-import { FoodForm } from "../admin/Components/Forms/FoodForm";
 import Terms from "../Pages/Footer/Terms";
 import Data from "../Pages/Footer/DataProtection";
 
@@ -27,6 +26,12 @@ import User from "../userPanel/pages/Panel/Panel.jsx";
 import Profile from "../userPanel/pages/Profile/Profile.jsx"
 import Favorites from "../userPanel/pages/Favorites/Favorites.jsx"
 import Orders from "../userPanel/pages/Orders/Orders.jsx"
+
+import PayRejected from "../components/Payments/payRejected/payRejected";
+import PayPending from "../components/Payments/payPending/payPending";
+
+import { WelcomeAdmin } from "../admin/pages/WelcomeAdmin/WelcomeAdmin";
+
 
 
 function RouteApp() {
@@ -47,6 +52,8 @@ function RouteApp() {
         <Route exact path="register" element={<Register />} />
 
         <Route path="/payApro" element={<PayApro />} />
+        <Route path='/payFail' element={<PayRejected />} />
+        <Route path='/payPend' element={<PayPending />} />
 
 
         review
@@ -54,17 +61,16 @@ function RouteApp() {
         <Route exact path="/dataprotection" element={<Data />} />
 
         <Route exact path="/dashboard" element={<Dashboard />}>
-          {/* <Route index element={<Nav />} /> */}
+          <Route index element={<WelcomeAdmin />} />
           <Route path="users" element={<Users />} />
           <Route path="foods" element={<Foods />} />
           <Route path="sales" element={<Sales />} />
-          <Route path="create-food" element={<FoodForm />} />
         </Route>
 
         <Route exact path="/user" element={<User />}>
-        <Route path="profile" element={<Profile />} />
-        <Route path="favorites" element={<Favorites />} />
-        <Route path="orders" element={<Orders />} />  
+          <Route path="profile" element={<Profile />} />
+          <Route path="favorites" element={<Favorites />} />
+          <Route path="orders" element={<Orders />} />
         </Route>
 
         <Route exact path="*" element={<NotFound />} />

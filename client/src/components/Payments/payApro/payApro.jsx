@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import NavBar from '../Nav/NavBar';
-import Footer from '../Footer/Footer';
+import NavBar from '../../Nav/NavBar';
+import Footer from '../../Footer/Footer';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import './payApro.css';
-import { getAllFoods, getUser, putBill } from '../../Redux/Actions/Actions'
+import { getAllFoods, getUser, putBill } from '../../../Redux/Actions/Actions'
 import Swal from "sweetalert2"
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -16,10 +16,9 @@ function PayApro() {
 	const { user } = useAuth0();
 	let [ resp, setResp ] = useState(false)
 	const userr = user?.email
-
 	const info = (reactLocalStorage.get('Shopping')).split(",");
 	const dataCant = (reactLocalStorage.get('ShoppingCant')).split(",")
-
+	
 	useEffect(() => {
 		dispatch(getUser(userr))
 		dispatch(getAllFoods())
@@ -32,12 +31,12 @@ function PayApro() {
 		}
 	  function msn(e) {
 		e.preventDefault();
+		dispatch(putBill(inf))
 		Swal.fire({
 		  title: "listo",
 		  icon: "success",
 		  showConfirmButton: "#e38e15",
 		})
-		    dispatch(putBill(inf))
 		setResp(true)
 	   }
 
@@ -48,7 +47,6 @@ function PayApro() {
 				}
 			})
 		}
-	
 	return (
 		<>
 		{(resp === true) ?
@@ -66,7 +64,7 @@ function PayApro() {
 					</div>}
 				</div><Footer /></>):
             <>
-			<h1>Gracias por su compra</h1>
+			<h1></h1>
 			<div className='details-button'>
 					<button className='btn btn-success details-button' onClick={(e) => { msn(e)}}>listo</button>
 			</div>
@@ -77,4 +75,3 @@ function PayApro() {
 }
 
 export default PayApro;
-

@@ -75,10 +75,11 @@ export const getAllUsers = () => async (dispatch) => {
 };
 export const postFood = (payload) => async (dispatch) => {
   try {
-    const foodsCreated = await axios.post(`foods`, payload);
+    console.log(payload)
+    await axios.post(`foods`, payload);
     return dispatch({
       type: POST_FOOD,
-      payload: foodsCreated,
+      payload,
     });
   } catch (e) {
     console.log(e);
@@ -148,30 +149,29 @@ export const setSearch = (payload) => {
 };
 
 export const shopping = (payload) => {
-    const data = (reactLocalStorage.get('Shopping')).split(",")
-    const dataCant = (reactLocalStorage.get('ShoppingCant')).split(",")
-    let dataupdate =[];
-    let dataCantupdate =[];
-    if (data.includes(payload)){
-        const pos = data.indexOf(payload);
-        dataCant[pos] = "delete";
-        dataupdate = data.filter(id => id !== payload);
-        dataCantupdate = dataCant.filter(val => val !== "delete");
-    }
-    else {
-        data.push (payload);
-        dataCant.push ("1");
-        dataupdate = data;
-        dataCantupdate =dataCant;
-    }
-    reactLocalStorage.set("Shopping", dataupdate)
-    reactLocalStorage.set("ShoppingCant", dataCantupdate)
-    
-    return {
-        type: ADDSHOPPING,
-        payload:dataupdate
-    }
-}
+  const data = reactLocalStorage.get("Shopping").split(",");
+  const dataCant = reactLocalStorage.get("ShoppingCant").split(",");
+  let dataupdate = [];
+  let dataCantupdate = [];
+  if (data.includes(payload)) {
+    const pos = data.indexOf(payload);
+    dataCant[pos] = "delete";
+    dataupdate = data.filter((id) => id !== payload);
+    dataCantupdate = dataCant.filter((val) => val !== "delete");
+  } else {
+    data.push(payload);
+    dataCant.push("1");
+    dataupdate = data;
+    dataCantupdate = dataCant;
+  }
+  reactLocalStorage.set("Shopping", dataupdate);
+  reactLocalStorage.set("ShoppingCant", dataCantupdate);
+
+  return {
+    type: ADDSHOPPING,
+    payload: dataupdate,
+  };
+};
 
 export const favorites = (payload) => {
   return {
@@ -179,15 +179,31 @@ export const favorites = (payload) => {
     payload,
   };
 };
-export const putFood = (payload) => async (dispatch) => {
+export const putFood = (payload) => {
   try {
-    const foodEdited = await axios.put(`foods`, payload);
-    console.log("respoinse", foodEdited);
-    return dispatch({
-      type: "PUT_FOOD",
-      payload: foodEdited,
-    });
+    return (dispatch) => {
+      axios.put(`foods`, payload).then((response) => {
+        console.log(dispatch)
+        dispatch({
+          type: "PUT_FOOD",
+          payload:payload,
+        });
+        console.log("respoinse",response );
+      });
+    };
   } catch (error) {
     console.log(error);
   }
 };
+// export const putFood = (payload) => async (dispatch) => {
+//   try {
+//     const foodEdited = await axios.put(`foods`, payload);
+//     console.log("respoinse", payload);
+//     return dispatch({
+//       type: "PUT_FOOD",
+//       payload: payload,
+//     });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };

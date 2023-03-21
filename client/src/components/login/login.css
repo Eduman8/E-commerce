@@ -50,7 +50,13 @@
 }
 
 .register {
-  font-size: 10px;
+  font-size: 12px;
   text-decoration: underline;
-  
+
+}
+
+.local {
+  font-size: 14px;
+  text-decoration: underline;
+  display: block;
 }

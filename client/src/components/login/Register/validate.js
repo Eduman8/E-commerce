@@ -32,7 +32,7 @@ function validate(input) {
         errors.password = "The password must have at least 8 and 16 characters, at least one digit, at least one lower case and at least one upper case."
     }
     else if (!/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/.test(input.password))
-        errors.password = "The email is invalid"
+        errors.password = "The password is Invalid"
     return errors
 }
 

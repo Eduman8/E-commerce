@@ -13,7 +13,7 @@ import { useEffect } from "react";
 
 
 const Users = () => {
-  const users = useSelector((state) => state.users);
+  const users = useSelector((state) => state.allUsers);
   const [tableData, setTableData] = useState(() => users);
   const [validationErrors, setValidationErrors] = useState({});
   

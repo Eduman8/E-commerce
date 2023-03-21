@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { reactLocalStorage } from 'reactjs-localstorage';
-import { getAllFoods, shopping,pay, getUser, postBill } from '../../Redux/Actions/Actions'
+import { getAllFoods, shopping, pay, getUser, postBill } from '../../Redux/Actions/Actions'
 import "./shopping.css";
 import NavBar from "../Nav/NavBar";
 import Footer from "../Footer/Footer";
@@ -11,6 +11,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Swal from "sweetalert2";
 
 export default function Shopping() {
+  var recar =true;
 
   const { user } = useAuth0();
   const [ state, setState ] = useState(false)
@@ -46,14 +47,16 @@ export default function Shopping() {
   }
 
   function msn(e) {
-    e.preventDefault();
-    Swal.fire({
-      title: "estas seguro que no quieres algo mas",
-      icon: "question",
-      cancelButtonText: "#e38e15",
-    });
-    dispatch(getUser(user?.email));
-    setState(true)
+    if (recar) {
+      e.preventDefault();
+      Swal.fire({
+        title: "Your invoice was generated please make the payment!",
+        icon: "warning",
+        confirmButtonColor: "#e38e15",
+      });
+      dispatch(getUser(user?.email));
+      setState(true)
+    }
   }
 
   function ShopDelete(e) {
@@ -87,7 +90,7 @@ export default function Shopping() {
 
   let ttl = 0;
   display.map((food, idx) => ttl += ((food.price * ((100 - food.discount) / 100)) * valNum[idx]))
-  let names = "", idProduct =[];
+  let names = "", idProduct = [];
   display.map((val) => {
     names += val.name + ", "
     idProduct.push(val)
@@ -127,6 +130,7 @@ export default function Shopping() {
             (window.location.href = res.data.response.body.init_point)
         );
     setState(false)
+    recar =false;
   }
   
   return (
@@ -172,7 +176,7 @@ export default function Shopping() {
 
         <div id="shopTotal">
           <div></div>
-          <div>TOTAL: {ttl.toFixed(2)} UDS</div>
+          <div>TOTAL: {ttl.toFixed(2)} USD</div>
         </div><br /><br />
         <div className="cbutondetail">
           <Link to={`/home`} >
@@ -184,12 +188,12 @@ export default function Shopping() {
             className="btn btn-success" 
             onClick={(e) => { hind(e)}}
           >
-            Start pay2
+            Start payment
           </button> : <button
             className="btn btn-success" 
             onClick={(e) => { msn(e)}}
           >
-            Start pay1
+            Generate invoice
           </button>
           }
         </div><br />

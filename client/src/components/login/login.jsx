@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Footer from "../Footer/Footer";
 import { useAuth0 } from "@auth0/auth0-react";
 import { LoginButton } from "../Auth/LoginButton";
 import Swal from "sweetalert2";
@@ -111,6 +110,7 @@ export default function Login() {
             </Link>
           </div>
           <a className="register" href="/register">Register manually</a>
+          <a className="local" href="/localLog">You have an account? Log in</a>
         </div>
       </div>
       <div className="background">
@@ -135,7 +135,6 @@ export default function Login() {
           />
         </MDBCarousel>
       </div>
-      <Footer />
     </>
   );
 }

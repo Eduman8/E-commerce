@@ -4,13 +4,10 @@ import {
   Box,
   Button,
   Dialog,
-  DialogActions,
   DialogContent,
   DialogTitle,
   IconButton,
   Rating,
-  Stack,
-  TextField,
   Tooltip,
 } from "@mui/material";
 import { Delete, Edit } from "@mui/icons-material";
@@ -43,16 +40,18 @@ const theme = createTheme({
 const Foods = () => {
   const [createModalOpen, setCreateModalOpen] = useState(false);
   const foods = useSelector((state) => state.foods);
-  //Solo para arreglar los tres atributos en mayusculas
+  const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [tableData, setTableData] = useState(foods);
   const [validationErrors, setValidationErrors] = useState({});
 
   const dispatch = useDispatch();
-  useEffect(() => {
+
+  useEffect((foods) => {
     dispatch(getAllFoods());
+    dispatch(putFood());
+    setTableData(foods);
   }, [dispatch]);
-  //console.log("a", foods);
 
   const handleCreateNewRow = (values) => {
     console.log("handle create values", values);
@@ -63,22 +62,27 @@ const Foods = () => {
       title: "New accessesory has been created successfully",
       showConfirmButton: true,
     });
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
     // tableData.push(values);
     // setTableData([...tableData]);
   };
 
-  const handleSaveRowEdits = async ({ exitEditingMode, row, values }) => {
+  const handleSaveRowEdits = ({ exitEditingMode, row, values }) => {
     setIsSaving(true);
+    console.log("edit row", row);
     console.log("put foods", values);
     dispatch(putFood(values));
-    // setTimeout(() => {
-    //   tableData[row.index] = values;
-    //   setTableData([...tableData]);
-    //   setIsSaving(false);
-    // }, 1500);
+    exitEditingMode(true);
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+    console.log("existing foods", foods);
     // if (!Object.keys(validationErrors).length) {
     //   tableData[row.index] = values;
-    //     c
     //   //send/receive api updates here, then refetch or update local table data for re-render
     //   setTableData([...tableData]);
     //   dispatch(putFood(values))
@@ -102,9 +106,19 @@ const Foods = () => {
         confirmButtonText: "Yes, desactived it!",
       }).then((result) => {
         if (result.isConfirmed) {
-          dispatch(putFood({ id: row.original.id, active: "invalid" }));
-          console.log("disactiving", row.original);
+          dispatch(
+            putFood({
+              id: Number(row.original.id),
+              name: row.original.name,
+              active: "invalid",
+            })
+          );
+          console.log("disactiving", row);
           Swal.fire("Disactived!", "Your file has been desactived.", "success");
+          setIsLoading(true);
+          setTimeout(() => {
+            setIsLoading(false);
+          }, 1500);
         }
       });
     } else if (row.original.active === "invalid") {
@@ -118,9 +132,19 @@ const Foods = () => {
         confirmButtonText: "Yes, active it!",
       }).then((result) => {
         if (result.isConfirmed) {
-          dispatch(putFood({ id: row.original.id, active: "valid" }));
-          console.log("activating", row.original);
+          dispatch(
+            putFood({
+              id: row.original.id,
+              name: row.original.name,
+              active: "valid",
+            })
+          );
+          console.log("activating", row);
           Swal.fire("Actived!", "Your file has been actived.", "success");
+          setIsLoading(true);
+          setTimeout(() => {
+            setIsLoading(false);
+          }, 1500);
         }
       });
     }
@@ -161,9 +185,9 @@ const Foods = () => {
       {
         accessorKey: "id",
         header: "ID",
-        enableColumnOrdering: false,
+        enableColumnOrdering: true,
         enableEditing: false, //disable editing on this column
-        enableSorting: false,
+        enableSorting: true,
         size: 80,
       },
       {
@@ -255,6 +279,8 @@ const Foods = () => {
           </Box>
         ),
         size: 80,
+        editVariant: "select",
+        editSelectOptions: ["true", "false"],
       },
       {
         accessorKey: "price",
@@ -377,7 +403,7 @@ const Foods = () => {
             <Rating
               name="read-only"
               value={
-                typeof row.original.qualification === "undefined"
+                typeof row.original.qualification !== "undefined"
                   ? row.original.qualification
                   : 0
               }
@@ -403,7 +429,7 @@ const Foods = () => {
       mode: "dark",
     },
   });
-
+  console.log(foods);
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -419,10 +445,10 @@ const Foods = () => {
           }}
           columns={columns}
           data={foods}
-          // state={{
-          //   expanded: true,
-          //   isLoading: true,
-          // }}
+          state={{
+            // expanded: true,
+            isLoading: isLoading,
+          }}
           editingMode="modal" //default
           enableColumnOrdering
           enableEditing
@@ -472,25 +498,12 @@ export const CreateNewAccountModal = ({ open, columns, onClose, onSubmit }) => {
       return acc;
     }, {})
   );
-  //console.log(values);
-
-  const handleSubmit = () => {
-    //put your validation logic here
-    onSubmit(values);
-    onClose();
-  };
 
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle textAlign="center">Create New Food</DialogTitle>
       <DialogContent>
         <FoodForm open={() => onClose()} />
-        {/* <DialogActions sx={{ p: "1.25rem" }}>
-          <Button onClick={onClose}>Cancel</Button>
-          <Button color="secondary" onClick={handleSubmit} variant="contained">
-            Create New Food
-          </Button>
-        </DialogActions> */}
       </DialogContent>
     </Dialog>
   );
