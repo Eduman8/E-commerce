@@ -26,17 +26,18 @@ function PayApro() {
 	  const currentUser = useSelector((state) => state.user);
 
 	  const inf = {
-			paid: true,
-			idUsario: currentUser?.id
+		qualify: false,
+		paid: true,
+		idUsario: currentUser?.id
 		}
 	  function msn(e) {
 		e.preventDefault();
 		dispatch(putBill(inf))
 		Swal.fire({
-		  title: "listo",
+		  title: "Saved successfully",
 		  icon: "success",
-		  showConfirmButton: "#e38e15",
-		})
+		  confirmButtonColor: "#e38e15",
+	  })
 		setResp(true)
 	   }
 
@@ -66,7 +67,7 @@ function PayApro() {
             <>
 			<h1></h1>
 			<div className='details-button'>
-					<button className='btn btn-success details-button' onClick={(e) => { msn(e)}}>listo</button>
+					<button className='btn btn-success details-button' onClick={(e) => { msn(e)}}>Validating your payment...</button>
 			</div>
 			</>
 		}	

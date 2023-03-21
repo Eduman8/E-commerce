@@ -22,6 +22,10 @@ module.exports = (sequelize) => {
     paid: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
+    },
+    qualify: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
     }
    });
 };

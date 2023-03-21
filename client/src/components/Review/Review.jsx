@@ -9,6 +9,7 @@ export default function Review() {
 	const dispatch = useDispatch();
   const allBilling = useSelector((state) => state.allbilling); 
   const theUser = useSelector((state) => state.user);
+  const thefoods = useSelector((state) => state.foods);
   const [current, setcurrent] = useState(0)
   //----------
   let detail = ""
@@ -22,13 +23,22 @@ export default function Review() {
     temp2.push(id);
     temp2.push(0);
     temp2.push("");
+    let name = "";
+      if (thefoods.length>0) {
+        thefoods.map((elem)=>{
+          if (elem.id === id) name = elem.name
+        })
+      }
+    temp2.push(name)
+
     temp.push(temp2)
   })
   const [qualify, setqualify] = useState(temp);
   const currentUser = useSelector((state) => state.user);
 
   const inf = {
-    status: false,
+    qualify: true,
+    paid: true,
     idUsario: currentUser?.id
   }
 
@@ -53,6 +63,7 @@ export default function Review() {
     let all = true;
     qualify.map((elem)=>{
       if (elem[1]===0 || elem[2].length<12)all=false;
+
     })
     if(all){
       dispatch(putBill(inf))
@@ -60,7 +71,10 @@ export default function Review() {
         title: "Saved successfully",
         icon: "success",
         confirmButtonColor: "#e38e15",
-      })
+    }).then(function() {
+      window.location.href = "http://localhost:3000/home"
+    });
+      
     }
     else{
       Swal.fire({
@@ -83,7 +97,7 @@ export default function Review() {
             temp.map((elem,ind) => (
               <div className="barra" key={ind}>
                   <div id="reviewNameStar">
-                    <h4 id="reviewName">{elem[0]} </h4>
+                    <h4 id="reviewName">{elem[3]} </h4>
                     <div id="reviewStart">
                       {qualify[ind][1] >= 1 ? <button onClick={(e) => cl(e)} id="starTrue" className={"-1|1|"+ind}>★</button> : <button onClick={(e) => cl(e)} id="starFalse" className={"-1|1|"+ind}>☆</button>}
                       {qualify[ind][1] >= 2 ? <button onClick={(e) => cl(e)} id="starTrue" className={"-1|2|"+ind}>★</button> : <button onClick={(e) => cl(e)} id="starFalse" className={"-1|2|"+ind}>☆</button>}
@@ -93,7 +107,7 @@ export default function Review() {
                     </div>
                     <div></div>
                   </div>
-                  <textarea value={qualify[ind][2]} id="reviewDetail" placeholder="enter a comment (minimum 12 characters)" className={"-1|"+ind} onChange={(e) => changeComment(e)} />
+                  <textarea value={qualify[ind][2]} id="reviewDetail" placeholder="Enter a comment (minimum 12 characters)" className={"-1|"+ind} onChange={(e) => changeComment(e)} />
                 </div>
             ))
             : null
