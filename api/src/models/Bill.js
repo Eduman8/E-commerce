@@ -1,4 +1,4 @@
-const { DataTypes, UUIDV4, INTEGER } = require('sequelize');
+const { DataTypes, UUIDV4 } = require('sequelize');
 module.exports = (sequelize) => {
   sequelize.define('bill', {
     billId: {
@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
         type: DataTypes.ARRAY(DataTypes.INTEGER)
     },
     value: {
-        type: DataTypes.DECIMAL
+        type: DataTypes.FLOAT
     },
     discount: { //en porcentaje
         type: DataTypes.INTEGER
