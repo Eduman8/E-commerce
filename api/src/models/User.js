@@ -28,15 +28,18 @@ module.exports = (sequelize) => {
         allowNull: false,
         unique: true,
       },
+      image: {
+        type: DataTypes.STRING,
+      },
       roll: {
         type: DataTypes.STRING,
         enum: ["client", "admin"],
-        default: "client",
+        defaultValue: "client",
       },
       active: {
         type: DataTypes.STRING,
         enum: ["valid", "invalid"],
-        default: "valid",
+        defaultValue: "valid",
       },
     },
     { timestamps: false }

@@ -2,7 +2,7 @@ async function userValidate(req, res, next) {
   const { mail, roll, telephone, direction, name } = req.body;
 
   if (!mail) return res.status(400).json({ msg: "Email is required!" });
-  if (!roll) return res.status(400).json({ msg: "Roll is required!" });
+  /* if (!roll) return res.status(400).json({ msg: "Roll is required!" }); */
   if (name && name.length < 3)
     return res.status(400).json({ msg: "The name is too short" });
   if (name && name.length > 50)
