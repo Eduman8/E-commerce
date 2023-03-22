@@ -13,8 +13,12 @@ import { useSelector } from "react-redux";
 
 const NavBar = () => {
   const { isAuthenticated, user } = useAuth0();
-  const allBilling = useSelector((state) => state.user);
-  console.log(allBilling);
+  const allBilling = useSelector((state) => state.allbilling);
+  const theUser = useSelector((state) => state.user);
+  const misFra = []
+  allBilling.map((bill)=>{
+    if ( bill.userId === theUser.id && bill.paid && bill.qualify === false ) misFra.push(bill)
+  })
 
 
   return (
@@ -43,19 +47,15 @@ const NavBar = () => {
               <Nav.Link>Shopping</Nav.Link>
             </LinkContainer>
 
-            <LinkContainer activeClassName="" to="/review">
-              <Nav.Link>Review Pending</Nav.Link>
-            </LinkContainer>
-
           </Nav>
-            {allBilling?
+            {misFra.length>0?
             <LinkContainer to="/review">
               <div id="btnReview">Review</div>
             </LinkContainer>:null}
           <FavoriteButton></FavoriteButton>
           {isAuthenticated ? (
             <Link to="/user">
-              <img className="navImg" src={user.picture} alt={"No"} />
+            <img className="navImg" src={user.picture?user.picture:"https://cdn-icons-png.flaticon.com/512/6681/6681204.png"} alt={"No"} />
             </Link>
           ) : (
             <img
@@ -66,9 +66,7 @@ const NavBar = () => {
           )}
           {isAuthenticated ? (
             <Link to="/user">
-              {/* <> */}
-              <h3 id="autentic">Hola {user.name}</h3>
-              {/* </> */}
+            <h3 id="autentic">Hola {user.name}</h3>
             </Link>
           ) : (
             <h3 id="autentic">Invited</h3>
