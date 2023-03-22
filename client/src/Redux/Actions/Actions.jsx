@@ -15,6 +15,7 @@ import {
   FAVORITES,
   PUT_BILL,
   GET_ALL_BILLING,
+  PUT_USER
 } from "./Constantes";
 
 export const postUser = (payload) => async (dispatch) => {
@@ -205,3 +206,14 @@ export const putFood = (payload) => {
 //     console.log(error);
 //   }
 // };
+
+export const putUser = (payload) => async (dispatch) => {
+  try {
+    const response = await axios.put('users', payload )
+    return dispatch({
+      type: PUT_USER,
+      payload: response.data})
+  } catch (error) {
+    console.log(error.message);
+  }
+}
