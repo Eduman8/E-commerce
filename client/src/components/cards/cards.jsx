@@ -20,13 +20,13 @@ export default function Cards ({foods,total,paginate, favorites, setFavorites}) 
         foods.map((card,index) => <Card key={index} arrayInShopping={arrayInShopping} card = {card} update = {update} favorites = {favorites} setFavorites = {setFavorites}/>)
         : <NotFound/>
         }
-      </div>   
       <div>     
         <Pagination	
             total={total}
             paginate={paginate}
           /> 
       </div>
+      </div>   
     </div>
   );
 };
