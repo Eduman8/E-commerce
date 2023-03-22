@@ -38,56 +38,54 @@ const theme = createTheme({
 });
 
 const Foods = () => {
+  const dispatch = useDispatch();
   const [createModalOpen, setCreateModalOpen] = useState(false);
   const foods = useSelector((state) => state.foods);
+  const allFoods = useSelector((state) => state.allFoods);
   const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const [tableData, setTableData] = useState(foods);
+  const [tableData, setTableData] = useState(allFoods);
   const [validationErrors, setValidationErrors] = useState({});
 
-  const dispatch = useDispatch();
-
-  useEffect((foods) => {
-    dispatch(getAllFoods());
-    dispatch(putFood());
+  useEffect(() => {
     setTableData(foods);
+  }, [foods]);
+  useEffect(() => {
+    dispatch(getAllFoods());
   }, [dispatch]);
 
   const handleCreateNewRow = (values) => {
-    console.log("handle create values", values);
-    dispatch(postFood(values));
+    tableData.push(values);
+    setTableData([...tableData]);
+
+    console.log("table data despues de agregar",tableData)
+    console.log("food ",foods)
+
+    setIsLoading(true);
+    setTimeout(() => {
+      dispatch(postFood(values));
+      dispatch(getAllFoods());
+      setIsLoading(false);
+    }, 1000);
     Swal.fire({
       position: "center",
       icon: "success",
-      title: "New accessesory has been created successfully",
+      title: "New food has been created successfully",
       showConfirmButton: true,
     });
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1500);
-    // tableData.push(values);
-    // setTableData([...tableData]);
   };
 
   const handleSaveRowEdits = ({ exitEditingMode, row, values }) => {
     setIsSaving(true);
-    console.log("edit row", row);
-    console.log("put foods", values);
-    dispatch(putFood(values));
+    tableData[row.index] = values;
+    setTableData([...tableData]);
+
     exitEditingMode(true);
     setIsLoading(true);
     setTimeout(() => {
+      dispatch(putFood(values));
       setIsLoading(false);
-    }, 1500);
-    console.log("existing foods", foods);
-    // if (!Object.keys(validationErrors).length) {
-    //   tableData[row.index] = values;
-    //   //send/receive api updates here, then refetch or update local table data for re-render
-    //   setTableData([...tableData]);
-    //   dispatch(putFood(values))
-    //   exitEditingMode(true); //required to exit editing mode and close modal
-    // }
+    }, 1000);
   };
 
   const handleCancelRowEdits = () => {
@@ -106,19 +104,19 @@ const Foods = () => {
         confirmButtonText: "Yes, desactived it!",
       }).then((result) => {
         if (result.isConfirmed) {
-          dispatch(
-            putFood({
-              id: Number(row.original.id),
-              name: row.original.name,
-              active: "invalid",
-            })
-          );
-          console.log("disactiving", row);
+          tableData[row.index].active = "invalid";
+          setTableData([...tableData]);
+
+          console.log("cambiado a invalid",tableData[row.index])
           Swal.fire("Disactived!", "Your file has been desactived.", "success");
           setIsLoading(true);
+
           setTimeout(() => {
+            dispatch(
+              putFood(tableData[row.index])
+            );
             setIsLoading(false);
-          }, 1500);
+          }, 500);
         }
       });
     } else if (row.original.active === "invalid") {
@@ -132,19 +130,16 @@ const Foods = () => {
         confirmButtonText: "Yes, active it!",
       }).then((result) => {
         if (result.isConfirmed) {
-          dispatch(
-            putFood({
-              id: row.original.id,
-              name: row.original.name,
-              active: "valid",
-            })
-          );
-          console.log("activating", row);
+          tableData[row.index].active = "valid";
+          setTableData([...tableData]);
+          console.log("cambiado a valid",tableData[row.index])
+          
           Swal.fire("Actived!", "Your file has been actived.", "success");
           setIsLoading(true);
           setTimeout(() => {
+            dispatch(putFood(tableData[row.index]))
             setIsLoading(false);
-          }, 1500);
+          }, 500);
         }
       });
     }
@@ -264,7 +259,7 @@ const Foods = () => {
             component="span"
             sx={(theme) => ({
               backgroundColor:
-                cell.getValue() === true
+                cell.getValue() === true || "true"
                   ? theme.palette.success.light
                   : theme.palette.error.dark,
               borderRadius: "1rem",
@@ -429,7 +424,7 @@ const Foods = () => {
       mode: "dark",
     },
   });
-  console.log(foods);
+  console.log("Hola foods", allFoods);
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -444,7 +439,7 @@ const Foods = () => {
             },
           }}
           columns={columns}
-          data={foods}
+          data={tableData}
           state={{
             // expanded: true,
             isLoading: isLoading,
@@ -509,5 +504,4 @@ export const CreateNewAccountModal = ({ open, columns, onClose, onSubmit }) => {
   );
 };
 
-const validateRequired = (value) => !!value.length;
 export default Foods;

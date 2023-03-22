@@ -207,7 +207,9 @@ export const FoodForm = ({ open }) => {
             margin="normal"
             onChange={handleChange}
             InputProps={{
-              startAdornment: <InputAdornment position="start">$</InputAdornment>,
+              startAdornment: (
+                <InputAdornment position="start">$</InputAdornment>
+              ),
             }}
             error={errors.price && touched.price ? true : false}
             helperText={
@@ -392,7 +394,16 @@ export const FoodForm = ({ open }) => {
             variant="outlined"
           >
             <FormLabel component="legend">Image</FormLabel>
-            <input  type="file" name="image" onChange={uqdat} />
+            <label for="image" className="selectI">
+              Select Image
+              <input
+                id="image"
+                className="select-image"
+                type="file"
+                name="image"
+                onChange={uqdat}
+              />
+            </label>
             {/* onChange={uqdat} */}
           </FormControl>
           <DialogActions sx={{ p: "1.25rem" }}>
