@@ -3,7 +3,6 @@ import {
   FaShoppingCart,
   FaUserAlt,
 } from "react-icons/fa";
-import { IoFastFoodSharp } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import "./SideBar.css";
