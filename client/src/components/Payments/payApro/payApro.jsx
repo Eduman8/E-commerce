@@ -30,15 +30,15 @@ function PayApro() {
 		paid: true,
 		idUsario: currentUser?.id
 		}
-	  function msn(e) {
-		e.preventDefault();
+
+		setTimeout(function(){			
+			msn()
+		}, 10000);
+
+	  function msn() {
 		dispatch(putBill(inf))
-		Swal.fire({
-		  title: "Saved successfully",
-		  icon: "success",
-		  confirmButtonColor: "#e38e15",
-	  })
 		setResp(true)
+		reactLocalStorage.set("Shopping", "0")
 	   }
 
 	  if (foods){
@@ -67,7 +67,7 @@ function PayApro() {
             <>
 			<h1></h1>
 			<div className='details-button'>
-					<button className='btn btn-success details-button' onClick={(e) => { msn(e)}}>Validating your payment...</button>
+					<button className='btn btn-success details-button' >Validating your payment, please wait 10 seconds.</button>
 			</div>
 			</>
 		}	
