@@ -64,7 +64,7 @@ function Card({card,arrayInShopping,update}) {
 			  <div className="text2">Sugar: {card.sugar} </div>
 			</div>
 			<div className="text2">USD {card.price}</div>
-		  <Rating name="read-only" value={card.amount} readOnly />
+		  <Rating name="read-only" value={card.qualification} readOnly />
 		  </div>	
 		  <div className="cardPart3">	
 		  	{arrayInShopping.includes(card.id.toString())?
