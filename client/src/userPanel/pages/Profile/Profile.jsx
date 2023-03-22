@@ -6,30 +6,36 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useAuth0 } from '@auth0/auth0-react';
+import { putUser } from '../../../Redux/Actions/Actions';
 import './Profile.css';
+import { useDispatch } from 'react-redux';
 
 export default function Profile() {
 	const { user } = useAuth0();
+	const dispatch = useDispatch()
 
 	const [formData, setFormData] = useState({
 		name: user.name,
 		telephone: '',
 		mail: user.email,
-		direction: '',
-		dni: '',
+		direction: ''
 	});
 
 	const handleChange = (event) => {
-		console.log(event);
 		setFormData({
 			...formData,
 			[event.target.name]: event.target.value,
 		});
 	};
 
+	function handleSubmit(e){
+		e.preventDefault()
+		dispatch(putUser(formData))
+		console.log(formData);
+	}
+
 	return (
 		<div className="container-Profile">
-			{console.log(user)}
 			<div className="information-Box">
 				<h2 id="information">Personal Information</h2>
 			</div>
@@ -101,7 +107,7 @@ export default function Profile() {
 				</div>
 			</Box>
 			<div className="container-Button">
-				<button id="add-Button" className="btn information-btn">
+				<button id="add-Button" className="btn information-btn" onClick={handleSubmit}>
 					Update information
 				</button>
 			</div>
