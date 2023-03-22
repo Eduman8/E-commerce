@@ -17,7 +17,7 @@ const NavBar = () => {
   const theUser = useSelector((state) => state.user);
   const misFra = []
   allBilling.map((bill)=>{
-    if ( bill.userId === theUser.id && bill.paid && bill.status !==false ) misFra.push(bill)
+    if ( bill.userId === theUser.id && bill.paid && bill.qualify === false ) misFra.push(bill)
   })
 
 
@@ -55,7 +55,7 @@ const NavBar = () => {
           <FavoriteButton></FavoriteButton>
           {isAuthenticated ? (
             <Link to="/user">
-              <img className="navImg" src={user.picture} alt={"No"} />
+            <img className="navImg" src={user.picture?user.picture:"https://cdn-icons-png.flaticon.com/512/6681/6681204.png"} alt={"No"} />
             </Link>
           ) : (
             <img

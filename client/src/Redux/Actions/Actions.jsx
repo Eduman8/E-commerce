@@ -76,7 +76,7 @@ export const getAllUsers = () => async (dispatch) => {
 };
 export const postFood = (payload) => async (dispatch) => {
   try {
-    console.log(payload)
+    // console.log("payload", payload);
     await axios.post(`foods`, payload);
     return dispatch({
       type: POST_FOOD,
@@ -181,20 +181,18 @@ export const favorites = (payload) => {
   };
 };
 export const putFood = (payload) => {
-  try {
-    return (dispatch) => {
+  return (dispatch) => {
+    try {
       axios.put(`foods`, payload).then((response) => {
-        console.log(dispatch)
         dispatch({
           type: "PUT_FOOD",
-          payload:payload,
+          payload: payload,
         });
-        console.log("respoinse",response );
       });
-    };
-  } catch (error) {
-console.log(error);
-  }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 };
 // export const putFood = (payload) => async (dispatch) => {
 //   try {

@@ -14,21 +14,20 @@ import {
   PAY,
   PUT_FOOD,
   PUT_BILL,
-  GET_ALL_BILLING
-} from "../Actions/Constantes"; 
-
+  GET_ALL_BILLING,
+} from "../Actions/Constantes";
 const initialState = {
   foods: [],
   allFoods: [],
   shopping: [],
   user: [],
-  allUsers:[],
+  allUsers: [],
   roll: "client",
   favorites: [],
   pay: [],
   bill: [],
   billput: [],
-  allbilling: []
+  allbilling: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -38,7 +37,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         roll: action.payload,
       };
-      case PUT_BILL:
+    case PUT_BILL:
       return {
         ...state,
         billput: [...state.billput, action.payload],
@@ -48,7 +47,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         users: [...state.users, action.payload],
       };
-      case POST_BILL:
+    case POST_BILL:
       return {
         ...state,
         bill: [...state.bill, action.payload],
@@ -123,9 +122,19 @@ const rootReducer = (state = initialState, action) => {
         };
       }
     case PUT_FOOD:
+      // Busca el índice del alimento a actualizar
+      const foodIndex = state.foods.findIndex(
+        (food) => food.id === action.payload.id
+      );
+
+      // Actualiza el alimento en el estado
+      const updatedFoods = [...state.foods];
+      updatedFoods[foodIndex] = action.payload;
+
+      // Devuelve el nuevo estado actualizado
       return {
         ...state,
-        foods: [...state.foods, action.payload],
+        foods: updatedFoods,
       };
     default:
       return state;
