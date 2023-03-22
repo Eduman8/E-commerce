@@ -33,9 +33,9 @@ export default function Favorites() {
                                         </Link>
 										<p className="favorites-name">${fav.price}.00</p>
                                         <p className="favorites-name">{fav.type}</p>
-                                        <p className="favorites-name">{fav.Fat} in fats</p>
-                                        <p className="favorites-name">{fav.Sodium} in sodium</p>
-                                        <p className="favorites-name">{fav.Sugar} in sugars</p>
+                                        <p className="favorites-name">{fav.fat} in fats</p>
+                                        <p className="favorites-name">{fav.sodium} in sodium</p>
+                                        <p className="favorites-name">{fav.sugar} in sugars</p>
                                         <Link to={'/shopping'}>
                                         <button id='add-Button' className='btn' onClick={()=>addCarIndividual(fav.id)}>Buy</button>
                                         </Link>
