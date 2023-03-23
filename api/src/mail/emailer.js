@@ -9,8 +9,8 @@ module.exports = nodemail = async (req, res) => {
     port: 465,
     secure: true,
     auth: {
-      user: "zevek.design@gmail.com",
-      pass: "kedishwkzvalvupg",
+      user: "deligou70@gmail.com",
+      pass: "dbuzwhdootdicazo",
     },
   });
 
