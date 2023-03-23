@@ -28,7 +28,7 @@ const data = [
     price: 4,
     description:
       "Asia Express Chinese Food offers delicious dining and takeout to Concord, CA",
-    discount: 1,
+    discount: 5,
     reviews: [],
   },
   {
@@ -44,7 +44,7 @@ const data = [
     price: 4,
     description:
       "Bambino’s is an Italian favorite here in Concord. Take a trip to Italy when you visit and try authentic",
-    discount: 2,
+    discount: 5,
     reviews: [],
   },
   {
@@ -76,7 +76,7 @@ const data = [
     price: 6,
     description:
       "This classic French beef stew is the ultimate cold weather comfort food. After a few hours in the oven, the meat becomes meltingly tender and enveloped in a rich wine sauce",
-    discount: 2,
+    discount: 5,
     reviews: [],
   },
   {
@@ -136,11 +136,11 @@ const data = [
     price: 7,
     description:
       "A very meticulous work in the creation of our Meat, Potato Bread, sauces and toppings",
-    discount: 2,
+    discount: 10,
     reviews: [],
   },
   {
-    name: "AREPAS",
+    name: "COLOMBIAN AREPAS",
     amount: 5,
     image:
       "https://nomadparadise.com/wp-content/uploads/2020/07/colombian-food-01-768x480.jpg.webp",
@@ -159,7 +159,7 @@ const data = [
     name: "SODA WITH ICE",
     amount: 3,
     image:
-      "https://thumbs.dreamstime.com/b/glasses-cola-orange-soda-drink-lemonade-sparkling-water-white-background-ice-cubes-154052973.jpg",
+      "https://img.freepik.com/premium-photo/glasses-cola-orange-soda-drink-lemonade_157173-947.jpg?w=1380",
     available: true,
     type: "Drink",
     fat: "Medium",
@@ -184,7 +184,7 @@ const data = [
     price: 5,
     description:
       "The delicious and classic Caesar salad, and although it is a classic, you can't even imagine how delicious it is!",
-    discount: 1,
+    discount: 10,
     reviews: [],
   },
   {
@@ -200,7 +200,7 @@ const data = [
     price: 5,
     description:
       "Chickpea meatballs between breads, simple and delicious. An option full of nutrients, which is highly valued by vegetarians",
-    discount: 1,
+    discount: 5,
     reviews: [],
   },
   {
@@ -216,7 +216,7 @@ const data = [
     price: 3,
     description:
       "This refreshing salad is perfect for a holiday meal. Serve it in your prettiest glass bowl and garnish it as you like.",
-    discount: 0,
+    discount: 7,
     reviews: [],
   },
   {
@@ -232,7 +232,7 @@ const data = [
     price: 5,
     description:
       "This delicious custard pudding is made with eggs, sugar, milk and an appetizing caramel",
-    discount: 1,
+    discount: 3,
     reviews: [],
   },
   {
