@@ -3,7 +3,7 @@ import "./Review.css";
 import NavBar from "../Nav/NavBar";
 import Swal from "sweetalert2"
 import { useDispatch, useSelector } from "react-redux";
-import { putBill } from '../../Redux/Actions/Actions'
+import { putBill, putQualification } from '../../Redux/Actions/Actions'
 
 export default function Review() {  
 	const dispatch = useDispatch();
@@ -67,6 +67,11 @@ export default function Review() {
     })
     if(all){
       dispatch(putBill(inf))
+
+      qualify.map((calif)=>{
+        dispatch  (putQualification({id: calif[0],qualification:calif[1]}))
+      })
+
       Swal.fire({
         title: "Saved successfully",
         icon: "success",
