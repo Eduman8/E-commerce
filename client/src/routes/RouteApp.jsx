@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Login from "../components/login/login";
 import Home from "../components/home/home";
@@ -32,19 +32,9 @@ import PayPending from "../components/Payments/payPending/payPending";
 
 import { WelcomeAdmin } from "../admin/pages/WelcomeAdmin/WelcomeAdmin";
 import PrivateRoute from "./PrivateRoute";
-import { useAuth0 } from "@auth0/auth0-react";
+
 
 function RouteApp() {
-  const { isAuthenticated, user } = useAuth0();
-  const [authUser, setAuthUser] = useState(null);
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      setAuthUser(user);
-    }
-  }, [isAuthenticated, user]);
-
-  console.log("useAuth",authUser)
   return (
     <>
       <Routes>
@@ -62,10 +52,10 @@ function RouteApp() {
         <Route path="/payApro" element={<PayApro />} />
         <Route path="/payFail" element={<PayRejected />} />
         <Route path="/payPend" element={<PayPending />} />
-        review
+        {/* review */}
         <Route exact path="/termsandconditions" element={<Terms />} />
         <Route exact path="/dataprotection" element={<Data />} />
-        <Route element={<PrivateRoute userLog={true}/>}>
+        <Route element={<PrivateRoute redirectTo="/" />}>
           <Route exact path="/dashboard" element={<Dashboard />}>
             <Route index element={<WelcomeAdmin />} />
             <Route path="users" element={<Users />} />
