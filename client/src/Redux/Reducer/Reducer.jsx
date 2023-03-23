@@ -15,6 +15,8 @@ import {
   PUT_FOOD,
   PUT_BILL,
   GET_ALL_BILLING,
+  POST_FAVORITE,
+  PUT_FAVORITE
 } from "../Actions/Constantes";
 const initialState = {
   foods: [],
@@ -136,6 +138,15 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         foods: updatedFoods,
       };
+      case POST_FAVORITE:
+        return {
+          ...state
+        }
+        case PUT_FAVORITE:
+          return {
+            ...state
+          }
+
     default:
       return state;
   }

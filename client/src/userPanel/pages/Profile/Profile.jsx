@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import { useFormControl } from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useAuth0 } from '@auth0/auth0-react';
 import Swal from "sweetalert2";
@@ -15,6 +14,14 @@ export default function Profile() {
 	const dispatch = useDispatch()
 	const user = useSelector((state) => state.user);
 
+	const [errorsData, setErrorsData] = useState({
+		name: "",
+		telephone: "",
+		mail: "",
+		direction: "",
+		dni: ""
+	});
+
 	const [formData, setFormData] = useState({
 		name: user.name,
 		telephone: user.telephone,
@@ -25,6 +32,10 @@ export default function Profile() {
 	const handleChange = (event) => {
 		setFormData({
 			...formData,
+			[event.target.name]: event.target.value,
+		});
+		setErrorsData({
+			...errorsData,
 			[event.target.name]: event.target.value,
 		});
 	};
@@ -118,7 +129,7 @@ export default function Profile() {
 					/>
 				</div>
 			</Box>
-			{formData.direction !== "" && formData.telephone !== "" && formData.name !== "" && formData.mail !== ""? <div className="container-Button">
+			{errorsData.direction !== ""  && errorsData.telephone !== "" && errorsData.dni !== ""? <div className="container-Button">
 				<button id="add-Button" className="btn information-btn" onClick={handleSubmit}>
 					Update information
 				</button>
