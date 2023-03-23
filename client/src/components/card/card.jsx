@@ -35,14 +35,14 @@ function Card({ card, arrayInShopping, update }) {
 			setSelected(!selected);
 			setTimeout(() => {
 				dispatch(getUser(user.mail));
-			}, 100);
+			}, 500);
 		} else {
 			dispatch(favorites(card));
 			dispatch(postFavorite({ idUser: user.id, idFood: card.id }));
 			setSelected(!selected);
 			setTimeout(() => {
 				dispatch(getUser(user.mail));
-			}, 100);
+			}, 500);
 		}}
 		if(!isAuthenticated){
 			const filterFavorites = favoriteLocal?.filter((fav) => fav.id === card.id);
