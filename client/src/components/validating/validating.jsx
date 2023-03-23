@@ -30,7 +30,6 @@ function Validating() {
             </Link>
           </>
           : window.location.href = "https://e-commerce-one-gules.vercel.app/home"
-          // : window.location.href = "http://localhost:3000/home"
         }
       </div>
     </div>
