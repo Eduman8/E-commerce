@@ -5,7 +5,7 @@ import { shopping } from '../../../Redux/Actions/Actions';
 import './Favorites.css';
 
 export default function Favorites() {
-	const favorites = useSelector((state) => state.favorites);
+	const favorites = useSelector((state) => state.user.food);
 	const dispatch = useDispatch();
 	function addCar(e) {
 		// e.preventDefault();

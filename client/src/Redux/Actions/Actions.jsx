@@ -16,7 +16,9 @@ import {
   PUT_BILL,
   GET_ALL_BILLING,
   PUT_USER,
-  PUT_QUALIFICATION
+  PUT_QUALIFICATION,
+  POST_FAVORITE,
+  PUT_FAVORITE
 } from "./Constantes";
 
 export const putQualification = (payload) => async () => {
@@ -222,3 +224,27 @@ export const putUser = (payload) => async (dispatch) => {
     console.log(error.message);
   }
 }
+
+export const postFavorite = (payload) => async (dispatch) => {
+  try {
+    const favoriteCreated = await axios.post(`users/favorites`, payload);
+    return dispatch({
+      type: POST_FAVORITE,
+      payload: favoriteCreated,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const deleteFavorite = (payload) => async (dispatch) => {
+  try {
+    const favoriteDeleted = await axios.put(`users/favorites`, payload);
+    return dispatch({
+      type: PUT_FAVORITE,
+      payload: favoriteDeleted,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};
