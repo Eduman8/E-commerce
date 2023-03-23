@@ -5,7 +5,8 @@
   padding: 20px;
   width: 500px;
   height: auto;
-  border: 1px solid black;
+  border: 1px solid rgba(29, 28, 28, 0.186);
+  border-radius: 50px;
   margin-top: 30px;
 }
 
@@ -15,7 +16,7 @@
   background-color: #ffbd4ad8;
   z-index: 1;
   width: 300px;
-  border: 3px solid #422b1e;
+  border: 3px solid #422b1eb4;
   box-shadow: black 0px 5px 15px;
   color: #070707cc;
   font-size: small;

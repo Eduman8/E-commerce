@@ -93,7 +93,8 @@ export default function Home() {
     e.preventDefault();
     setPag(num);
   }
-  let foodXPag = foods.slice(ini, cant);
+  let foodXPag = (foods.filter((a)=>a.active==="valid")).slice(ini, cant);
+  console.log(foods.filter((a)=>a.active==="valid"));
   return (
     <>
       <div className="fondo">

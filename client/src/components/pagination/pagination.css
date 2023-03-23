@@ -1,17 +1,25 @@
 .pagination {
     display: flex;
-    margin-top: 15%;
+    margin-bottom: 0px;
     width: 100%;
-    height: 30px;
-    border: 10px;
     color: green;
-}
 
-.item,
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.item {
+    margin: 10px;
+}
 .item button {
     border: none;
     font-weight: bold;
     color: green;
+    width: 50px;
+    padding: 10px;
+    border-radius: 50%;
+    background-color: rgba(211, 207, 207, 0.618);
+    cursor: pointer;
+    color: #000;
 }
 
 .item button:hover {
@@ -20,4 +28,10 @@
 
 #sep {
     color: white;
+}
+.item button:focus {
+    font-weight: 800;
+    border-color: #1010106c;
+    background-color: #43433b;
+    color:#eee;
 }
