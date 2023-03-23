@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useState } from "react";
 import MaterialReactTable from "material-react-table";
 import { Box, IconButton, Tooltip } from "@mui/material";
 import { Delete, Edit } from "@mui/icons-material";
-import { getAllUsers } from "../../../Redux/Actions/Actions";
+import { getAllUsers, putUser } from "../../../Redux/Actions/Actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
@@ -28,8 +28,9 @@ const Users = () => {
       //send/receive api updates here, then refetch or update local table data for re-render
       setIsLoading(true);
       setTimeout(() => {
+        dispatch(putUser(values))
         setIsLoading(false);
-      }, 1500);
+      }, 500);
       setTableData([...tableData]);
     }
     exitEditingMode(true); //required to exit editing mode and close modal
@@ -65,8 +66,11 @@ const Users = () => {
           Swal.fire("Disactived!", "Your file has been desactived.", "success");
           setIsLoading(true);
           setTimeout(() => {
+            dispatch(
+              putUser(tableData[row.index])
+            );
             setIsLoading(false);
-          }, 1500);
+          }, 500);
         }
       });
     } else if (row.original.active === "invalid") {
@@ -93,6 +97,7 @@ const Users = () => {
           Swal.fire("Actived!", "Your file has been actived.", "success");
           setIsLoading(true);
           setTimeout(() => {
+            dispatch(putUser(tableData[row.index]))
             setIsLoading(false);
           }, 1500);
         }

@@ -58,15 +58,15 @@ const Foods = () => {
     tableData.push(values);
     setTableData([...tableData]);
 
-    console.log("table data despues de agregar",tableData)
-    console.log("food ",foods)
+    console.log("table data despues de agregar", tableData);
+    console.log("food ", foods);
 
     setIsLoading(true);
     setTimeout(() => {
       dispatch(postFood(values));
       dispatch(getAllFoods());
       setIsLoading(false);
-    }, 1000);
+    }, 500);
     Swal.fire({
       position: "center",
       icon: "success",
@@ -85,7 +85,7 @@ const Foods = () => {
     setTimeout(() => {
       dispatch(putFood(values));
       setIsLoading(false);
-    }, 1000);
+    }, 500);
   };
 
   const handleCancelRowEdits = () => {
@@ -107,14 +107,12 @@ const Foods = () => {
           tableData[row.index].active = "invalid";
           setTableData([...tableData]);
 
-          console.log("cambiado a invalid",tableData[row.index])
+          console.log("cambiado a invalid", tableData[row.index]);
           Swal.fire("Disactived!", "Your file has been desactived.", "success");
           setIsLoading(true);
 
           setTimeout(() => {
-            dispatch(
-              putFood(tableData[row.index])
-            );
+            dispatch(putFood(tableData[row.index]));
             setIsLoading(false);
           }, 500);
         }
@@ -132,12 +130,12 @@ const Foods = () => {
         if (result.isConfirmed) {
           tableData[row.index].active = "valid";
           setTableData([...tableData]);
-          console.log("cambiado a valid",tableData[row.index])
-          
+          console.log("cambiado a valid", tableData[row.index]);
+
           Swal.fire("Actived!", "Your file has been actived.", "success");
           setIsLoading(true);
           setTimeout(() => {
-            dispatch(putFood(tableData[row.index]))
+            dispatch(putFood(tableData[row.index]));
             setIsLoading(false);
           }, 500);
         }
