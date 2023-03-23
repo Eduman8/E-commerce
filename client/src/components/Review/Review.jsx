@@ -77,7 +77,7 @@ export default function Review() {
         icon: "success",
         confirmButtonColor: "#e38e15",
     }).then(function() {
-      window.location.href = "http://localhost:3000/home"
+      window.location.href = "https://e-commerce-one-gules.vercel.app/home"
     });
       
     }
