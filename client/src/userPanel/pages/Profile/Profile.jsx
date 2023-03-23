@@ -14,7 +14,6 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function Profile() {
 	const dispatch = useDispatch()
 	const user = useSelector((state) => state.user);
-	const { focused} = useFormControl() || {}
 
 	const [formData, setFormData] = useState({
 		name: user.name,
