@@ -15,8 +15,13 @@ import {
   FAVORITES,
   PUT_BILL,
   GET_ALL_BILLING,
-  PUT_USER
+  PUT_USER,
+  PUT_QUALIFICATION
 } from "./Constantes";
+
+export const putQualification = (payload) => async () => {
+  await axios.put(`foods`, payload);
+};
 
 export const postUser = (payload) => async (dispatch) => {
   try {
