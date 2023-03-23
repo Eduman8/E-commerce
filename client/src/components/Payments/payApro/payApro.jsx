@@ -39,7 +39,7 @@ function PayApro() {
 	   }
 	   function back(e) {
 		e.preventDefault()
-		window.location.href = "http://localhost:3000/home"
+		window.location.href = "https://e-commerce-one-gules.vercel.app/home"
 		reactLocalStorage.set("Shopping", "0")
 	   }
 

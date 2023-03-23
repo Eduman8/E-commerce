@@ -34,7 +34,7 @@ const Footer = () => {
                 <MDBIcon fab icon="instagram" />
               </a>
               <a
-                href="http://localhost:3000/contact"
+                href="https://e-commerce-one-gules.vercel.app/contact"
                 className="me-4 text-reset"
               >
                 <MDBIcon fab icon="google" />
