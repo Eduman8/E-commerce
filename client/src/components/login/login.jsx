@@ -109,8 +109,6 @@ export default function Login() {
               </button>
             </Link>
           </div>
-          <a className="register" href="/register">Register manually</a>
-          <a className="local" href="/localLog">You have an account? Log in</a>
         </div>
       </div>
       <div className="background">
