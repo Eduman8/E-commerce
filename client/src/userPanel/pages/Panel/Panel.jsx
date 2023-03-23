@@ -6,7 +6,7 @@ import "./Panel.css";
 import NavBar from "../../../components/Nav/NavBar";
 
 const Panel = () => {
-  console.log("Dashboard");
+  
   return (
     <>
         <NavBar></NavBar>

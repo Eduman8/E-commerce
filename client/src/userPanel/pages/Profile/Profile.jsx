@@ -3,22 +3,23 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
+import { useFormControl } from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useAuth0 } from '@auth0/auth0-react';
+import Swal from "sweetalert2";
 import { putUser } from '../../../Redux/Actions/Actions';
 import './Profile.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function Profile() {
-	const { user } = useAuth0();
 	const dispatch = useDispatch()
+	const user = useSelector((state) => state.user);
 
 	const [formData, setFormData] = useState({
 		name: user.name,
-		telephone: '',
-		mail: user.email,
-		direction: ''
+		telephone: user.telephone,
+		mail: user.mail,
+		direction: user.direction
 	});
 
 	const handleChange = (event) => {
@@ -31,7 +32,12 @@ export default function Profile() {
 	function handleSubmit(e){
 		e.preventDefault()
 		dispatch(putUser(formData))
-		console.log(formData);
+		Swal.fire({
+			position: "center",
+			icon: "success",
+			title: "Your information has been updated",
+			showConfirmButton: true,
+		  });
 	}
 
 	return (
@@ -56,13 +62,14 @@ export default function Profile() {
 						name="name"
 						defaultValue={user.name}
 						onChange={handleChange}
+						
 					/>
 
 					<TextField
 						disabled
 						id="outlined-disabled"
 						label="Email"
-						defaultValue={user.email}
+						defaultValue={user.mail}
 						name="mail"
 					/>
 					<TextField 
@@ -71,14 +78,17 @@ export default function Profile() {
                     label="DNI" 
                     name="dni"
                     onChange={handleChange}
+					
                     />
 					<TextField
 						required
 						id="outlined-multiline-flexible"
 						label="phone number"
+						defaultValue={user.telephone}
 						name="telephone"
 						maxRows={1}
                         onChange={handleChange}
+						error = {formData.telephone === "" }
 					/>
 					{/* <Box sx={{ minWidth: 220 }}>
 						<FormControl fullWidth>
@@ -100,17 +110,29 @@ export default function Profile() {
 						required
 						id="outlined-multiline-flexible"
 						label="Address"
+						defaultValue={user.direction}
 						name="direction"
 						maxRows={1}
                         onChange={handleChange}
+						error = {formData.direction === ""}
 					/>
 				</div>
 			</Box>
-			<div className="container-Button">
+			{formData.direction !== "" && formData.telephone !== "" && formData.name !== "" && formData.mail !== ""? <div className="container-Button">
 				<button id="add-Button" className="btn information-btn" onClick={handleSubmit}>
 					Update information
 				</button>
-			</div>
+			</div> : <div className="container-Button">
+				<button id="add-Button" className="btn information-btn" disabled="true" onClick={() =>		Swal.fire({
+			position: "center",
+			icon: "warning",
+			title: "Complete all the information",
+			showConfirmButton: true,
+		  })}>
+					Update information
+				</button>
+			</div>}
+			
 		</div>
 	);
 }
