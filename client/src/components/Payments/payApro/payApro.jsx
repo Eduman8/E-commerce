@@ -12,12 +12,10 @@ import { useAuth0 } from "@auth0/auth0-react";
 function PayApro() {
 	const dispatch = useDispatch();
 	const foods = useSelector((state) => state.foods);  
-	const display = []
 	const { user } = useAuth0();
 	let [ resp, setResp ] = useState(false)
 	const userr = user?.email
 	const info = (reactLocalStorage.get('Shopping')).split(",");
-	const dataCant = (reactLocalStorage.get('ShoppingCant')).split(",")
 	
 	useEffect(() => {
 		dispatch(getUser(userr))
@@ -38,31 +36,43 @@ function PayApro() {
 	  function msn() {
 		dispatch(putBill(inf))
 		setResp(true)
+	   }
+	   function back(e) {
+		e.preventDefault()
+		window.location.href = "http://localhost:3000/home"
 		reactLocalStorage.set("Shopping", "0")
 	   }
 
-	  if (foods){
-			foods.map((food) => {
-				if (info.includes(food.id)) {
-				display.push(food)
-				}
-			})
-		}
+	  
 	return (
 		<>
 		{(resp === true) ?
 			(<><NavBar /><div className="container1">
-					{<div className="details">
-						<div>Your payment was successfully received</div>
-						<div>Your order:</div>
-						{display.map((card, index) => <div key={index}> {dataCant[index + 1]}  {card.name} </div>)}
+				{<div className="details">
+					<div className='theT'>Your payment was successfully received</div><br /><br />
+					<div className='tSub'>Your order:</div>
+					
+			
+					<div id='fileE'>
+						{foods.map((food, index) => 
+						info.includes(food.id.toString())? 
+							(
+								<div className='theE'>
+									<img className="img" src= {food.image} alt={"No"} />
+									<div>{food.name}</div>
+								</div>
+							):null
+						)}					
+					</div>
+					<div id='imgsend'>
+						<img className="img" src= "https://gifs.eco.br/wp-content/uploads/2022/02/animados-gifs-de-motoboys-4.gif" alt={"No"} />
+					</div>
+					
 
-						<div className='details-button'>
-							<Link to={`/home`} className="link">
-								<button className='btn btn-success details-button'> Go back </button>
-							</Link>
-						</div>
-					</div>}
+					<div className='details-button'>
+							<button onClick={(e)=>back(e)} className='btn btn-success details-button'> Go back </button>
+					</div>
+				</div>}
 				</div><Footer /></>):
             <>
 			<h1></h1>
