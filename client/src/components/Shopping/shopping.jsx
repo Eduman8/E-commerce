@@ -124,7 +124,7 @@ export default function Shopping() {
     e.preventDefault();
     dispatch(postBill(cuure))
       axios
-        .post("http://localhost:3001/payment", shoping)
+        .post("https://e-comerse-back-production.up.railway.app/payment", shoping)
         .then(
           (res) =>
             (window.location.href = res.data.response.body.init_point)
