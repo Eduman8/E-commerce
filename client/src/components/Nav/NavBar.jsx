@@ -55,7 +55,7 @@ const NavBar = () => {
           <FavoriteButton></FavoriteButton>
           {isAuthenticated ? (
             <Link to="/user">
-            <img className="navImg" src={user.picture?user.picture:"https://cdn-icons-png.flaticon.com/512/6681/6681204.png"} alt={"No"} />
+            <img className="navImg" src={theUser.image?theUser.image:"https://cdn-icons-png.flaticon.com/512/6681/6681204.png"} alt={"No"} />
             </Link>
           ) : (
             <img
