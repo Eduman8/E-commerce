@@ -14,6 +14,7 @@ import axios from 'axios';
  axios.defaults.baseURL = 'https://e-comerse-back-production.up.railway.app/'  //Trabajo en el deploy
 
 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
